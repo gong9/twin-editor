@@ -15,14 +15,18 @@
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@ant-design/pro-components": "^2.6.3",
+    "@react-three/drei": "^9.77.10",
+    "@react-three/fiber": "^8.13.4",
     "@umijs/max": "^4.0.72",
     "antd": "^5.6.3",
+    "three": "^0.154.0",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.6",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
+    "@types/three": "^0.152.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "tailwindcss": "^3",

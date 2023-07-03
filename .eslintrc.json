@@ -10,6 +10,7 @@
     "react/jsx-max-props-per-line": ["error", { "maximum": 4 }],
     "unused-imports/no-unused-imports": "off",
     "antfu/top-level-function": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react/no-unknown-property": "off"
   }
 }

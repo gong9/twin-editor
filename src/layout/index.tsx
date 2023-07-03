@@ -2,7 +2,9 @@ import { Outlet } from '@umijs/max'
 
 const EditorLayout = () => {
   return (
-    <Outlet/>
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <Outlet/>
+    </div>
   )
 }
 
