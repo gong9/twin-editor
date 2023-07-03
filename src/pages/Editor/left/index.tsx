@@ -1,6 +1,9 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 
+import type { Vector3 } from 'three'
+import store from '@/store'
+
 interface LeftProps {
 
 }
@@ -50,6 +53,26 @@ const dataSources: DataSourcesType[] = [
 
 const Left: FC<LeftProps> = () => {
   const [currentRenderItem, setCurrentRenderItem] = useState(dataSources[0]?.children || [])
+  const schemaStore = store.schemaStore(state => state)
+
+  const addMesh = () => {
+    schemaStore.addMesh({
+      position: {
+        x: Math.random() * 10,
+        y: Math.random() * 10,
+        z: Math.random() * 10,
+      } as Vector3,
+      geometry: {
+        type: 'boxGeometry',
+        width: 1,
+        height: 1,
+        depth: 1,
+      },
+      material: {
+        type: 'meshBasicMaterial',
+      },
+    })
+  }
 
   const toggleTyle = (type: string) => {
 
@@ -66,7 +89,7 @@ const Left: FC<LeftProps> = () => {
       <div className='flex flex-wrap justify-start cursor-pointer' style={{ width: '150px', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
         {
         currentRenderItem.map((item) => {
-          return <div className='w-16 h-16 m-1 flex justify-center items-center text-sm' style={{ backgroundColor: 'rgb(221, 221, 221)' }} key={item.name}>{item.label}</div>
+          return <div onClick={addMesh} className='w-16 h-16 m-1 flex justify-center items-center text-sm' style={{ backgroundColor: 'rgb(221, 221, 221)' }} key={item.name}>{item.label}</div>
         })
       }
       </div>

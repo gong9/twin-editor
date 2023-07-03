@@ -1,14 +1,20 @@
 import { create } from 'zustand'
 
+import type { MeshType, SchemaType } from '../type/SchemaType'
+
 export interface SchemaStoreProps {
-  bears: number
-  increasePopulation: () => void
+  data: SchemaType
+  addMesh: (mesh: MeshType) => void
 }
 
 const schemaStore = create<SchemaStoreProps>(set => ({
-  bears: 0,
-  increasePopulation: () => set(state => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
+  data: {},
+
+  addMesh: (mesh: MeshType) => set(state => ({
+    data: {
+      mesh: [...(state.data.mesh || []), mesh],
+    },
+  })),
 }))
 
 export type SchemaStoreType = typeof schemaStore

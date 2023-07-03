@@ -1,40 +1,32 @@
 import type { FC } from 'react'
-import { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+
+import RenderMesh from './components/RenderMesh'
+import store from '@/store'
 
 interface EditorProps {
 
 }
 
-function Box(props: any) {
-  const meshRef = useRef()
-  const [hovered, setHover] = useState(false)
-
-  useFrame((state, delta) => ((meshRef.current as any).rotation.x += delta))
-
-  return (
-    <mesh
-      {...props}
-      ref={meshRef}
-      scale={1}
-      onPointerOver={() => setHover(true)}
-      onPointerOut={() => setHover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
-}
-
 const Center: FC<EditorProps> = () => {
+  const schema = store.schemaStore(state => state.data)
+
+  const renderMeshView = () => {
+    return (schema.mesh ?? []).map((mesh, index) => {
+      return <RenderMesh key={index} geometry={mesh.geometry} material={mesh.material} position={mesh.position}/>
+    })
+  }
+
   return (
     <Canvas camera={{ position: [0, 3, 3] }}>
       <gridHelper args={[10, 50]} />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
       <OrbitControls />
+      {
+        renderMeshView()
+      }
     </Canvas>
   )
 }

@@ -14,7 +14,7 @@ const Editor: FC<EditorProps> = () => {
   return (
     <>
       <Top/>
-      <div className='flex justify-between' style={{ height: '90vh' }}>
+      <div className='flex justify-between' style={{ height: '95vh' }}>
         <Left/>
         <Center />
         <Right/>
