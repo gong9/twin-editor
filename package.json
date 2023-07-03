@@ -16,7 +16,8 @@
     "@ant-design/icons": "^5.1.4",
     "@ant-design/pro-components": "^2.6.3",
     "@umijs/max": "^4.0.72",
-    "antd": "^5.6.3"
+    "antd": "^5.6.3",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.6",
@@ -24,7 +25,7 @@
     "@types/react-dom": "^18.2.6",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
-    "typescript": "^5.1.6",
-    "tailwindcss": "^3"
+    "tailwindcss": "^3",
+    "typescript": "^5.1.6"
   }
 }
