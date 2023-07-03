@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Vector3 } from 'three'
+import type { Vector3 } from 'three'
 import { useFrame } from '@react-three/fiber'
 
 import type { GeometryType, MaterialType } from '@/type/SchemaType'
@@ -11,11 +11,9 @@ interface RenderMeshProps {
 }
 
 const RenderMesh: FC<RenderMeshProps> = ({ geometry, material, position }) => {
-  console.log(geometry, material, position)
-
   return (
     <mesh
-      position={new Vector3(position.x, position.y, position.z)}
+      position={[position.x, position.y, position.z]}
       scale={1}
       >
       <boxGeometry args={[geometry.width, geometry.height, geometry.depth]} />

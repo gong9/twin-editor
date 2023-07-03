@@ -58,9 +58,9 @@ const Left: FC<LeftProps> = () => {
   const addMesh = () => {
     schemaStore.addMesh({
       position: {
-        x: Math.random() * 10,
-        y: Math.random() * 10,
-        z: Math.random() * 10,
+        x: ~(Math.random() * 10).toFixed(1),
+        y: ~(Math.random() * 10).toFixed(1),
+        z: ~(Math.random() * 10).toFixed(1),
       } as Vector3,
       geometry: {
         type: 'boxGeometry',
