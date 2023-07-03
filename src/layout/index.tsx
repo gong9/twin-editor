@@ -1,4 +1,5 @@
 import { Outlet } from '@umijs/max'
+import './index.scss'
 
 const EditorLayout = () => {
   return (

@@ -10,7 +10,6 @@ interface EditorProps {
 function Box(props: any) {
   const meshRef = useRef()
   const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
 
   useFrame((state, delta) => ((meshRef.current as any).rotation.x += delta))
 
@@ -18,8 +17,7 @@ function Box(props: any) {
     <mesh
       {...props}
       ref={meshRef}
-      scale={active ? 1.5 : 1}
-      onClick={() => setActive(!active)}
+      scale={1}
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}>
       <boxGeometry args={[1, 1, 1]} />
