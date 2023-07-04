@@ -11,6 +11,7 @@ interface EditorProps {
 
 const Center: FC<EditorProps> = () => {
   const schema = store.schemaStore(state => state.data)
+  const { orbitControlsEnabled } = store.settingStore(state => state)
 
   const renderMeshView = () => {
     return (schema.mesh ?? []).map((mesh, index) => {
@@ -24,7 +25,7 @@ const Center: FC<EditorProps> = () => {
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       <axesHelper args={[10]} />
-      <OrbitControls />
+      <OrbitControls enabled={orbitControlsEnabled} />
       {
         renderMeshView()
       }

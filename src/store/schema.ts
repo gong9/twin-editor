@@ -8,6 +8,7 @@ export interface SchemaStoreProps {
   data: SchemaType
   currentSelectedMesh: MeshType | null
   addMesh: (mesh: MeshType) => void
+  updateMesh: (mesh: MeshType) => void
   setCurrentSelectedMesh: (mesh: MeshType) => void
   reset: () => void
 }
@@ -38,6 +39,17 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   addMesh: (mesh: MeshType) => set(state => ({
     data: {
       mesh: [...(state.data.mesh || []), mesh],
+    },
+  })),
+
+  updateMesh: (mesh: MeshType) => set(state => ({
+    data: {
+      mesh: state.data.mesh?.map((item) => {
+        if (item.uid === mesh.uid)
+          return mesh
+
+        return item
+      }),
     },
   })),
 
