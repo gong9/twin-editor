@@ -30,57 +30,57 @@ enum TopItemEnum {
 }
 
 const Top: FC<TopProps> = () => {
-  const renderTopItem = (type: TopItemEnum) => {
-    const schemaStore = store.schemaStore(state => state)
-    const operateData = useMemo<TopItemButtonType[]>(
-      () => [
-        {
-          label: '场景',
-          icon: <DotChartOutlined />,
+  const schemaStore = store.schemaStore(state => state)
+  const operateData = useMemo<TopItemButtonType[]>(
+    () => [
+      {
+        label: '场景',
+        icon: <DotChartOutlined />,
+      },
+      {
+        label: '导入',
+        icon: <UploadOutlined />,
+      },
+      {
+        label: '导出',
+        icon: <DownloadOutlined />,
+      },
+      {
+        label: '回退',
+        icon: <UndoOutlined />,
+      },
+      {
+        label: '撤销',
+        icon: <RedoOutlined />,
+      },
+      {
+        label: '清空',
+        icon: <CloseOutlined />,
+        onClick: () => {
+          schemaStore.reset()
         },
-        {
-          label: '导入',
-          icon: <UploadOutlined />,
-        },
-        {
-          label: '导出',
-          icon: <DownloadOutlined />,
-        },
-        {
-          label: '回退',
-          icon: <UndoOutlined />,
-        },
-        {
-          label: '撤销',
-          icon: <RedoOutlined />,
-        },
-        {
-          label: '清空',
-          icon: <CloseOutlined />,
-          onClick: () => {
-            schemaStore.reset()
-          },
-        },
-      ], [
-        schemaStore,
-      ],
-    )
-    const settingData = useMemo<TopItemButtonType[]>(
-      () => [
-        {
-          label: '设置',
-          icon: <SettingOutlined />,
-        },
-        {
-          label: '帮助',
-          icon: <QuestionCircleOutlined />,
-        },
-      ],
-      [
-        schemaStore,
-      ],
-    )
+      },
+    ], [
+      schemaStore,
+    ],
+  )
+  const settingData = useMemo<TopItemButtonType[]>(
+    () => [
+      {
+        label: '设置',
+        icon: <SettingOutlined />,
+      },
+      {
+        label: '帮助',
+        icon: <QuestionCircleOutlined />,
+      },
+    ],
+    [
+      schemaStore,
+    ],
+  )
 
+  const renderTopItem = (type: TopItemEnum) => {
     const currentData = type === TopItemEnum.operate ? operateData : settingData
     return currentData.map((item) => {
       return (
