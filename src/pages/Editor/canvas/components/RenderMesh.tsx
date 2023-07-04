@@ -1,32 +1,38 @@
 import type { FC } from 'react'
 import { useRef, useState } from 'react'
-import type { Vector3 } from 'three'
 import { useFrame } from '@react-three/fiber'
 
-import type { GeometryType, MaterialType } from '@/type/SchemaType'
+import store from '@/store'
+import type { MeshType } from '@/type/SchemaType'
 
 interface RenderMeshProps {
-  geometry: GeometryType
-  material: MaterialType
-  position: Vector3
+  mesh: MeshType
 }
 
-const RenderMesh: FC<RenderMeshProps> = ({ geometry, material, position }) => {
+const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const ref = useRef(null)
   const [hovered, setHover] = useState(false)
+  const schemaStore = store.schemaStore(state => state)
+  const { position, geometry, material } = mesh
 
   useFrame(({ mouse }) => {
 
   })
+
+  const setCurrentMesh = () => {
+    schemaStore.setCurrentSelectedMesh(mesh)
+  }
 
   return (
     <mesh
       ref={ref}
       position={[position.x, position.y, position.z]}
       scale={1}
+      onClick={setCurrentMesh}
       onPointerOver={() => setHover(true)}
       onPointerOut={() => setHover(false)}
       >
+
       <boxGeometry args={[geometry.width, geometry.height, geometry.depth]} />
       <meshStandardMaterial color={hovered ? 'hotpink' : material.color || 'red'} />
     </mesh>

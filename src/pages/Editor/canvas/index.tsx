@@ -14,7 +14,7 @@ const Center: FC<EditorProps> = () => {
 
   const renderMeshView = () => {
     return (schema.mesh ?? []).map((mesh, index) => {
-      return <RenderMesh key={index} geometry={mesh.geometry} material={mesh.material} position={mesh.position}/>
+      return <RenderMesh key={index} mesh={mesh}/>
     })
   }
 

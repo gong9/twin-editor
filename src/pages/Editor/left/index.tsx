@@ -79,7 +79,7 @@ const Left: FC<LeftProps> = () => {
   }
 
   return (
-    <div className='flex' style={{ height: '100%', width: '300px' }}>
+    <div className='flex rounded-md' style={{ height: '100%', width: '300px' }}>
       <div className='flex flex-col pl-2 w-16' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)' }} >
         {dataSources.map((item) => {
           return <div onClick={() => toggleTyle(item.name)} className='w-8 mt-6 cursor-pointer' key={item.label}>{item.label}</div>

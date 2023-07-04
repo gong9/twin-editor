@@ -5,7 +5,9 @@ import type { MeshType, SchemaType } from '../type/SchemaType'
 
 export interface SchemaStoreProps {
   data: SchemaType
+  currentSelectedMesh: MeshType | null
   addMesh: (mesh: MeshType) => void
+  setCurrentSelectedMesh: (mesh: MeshType) => void
   reset: () => void
 }
 
@@ -29,10 +31,16 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     }],
   },
 
+  currentSelectedMesh: null,
+
   addMesh: (mesh: MeshType) => set(state => ({
     data: {
       mesh: [...(state.data.mesh || []), mesh],
     },
+  })),
+
+  setCurrentSelectedMesh: (mesh: MeshType) => set(() => ({
+    currentSelectedMesh: mesh,
   })),
 
   reset: () => set(() => ({
@@ -40,7 +48,6 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       mesh: [],
     },
   })),
-
 }))
 
 export type SchemaStoreType = typeof schemaStore
