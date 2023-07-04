@@ -8,10 +8,11 @@ interface RightProps {
 
 const Right: FC<RightProps> = () => {
   const { currentSelectedMesh } = store.schemaStore(state => state)
+  const { configVisible } = store.settingStore(state => state)
 
   const renderConfig = () => {
     if (currentSelectedMesh) {
-      const { position, geometry, material } = currentSelectedMesh
+      const { position } = currentSelectedMesh
       return (
         <div className='flex flex-col p-4'>
           坐标信息： {position.x}-{position.y}-{position.z}
@@ -21,7 +22,7 @@ const Right: FC<RightProps> = () => {
   }
 
   return (
-    <div className='flex rounded-md' style={{ height: '100%', width: '300px', backgroundColor: 'rgba(224, 224, 224, 0.7)' }}>
+    <div className='flex rounded-md' style={{ height: '100%', width: configVisible ? '250px' : '0', backgroundColor: 'rgba(224, 224, 224, 0.7)' }}>
       {renderConfig()}
     </div>
   )
