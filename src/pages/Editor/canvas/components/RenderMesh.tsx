@@ -1,6 +1,7 @@
 import type { FC } from 'react'
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
+import isEqual from 'react-fast-compare'
 
 import store from '@/store'
 import type { MeshType } from '@/type/SchemaType'
@@ -39,4 +40,20 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   )
 }
 
-export default RenderMesh
+export default memo(RenderMesh, (prevProps, nextProps) => {
+  const { geometry: preGeometry, material: preMaterial, position: Position } = prevProps.mesh
+  const { geometry: nextGeometry, material: nextMaterial, position: nextPosition } = nextProps.mesh
+
+  return isEqual(
+    {
+      geometry: preGeometry,
+      material: preMaterial,
+      position: Position,
+    },
+    {
+      geometry: nextGeometry,
+      material: nextMaterial,
+      position: nextPosition,
+    },
+  )
+})

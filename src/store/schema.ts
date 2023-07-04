@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { Vector3 } from 'three'
+import { v4 as uuidv4 } from 'uuid'
 
 import type { MeshType, SchemaType } from '../type/SchemaType'
 
@@ -14,6 +15,7 @@ export interface SchemaStoreProps {
 const schemaStore = create<SchemaStoreProps>(set => ({
   data: {
     mesh: [{
+      uid: uuidv4(),
       position: {
         x: 0,
         y: 0.5,

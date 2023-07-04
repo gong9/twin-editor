@@ -20,7 +20,9 @@
     "@umijs/max": "^4.0.72",
     "ahooks": "^3.7.8",
     "antd": "^5.6.3",
+    "react-fast-compare": "^3.2.2",
     "three": "^0.154.0",
+    "uuid": "^9.0.0",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
@@ -28,6 +30,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@types/three": "^0.152.1",
+    "@types/uuid": "^9.0.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "tailwindcss": "^3",

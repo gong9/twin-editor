@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import type { Vector3 } from 'three'
 import store from '@/store'
@@ -57,6 +58,7 @@ const Left: FC<LeftProps> = () => {
 
   const addMesh = () => {
     schemaStore.addMesh({
+      uid: uuidv4(),
       position: {
         x: ~(Math.random() * 10).toFixed(1),
         y: ~(Math.random()).toFixed(1),

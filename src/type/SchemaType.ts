@@ -20,6 +20,7 @@ export interface MeshType {
   geometry: GeometryType
   material: MaterialType
   position: Vector3
+  uid: string
   children?: MeshType[]
 }
 
