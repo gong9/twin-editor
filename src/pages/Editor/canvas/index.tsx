@@ -23,6 +23,7 @@ const Center: FC<EditorProps> = () => {
       <gridHelper args={[10, 50]} />
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
+      <axesHelper args={[10]} />
       <OrbitControls />
       {
         renderMeshView()

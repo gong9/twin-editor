@@ -18,6 +18,7 @@
     "@react-three/drei": "^9.77.10",
     "@react-three/fiber": "^8.13.4",
     "@umijs/max": "^4.0.72",
+    "ahooks": "^3.7.8",
     "antd": "^5.6.3",
     "three": "^0.154.0",
     "zustand": "^4.3.8"
