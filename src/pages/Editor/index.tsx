@@ -5,6 +5,7 @@ import Left from './left'
 import Center from './canvas'
 import Right from './right'
 import Bottom from './bottom'
+import Setting from '@/components/Setting'
 
 interface EditorProps {
 
@@ -19,6 +20,7 @@ const Editor: FC<EditorProps> = () => {
         <Center />
         <Right/>
       </div>
+      <Setting/>
     </>
   )
 }

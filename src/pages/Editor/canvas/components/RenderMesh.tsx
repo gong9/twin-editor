@@ -11,15 +11,23 @@ interface RenderMeshProps {
   mesh: MeshType
 }
 
+type TransformControlsModeType = 'translate' | 'rotate' | 'scale'
+
+enum TransformControlsModeItem {
+  translate = 'translate',
+  rotate = 'rotate',
+  scale = 'scale',
+}
+
 const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
   const transform = useRef(null)
-  const orbit = useRef(null)
   const { position, geometry, material } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [hovered, setHover] = useState(false)
   const schemaStore = store.schemaStore(state => state)
   const { setOrbitControlsEnabled } = store.settingStore(state => state)
+  const [transformControlsMode, setTransformControlsMode] = useState<TransformControlsModeType>(TransformControlsModeItem.rotate)
 
   useFrame(() => {
 
@@ -31,7 +39,7 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
 
   return (
     <>
-      <TransformControls ref={transform}>
+      <TransformControls enabled={false} ref={transform} mode={transformControlsMode}>
         <mesh
           ref={meshRef}
           position={currentPosition as [number, number, number]}
@@ -41,11 +49,10 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
           onPointerOut={() => setHover(false)}
       >
           <boxGeometry args={[geometry.width, geometry.height, geometry.depth]} />
-          <meshStandardMaterial color={hovered ? 'hotpink' : material.color || 'red'} />
+          <meshStandardMaterial wireframe={true} color={hovered ? 'hotpink' : material.color || 'red'} />
         </mesh>
       </TransformControls>
     </>
-
   )
 }
 

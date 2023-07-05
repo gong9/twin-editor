@@ -17,16 +17,16 @@ interface DataSourcesType {
 
 const dataSources: DataSourcesType[] = [
   {
-    label: '结构',
+    label: '几何体',
     name: 'structure',
     children: [
       {
         name: 'wall',
-        label: '画墙',
+        label: '立方体',
       },
       {
         name: 'door',
-        label: '异形墙',
+        label: '面',
       },
     ],
   },

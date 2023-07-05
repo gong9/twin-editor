@@ -11,7 +11,7 @@ interface EditorProps {
 
 const Center: FC<EditorProps> = () => {
   const schema = store.schemaStore(state => state.data)
-  const { orbitControlsEnabled } = store.settingStore(state => state)
+  const { orbitControlsEnabled, gridHelperEnabled, axesHelperEnabled } = store.settingStore(state => state)
 
   const renderMeshView = () => {
     return (schema.mesh ?? []).map((mesh, index) => {
@@ -20,11 +20,11 @@ const Center: FC<EditorProps> = () => {
   }
 
   return (
-    <Canvas camera={{ position: [0, 3, 3] }}>
-      <gridHelper args={[10, 50]} />
+    <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000' }}>
+      { gridHelperEnabled && <gridHelper args={[10, 50]} />}
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <axesHelper args={[10]} />
+      { axesHelperEnabled && <axesHelper args={[10]} />}
       <OrbitControls enabled={orbitControlsEnabled} />
       {
         renderMeshView()

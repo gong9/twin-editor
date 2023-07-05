@@ -31,6 +31,8 @@ enum TopItemEnum {
 
 const Top: FC<TopProps> = () => {
   const schemaStore = store.schemaStore(state => state)
+  const settingStore = store.settingStore(state => state)
+
   const operateData = useMemo<TopItemButtonType[]>(
     () => [
       {
@@ -69,6 +71,9 @@ const Top: FC<TopProps> = () => {
       {
         label: '设置',
         icon: <SettingOutlined />,
+        onClick: () => {
+          settingStore.setShowSettingModal(true)
+        },
       },
       {
         label: '帮助',
