@@ -7,6 +7,7 @@ import {
   DownloadOutlined,
   QuestionCircleOutlined,
   RedoOutlined,
+  SaveOutlined,
   SettingOutlined,
   UndoOutlined,
   UploadOutlined,
@@ -60,6 +61,13 @@ const Top: FC<TopProps> = () => {
         icon: <CloseOutlined />,
         onClick: () => {
           schemaStore.reset()
+        },
+      },
+      {
+        label: '保存',
+        icon: <SaveOutlined />,
+        onClick: () => {
+          console.log(schemaStore.data)
         },
       },
     ], [

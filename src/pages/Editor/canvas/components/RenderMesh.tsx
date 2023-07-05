@@ -54,7 +54,7 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
     <>
       <TransformControls
         position={currentPosition as any as Vector3}
-        size={2}
+        size={1}
         onMouseUp={handleTransformControlsMouseUp}
         ref={transform}
         mode={transformControlsMode}>
