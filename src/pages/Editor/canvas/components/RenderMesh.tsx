@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 import { memo, useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
 import isEqual from 'react-fast-compare'
-import { OrbitControls, TransformControls } from '@react-three/drei'
+import { TransformControls } from '@react-three/drei'
+import type { Vector3 } from 'three'
 
 import store from '@/store'
 import type { MeshType } from '@/type/SchemaType'
@@ -23,30 +23,42 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
   const transform = useRef(null)
   const { position, geometry, material } = mesh
+  const schemaStore = store.schemaStore()
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
-  const [hovered, setHover] = useState(false)
-  const schemaStore = store.schemaStore(state => state)
-  const { setOrbitControlsEnabled } = store.settingStore(state => state)
-  const [transformControlsMode, setTransformControlsMode] = useState<TransformControlsModeType>(TransformControlsModeItem.translate)
+  const [transformControlsMode] = useState<TransformControlsModeType>(TransformControlsModeItem.translate)
 
-  useFrame(() => {
+  const renderMesh = () => (
+    <mesh
+      ref={meshRef}
+      scale={1}
+      >
+      <boxGeometry args={[geometry.width, geometry.height, geometry.depth]} />
+      <meshStandardMaterial wireframe={false} color={ 'hotpink'} />
+    </mesh>
+  )
 
-  })
+  const handleTransformControlsMouseUp = () => {
+    const object = (transform.current! as any).object
+    setCurrentPosition(object.position)
 
-  const setCurrentMesh = () => {
-    schemaStore.setCurrentSelectedMesh(mesh)
+    schemaStore.updateMesh(
+      mesh.uid,
+      {
+        ...mesh,
+        position: object.position,
+      },
+    )
   }
 
   return (
     <>
-      <TransformControls enabled={true} ref={transform} mode={transformControlsMode}>
-        <mesh
-          ref={meshRef}
-          scale={1}
-      >
-          <boxGeometry args={[geometry.width, geometry.height, geometry.depth]} />
-          <meshStandardMaterial wireframe={true} color={hovered ? 'hotpink' : material.color || 'red'} />
-        </mesh>
+      <TransformControls
+        position={currentPosition as any as Vector3}
+        size={2}
+        onMouseUp={handleTransformControlsMouseUp}
+        ref={transform}
+        mode={transformControlsMode}>
+        {renderMesh()}
       </TransformControls>
     </>
   )
