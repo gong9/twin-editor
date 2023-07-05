@@ -16,16 +16,24 @@ export interface MaterialType {
 
 }
 
-export interface MeshType {
-  geometry: GeometryType
-  material: MaterialType
+interface BaseConfigType {
   position: Vector3
   rotation?: Vector3
   scale?: Vector3
+}
+
+export interface ModelType extends BaseConfigType {
+
+}
+
+export interface MeshType extends BaseConfigType {
+  geometry: GeometryType
+  material: MaterialType
   uid: string
   children?: MeshType[]
 }
 
 export interface SchemaType {
   mesh?: MeshType[]
+  model?: ModelType[]
 }
