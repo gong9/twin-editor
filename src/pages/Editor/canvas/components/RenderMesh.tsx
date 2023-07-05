@@ -11,9 +11,9 @@ interface RenderMeshProps {
   mesh: MeshType
 }
 
-type TransformControlsModeType = 'translate' | 'rotate' | 'scale'
+export type TransformControlsModeType = 'translate' | 'rotate' | 'scale'
 
-enum TransformControlsModeItem {
+export enum TransformControlsModeItem {
   translate = 'translate',
   rotate = 'rotate',
   scale = 'scale',

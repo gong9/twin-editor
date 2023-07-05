@@ -21,7 +21,7 @@ const Center: FC<EditorProps> = () => {
   }
 
   return (
-    <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000' }}>
+    <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000', width: '100%' }}>
       { gridHelperEnabled && <gridHelper args={[10, 50]} />}
       <ambientLight />
       <pointLight position={[10, 10, 10]} />

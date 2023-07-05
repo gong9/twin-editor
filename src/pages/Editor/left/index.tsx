@@ -31,22 +31,16 @@ const dataSources: DataSourcesType[] = [
     ],
   },
   {
-    label: '材质',
+    label: '模型',
     name: 'material',
     children: [
       {
-        name: 'wall',
-        label: '贴图',
+        name: 'diamond',
+        label: '钻石',
       },
-    ],
-  },
-  {
-    label: '模型',
-    name: 'model',
-    children: [
       {
-        name: 'wall',
-        label: '物品',
+        name: 'monkey',
+        label: '猴子',
       },
     ],
   },
@@ -77,18 +71,20 @@ const Left: FC<LeftProps> = () => {
   }
 
   const toggleTyle = (type: string) => {
-
+    setCurrentRenderItem(
+      dataSources.find(item => item.name === type)?.children || [],
+    )
   }
 
   return (
     <div className='flex rounded-md' style={{ height: '100%', width: '300px' }}>
-      <div className='flex flex-col pl-2 w-16' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)' }} >
+      <div className='flex flex-col pl-2 w-16' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)', width: '80px' }} >
         {dataSources.map((item) => {
-          return <div onClick={() => toggleTyle(item.name)} className='w-8 mt-6 cursor-pointer' key={item.label}>{item.label}</div>
+          return <div onClick={() => toggleTyle(item.name)} className='mt-6 cursor-pointer text-sm' key={item.label}>{item.label}</div>
         })}
       </div>
 
-      <div className='flex flex-wrap justify-start cursor-pointer' style={{ width: '150px', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
+      <div className='flex flex-wrap justify-start cursor-pointer' style={{ width: '180px', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
         {
         currentRenderItem.map((item) => {
           return <div onClick={addMesh} className='w-16 h-16 m-1 flex justify-center items-center text-sm' style={{ backgroundColor: 'rgb(221, 221, 221)' }} key={item.name}>{item.label}</div>
