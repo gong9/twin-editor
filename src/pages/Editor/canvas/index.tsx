@@ -25,7 +25,7 @@ const Center: FC<EditorProps> = () => {
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
       { axesHelperEnabled && <axesHelper args={[10]} />}
-      <OrbitControls enabled={orbitControlsEnabled} />
+      <OrbitControls enabled={orbitControlsEnabled} makeDefault/>
       {
         renderMeshView()
       }

@@ -13,25 +13,31 @@ export interface SchemaStoreProps {
   reset: () => void
 }
 
+const mockData: MeshType = {
+  uid: uuidv4(),
+  position: {
+    x: 0,
+    y: 0.5,
+    z: 0,
+  } as Vector3,
+  geometry: {
+    type: 'boxGeometry',
+    width: 1,
+    height: 1,
+    depth: 1,
+  },
+  material: {
+    type: 'meshBasicMaterial',
+  },
+}
+
+/**
+ * json schema store
+ * notes: 数据尽量扁平化
+ */
 const schemaStore = create<SchemaStoreProps>(set => ({
   data: {
-    mesh: [{
-      uid: uuidv4(),
-      position: {
-        x: 0,
-        y: 0.5,
-        z: 0,
-      } as Vector3,
-      geometry: {
-        type: 'boxGeometry',
-        width: 1,
-        height: 1,
-        depth: 1,
-      },
-      material: {
-        type: 'meshBasicMaterial',
-      },
-    }],
+    mesh: [mockData],
   },
 
   currentSelectedMesh: null,
@@ -52,6 +58,8 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       }),
     },
   })),
+
+  deleteMesh: (meshId: string) => set(state => ({})),
 
   setCurrentSelectedMesh: (mesh: MeshType) => set(() => ({
     currentSelectedMesh: mesh,
