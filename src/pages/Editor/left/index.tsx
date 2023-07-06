@@ -46,12 +46,17 @@ const dataSources: DataSourcesType[] = [
       {
         name: 'diamond',
         label: '钻石',
-        source: './dflat.glb',
+        source: './gltf/dflat.glb',
       },
       {
         name: 'monkey',
         label: '猴子',
-        source: './monkey.glb',
+        source: './gltf/monkey.glb',
+      },
+      {
+        name: 'wall',
+        label: '工厂',
+        source: './gltf/wall.glb',
       },
     ],
   },
