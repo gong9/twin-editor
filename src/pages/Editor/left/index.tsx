@@ -112,19 +112,21 @@ const Left: FC<LeftProps> = () => {
   }
 
   return (
-    <div className='flex rounded-md' style={{ height: '100%', width: '300px' }}>
+    <div className='flex rounded-md editor-left' style={{ height: '100%', width: '300px' }}>
       <div className='flex flex-col pl-2 w-16' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)', width: '80px' }} >
         {dataSources.map((item) => {
           return <div onClick={() => toggleTyle(item.name)} className='mt-6 cursor-pointer text-sm' key={item.label}>{item.label}</div>
         })}
       </div>
 
-      <div className='flex flex-wrap justify-start items-start cursor-pointer' style={{ width: '180px', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
-        {
+      <div className='editor-left-item' style={{ width: '180px', height: 'auto', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
+        <div className='flex flex-wrap h-min'>
+          {
         currentRenderItem.map((item) => {
-          return <div onClick={() => addObject(item)} className='w-16 h-16 m-1 flex justify-center items-center text-sm' style={{ backgroundColor: 'rgb(221, 221, 221)' }} key={item.name}>{item.label}</div>
+          return <div onClick={() => addObject(item)} className='hover:bg-slate-300 bg-slate-200 cursor-pointer w-16 h-16 m-1 flex justify-center items-center text-sm rounded' key={item.name}>{item.label}</div>
         })
       }
+        </div>
       </div>
     </div>
   )

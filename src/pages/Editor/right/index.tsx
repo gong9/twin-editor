@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { InputNumber, Space } from 'antd'
 
 import store from '@/store'
 
@@ -14,8 +15,43 @@ const Right: FC<RightProps> = () => {
     if (currentSelectedMesh) {
       const { position } = currentSelectedMesh
       return (
-        <div className='flex flex-col p-4'>
-          坐标信息： {position.x}-{position.y}-{position.z}
+        <div className='flex flex-col p-1'>
+          <div>
+            基本配置信息
+          </div>
+          <div className='flex mt-3'>
+            <span className='mr-2 block w-16' style={{ color: '#888' }}>position: </span>
+            <Space className='flex flex-nowrap'>
+              {/* <InputNumber className='w-10' size="small"
+                value={position.x} onChange={(value) => {}} controls={false}
+               /> */}
+              <span>
+                {position.x}
+              </span>
+              <InputNumber className='w-10' size='small'
+                value={position.y} onChange={(value) => {}} controls={false}
+                />
+              <InputNumber className='w-10' size="small"
+                value={position.z} onChange={(value) => {}} controls={false}
+             />
+            </Space>
+          </div>
+          <div className='flex mt-3'>
+            <span className='mr-2 block w-16' style={{ color: '#888' }}>rotation: </span>
+            <Space className='flex flex-nowrap'>
+              <InputNumber className='w-10'
+                value={position.x} onChange={(value) => {}} controls={false} size="small"
+               />
+            </Space>
+          </div>
+          <div className='flex mt-3'>
+            <span className='mr-2 block w-16' style={{ color: '#888' }}>scale: </span>
+            <Space className='flex flex-nowrap'>
+              <InputNumber className='w-10'
+                value={position.x} onChange={(value) => {}} controls={false} size="small"
+               />
+            </Space>
+          </div>
         </div>
       )
     }

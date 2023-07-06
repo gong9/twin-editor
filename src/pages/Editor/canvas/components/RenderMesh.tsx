@@ -51,11 +51,18 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
         position: object.position,
       },
     )
+
+    schemaStore.setCurrentSelectedMesh(mesh)
+  }
+
+  const handleSelected = () => {
+    schemaStore.setCurrentSelectedMesh(mesh)
   }
 
   return (
     <>
       <TransformControls
+        onClick={handleSelected}
         position={currentPosition as any as Vector3}
         size={1}
         onMouseUp={handleTransformControlsMouseUp}

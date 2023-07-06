@@ -9,11 +9,11 @@ import type { Vector3 } from 'three'
 import { TransformControlsModeItem } from './RenderMesh'
 import type { ModelType } from '@/type/SchemaType'
 
-interface RenderGlbProps {
+interface RenderModelProps {
   model: ModelType
 }
 
-const RenderGlb: FC<RenderGlbProps> = ({ model }) => {
+const RenderModels: FC<RenderModelProps> = ({ model }) => {
   const transform = useRef(null)
   const { position } = model
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
@@ -35,6 +35,6 @@ const RenderGlb: FC<RenderGlbProps> = ({ model }) => {
   )
 }
 
-export default memo(RenderGlb, (prevProps, nextProps) => {
+export default memo(RenderModels, (prevProps, nextProps) => {
   return isEqual(prevProps.model, nextProps.model)
 })
