@@ -1,11 +1,21 @@
+import { useState } from 'react'
 import { Outlet } from '@umijs/max'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { ErrorFallback } from '@/components/ErrorFallback'
+
 import './index.scss'
 
 const EditorLayout = () => {
+  const [hasError] = useState(false)
+
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <Outlet/>
-    </div>
+    <ErrorBoundary
+      fallbackRender={ErrorFallback}
+      >
+      <div style={{ width: '100vw', height: '100vh' }}>
+        { !hasError ? <Outlet/> : null}
+      </div>
+    </ErrorBoundary>
   )
 }
 
