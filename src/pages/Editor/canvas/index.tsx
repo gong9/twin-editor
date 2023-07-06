@@ -21,7 +21,6 @@ const Center: FC<EditorProps> = () => {
   }
 
   const renderModelView = () => {
-    console.log(schema.model)
     return (schema.model ?? []).map((model) => {
       return <RenderModels key={model.uid} model={model}/>
     })

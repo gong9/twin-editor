@@ -1,5 +1,6 @@
 import type { FC } from 'react'
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
+import isEqual from 'react-fast-compare'
 import { useLoader } from '@react-three/fiber'
 import { TransformControls } from '@react-three/drei'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
@@ -34,4 +35,6 @@ const RenderGlb: FC<RenderGlbProps> = ({ model }) => {
   )
 }
 
-export default RenderGlb
+export default memo(RenderGlb, (prevProps, nextProps) => {
+  return isEqual(prevProps.model, nextProps.model)
+})
