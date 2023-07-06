@@ -17,19 +17,20 @@ export interface MaterialType {
 }
 
 interface BaseConfigType {
+  uid: string
   position: Vector3
   rotation?: Vector3
   scale?: Vector3
 }
 
 export interface ModelType extends BaseConfigType {
-
+  source: string
+  type: 'gltf' | 'fbx'
 }
 
 export interface MeshType extends BaseConfigType {
   geometry: GeometryType
   material: MaterialType
-  uid: string
   children?: MeshType[]
 }
 

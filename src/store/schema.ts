@@ -2,12 +2,13 @@ import { create } from 'zustand'
 import type { Vector3 } from 'three'
 import { v4 as uuidv4 } from 'uuid'
 
-import type { MeshType, SchemaType } from '../type/SchemaType'
+import type { MeshType, ModelType, SchemaType } from '../type/SchemaType'
 
 export interface SchemaStoreProps {
   data: SchemaType
   currentSelectedMesh: MeshType | null
   addMesh: (mesh: MeshType) => void
+  addModel: (model: ModelType) => void
   updateMesh: (id: string, mesh: MeshType) => void
   setCurrentSelectedMesh: (mesh: MeshType) => void
   reset: () => void
@@ -38,6 +39,7 @@ const mockData: MeshType = {
 const schemaStore = create<SchemaStoreProps>(set => ({
   data: {
     mesh: [mockData],
+    model: [],
   },
 
   currentSelectedMesh: null,
@@ -45,6 +47,12 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   addMesh: (mesh: MeshType) => set(state => ({
     data: {
       mesh: [...(state.data.mesh || []), mesh],
+    },
+  })),
+
+  addModel: (model: ModelType) => set(state => ({
+    data: {
+      model: [...(state.data.model || []), model],
     },
   })),
 

@@ -27,13 +27,16 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [transformControlsMode] = useState<TransformControlsModeType>(TransformControlsModeItem.translate)
 
+  const Geometry = geometry.type
+  const Material = material.type
+
   const renderMesh = () => (
     <mesh
       ref={meshRef}
       scale={1}
       >
-      <boxGeometry args={[geometry.width, geometry.height, geometry.depth]} />
-      <meshStandardMaterial wireframe={false} color={ 'hotpink'} />
+      <Geometry args={[geometry.width, geometry.height, geometry.depth]} />
+      <Material wireframe={false} color={ 'hotpink'} />
     </mesh>
   )
 

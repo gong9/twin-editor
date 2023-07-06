@@ -21,12 +21,20 @@ const dataSources: DataSourcesType[] = [
     name: 'structure',
     children: [
       {
-        name: 'wall',
+        name: 'boxGeometry',
         label: '立方体',
       },
       {
-        name: 'door',
-        label: '面',
+        name: 'capsuleGeometry',
+        label: '胶囊图',
+      },
+      {
+        name: 'circleGeometry',
+        label: '圆形',
+      },
+      {
+        name: 'coneGeometry',
+        label: '圆锥',
       },
     ],
   },
@@ -48,29 +56,53 @@ const dataSources: DataSourcesType[] = [
 
 const Left: FC<LeftProps> = () => {
   const [currentRenderItem, setCurrentRenderItem] = useState(dataSources[0]?.children || [])
+  const [currentSelectedType, setCurrentSelectedType] = useState(dataSources[0].name)
   const schemaStore = store.schemaStore(state => state)
 
-  const addMesh = () => {
-    schemaStore.addMesh({
-      uid: uuidv4(),
-      position: {
-        x: ~(Math.random() * 10).toFixed(1),
-        y: ~(Math.random()).toFixed(1),
-        z: ~(Math.random() * 10).toFixed(1),
-      } as Vector3,
-      geometry: {
-        type: 'boxGeometry',
-        width: 1,
-        height: 1,
-        depth: 1,
-      },
-      material: {
-        type: 'meshBasicMaterial',
-      },
-    })
+  const addObject = (baseItem: DataSourcesType) => {
+    switch (currentSelectedType) {
+      case 'structure':
+        schemaStore.addMesh({
+          uid: uuidv4(),
+          position: {
+            x: ~(Math.random() * 10).toFixed(1),
+            y: ~(Math.random()).toFixed(1),
+            z: ~(Math.random() * 10).toFixed(1),
+          } as Vector3,
+          geometry: {
+            type: baseItem.name as any,
+            width: 1,
+            height: 1,
+            depth: 1,
+          },
+          material: {
+            type: 'meshBasicMaterial',
+          },
+        })
+        break
+      case 'material':
+        schemaStore.addModel({
+          uid: uuidv4(),
+          position: {
+            x: ~(Math.random() * 10).toFixed(1),
+            y: ~(Math.random()).toFixed(1),
+            z: ~(Math.random() * 10).toFixed(1),
+          } as Vector3,
+          type: 'gltf',
+          source: './monkey.glb',
+        })
+        break
+      default:
+        break
+    }
   }
 
+  /**
+   * toggle tyle
+   * @param type
+   */
   const toggleTyle = (type: string) => {
+    setCurrentSelectedType(type)
     setCurrentRenderItem(
       dataSources.find(item => item.name === type)?.children || [],
     )
@@ -84,10 +116,10 @@ const Left: FC<LeftProps> = () => {
         })}
       </div>
 
-      <div className='flex flex-wrap justify-start cursor-pointer' style={{ width: '180px', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
+      <div className='flex flex-wrap justify-start items-start cursor-pointer' style={{ width: '180px', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
         {
         currentRenderItem.map((item) => {
-          return <div onClick={addMesh} className='w-16 h-16 m-1 flex justify-center items-center text-sm' style={{ backgroundColor: 'rgb(221, 221, 221)' }} key={item.name}>{item.label}</div>
+          return <div onClick={() => addObject(item)} className='w-16 h-16 m-1 flex justify-center items-center text-sm' style={{ backgroundColor: 'rgb(221, 221, 221)' }} key={item.name}>{item.label}</div>
         })
       }
       </div>

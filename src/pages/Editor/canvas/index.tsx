@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
-import RenderGlb from './components/RenderModels'
+import RenderModels from './components/RenderModels'
 import RenderMesh from './components/RenderMesh'
 import store from '@/store'
 
@@ -15,8 +15,15 @@ const Center: FC<EditorProps> = () => {
   const { orbitControlsEnabled, gridHelperEnabled, axesHelperEnabled } = store.settingStore(state => state)
 
   const renderMeshView = () => {
-    return (schema.mesh ?? []).map((mesh, index) => {
-      return <RenderMesh key={index} mesh={mesh}/>
+    return (schema.mesh ?? []).map((mesh) => {
+      return <RenderMesh key={mesh.uid} mesh={mesh}/>
+    })
+  }
+
+  const renderModelView = () => {
+    console.log(schema.model)
+    return (schema.model ?? []).map((model) => {
+      return <RenderModels key={model.uid} model={model}/>
     })
   }
 
@@ -27,9 +34,11 @@ const Center: FC<EditorProps> = () => {
       <pointLight position={[10, 10, 10]} />
       { axesHelperEnabled && <axesHelper args={[10]} />}
       <OrbitControls enabled={orbitControlsEnabled} makeDefault/>
-      <RenderGlb/>
       {
         renderMeshView()
+      }
+      {
+        renderModelView()
       }
     </Canvas>
   )
