@@ -12,6 +12,7 @@ interface LeftProps {
 interface DataSourcesType {
   label: string
   name: string
+  source?: string
   children?: DataSourcesType[]
 }
 
@@ -45,10 +46,12 @@ const dataSources: DataSourcesType[] = [
       {
         name: 'diamond',
         label: '钻石',
+        source: './dflat.glb',
       },
       {
         name: 'monkey',
         label: '猴子',
+        source: './monkey.glb',
       },
     ],
   },
@@ -65,9 +68,9 @@ const Left: FC<LeftProps> = () => {
         schemaStore.addMesh({
           uid: uuidv4(),
           position: {
-            x: ~(Math.random() * 10).toFixed(1),
-            y: ~(Math.random()).toFixed(1),
-            z: ~(Math.random() * 10).toFixed(1),
+            x: ~(Math.random() * 5).toFixed(1),
+            y: -~(Math.random()).toFixed(1),
+            z: ~(Math.random() * 5).toFixed(1),
           } as Vector3,
           geometry: {
             type: baseItem.name as any,
@@ -84,12 +87,12 @@ const Left: FC<LeftProps> = () => {
         schemaStore.addModel({
           uid: uuidv4(),
           position: {
-            x: ~(Math.random() * 10).toFixed(1),
-            y: ~(Math.random()).toFixed(1),
-            z: ~(Math.random() * 10).toFixed(1),
+            x: ~(Math.random() * 5).toFixed(1),
+            y: -~(Math.random()).toFixed(1),
+            z: ~(Math.random() * 5).toFixed(1),
           } as Vector3,
           type: 'gltf',
-          source: './monkey.glb',
+          source: baseItem.source as string,
         })
         break
       default:

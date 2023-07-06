@@ -47,12 +47,14 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   addMesh: (mesh: MeshType) => set(state => ({
     data: {
       mesh: [...(state.data.mesh || []), mesh],
+      model: state.data.model,
     },
   })),
 
   addModel: (model: ModelType) => set(state => ({
     data: {
       model: [...(state.data.model || []), model],
+      mesh: state.data.mesh,
     },
   })),
 
@@ -64,6 +66,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
 
         return item
       }),
+      model: state.data.model,
     },
   })),
 
