@@ -6,11 +6,11 @@ import type { MeshType, ModelType, SchemaType } from '../type/SchemaType'
 
 export interface SchemaStoreProps {
   data: SchemaType
-  currentSelectedMesh: MeshType | null
+  currentSelectedMesh: MeshType | ModelType | null
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
   updateMesh: (id: string, mesh: MeshType) => void
-  setCurrentSelectedMesh: (mesh: MeshType) => void
+  setCurrentSelectedMesh: (mesh: MeshType | ModelType) => void
   reset: () => void
 }
 
@@ -72,8 +72,8 @@ const schemaStore = create<SchemaStoreProps>(set => ({
 
   deleteMesh: (meshId: string) => set(state => ({})),
 
-  setCurrentSelectedMesh: (mesh: MeshType) => set(() => ({
-    currentSelectedMesh: mesh,
+  setCurrentSelectedMesh: (cube: MeshType | ModelType) => set(() => ({
+    currentSelectedMesh: cube,
   })),
 
   reset: () => set(() => ({

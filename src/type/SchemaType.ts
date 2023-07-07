@@ -23,11 +23,13 @@ interface BaseConfigType {
   scale?: Vector3
 }
 
+// model
 export interface ModelType extends BaseConfigType {
   source: string
   type: 'gltf' | 'fbx'
 }
 
+// mesh
 export interface MeshType extends BaseConfigType {
   geometry: GeometryType
   material: MaterialType

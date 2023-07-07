@@ -1,10 +1,8 @@
 import type { FC } from 'react'
-import { memo, useMemo, useRef, useState } from 'react'
+import { memo, useState } from 'react'
 import isEqual from 'react-fast-compare'
-import { TransformControls } from '@react-three/drei'
-import type { Vector3 } from 'three'
 
-import { TransformControlsModeItem } from './RenderMesh'
+import SelectdCube, { CubeType } from './Selected'
 import useGltfScene from '@/hooks/useGltfScene'
 import type { ModelType } from '@/type/SchemaType'
 
@@ -13,7 +11,6 @@ interface RenderModelProps {
 }
 
 const RenderModels: FC<RenderModelProps> = ({ model }) => {
-  const transform = useRef(null)
   const { position } = model
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
 
@@ -31,13 +28,9 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
 
   return (
     <>
-      <TransformControls
-        position={currentPosition as any as Vector3}
-        size={1}
-        ref={transform}
-        mode={TransformControlsModeItem.translate}>
+      <SelectdCube cube={model} cubeType={CubeType.model} currentPosition={currentPosition} setCurrentPosition={setCurrentPosition}>
         <primitive object={currentScene} />
-      </TransformControls>
+      </SelectdCube>
     </>
   )
 }
