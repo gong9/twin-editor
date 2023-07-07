@@ -25,6 +25,9 @@ dependencies:
   dexie:
     specifier: ^3.2.4
     version: 3.2.4
+  immer:
+    specifier: ^10.0.2
+    version: 10.0.2
   react-fast-compare:
     specifier: ^3.2.2
     version: 3.2.2
@@ -39,7 +42,7 @@ dependencies:
     version: 9.0.0
   zustand:
     specifier: ^4.3.8
-    version: 4.3.8(react@18.2.0)
+    version: 4.3.8(immer@10.0.2)(react@18.2.0)
 
 devDependencies:
   '@antfu/eslint-config':
@@ -7697,6 +7700,10 @@ packages:
     dev: false
     optional: true
 
+  /immer@10.0.2:
+    resolution: {integrity: sha512-Rx3CqeqQ19sxUtYV9CU911Vhy8/721wRFnJv3REVGWUmoAcIwzifTsdmJte/MV+0/XpM35LZdQMBGkRIoLPwQA==}
+    dev: false
+
   /immer@8.0.4:
     resolution: {integrity: sha512-jMfL18P+/6P6epANRvRk6q8t+3gGhqsJ9EuJ25AXE+9bNTYtssvzeYbEd0mXRYWCmmXSIbnlpz6vd6iJlmGGGQ==}
     dev: false
@@ -13035,7 +13042,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /zustand@4.3.8(react@18.2.0):
+  /zustand@4.3.8(immer@10.0.2)(react@18.2.0):
     resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -13047,6 +13054,7 @@ packages:
       react:
         optional: true
     dependencies:
+      immer: 10.0.2
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false

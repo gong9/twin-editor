@@ -103,7 +103,7 @@ class ErrorBoundary extends React.Component<React.PropsWithChildren<ErrorBoundar
 }
 
 function withErrorBoundary<P>(
-  Component: React.ComponentType<P>,
+  Component: any,
   errorBoundaryProps: ErrorBoundaryProps,
 ): React.ComponentType<P> {
   const Wrapped: React.ComponentType<P> = (props) => {
