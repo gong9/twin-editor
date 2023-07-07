@@ -25,9 +25,15 @@ dependencies:
   dexie:
     specifier: ^3.2.4
     version: 3.2.4
+  fast-json-patch:
+    specifier: ^3.1.1
+    version: 3.1.1
   immer:
     specifier: ^10.0.2
     version: 10.0.2
+  poor-utils-pro:
+    specifier: ^2.2.1
+    version: 2.2.1
   react-fast-compare:
     specifier: ^3.2.2
     version: 3.2.2
@@ -6330,6 +6336,10 @@ packages:
       minimalistic-crypto-utils: 1.0.1
     dev: false
 
+  /emoji-regex@10.2.1:
+    resolution: {integrity: sha512-97g6QgOk8zlDRdgq1WxwgTMgEWGVAQvB5Fdpgc1MkNy56la5SKP9GsMXKDOdqwn90/41a8yPwIGk1Y6WVbeMQA==}
+    dev: false
+
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -7112,6 +7122,10 @@ packages:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.5
+
+  /fast-json-patch@3.1.1:
+    resolution: {integrity: sha512-vf6IHUX2SBcA+5/+4883dsIjpBTqmfBjmYiWK1savxQmFk4JfBMLa7ynTYOs1Rolp/T1betJxHiGD3g1Mn8lUQ==}
+    dev: false
 
   /fast-json-stable-stringify@2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
@@ -9313,6 +9327,13 @@ packages:
 
   /point-in-polygon@1.1.0:
     resolution: {integrity: sha512-3ojrFwjnnw8Q9242TzgXuTD+eKiutbzyslcq1ydfu82Db2y+Ogbmyrkpv0Hgj31qwT3lbS9+QAAO/pIQM35XRw==}
+    dev: false
+
+  /poor-utils-pro@2.2.1:
+    resolution: {integrity: sha512-N6S66QvAN+5BI5e97J/4SSgwBQunQkBLPLpxTYjzw+4EdI/bvwpGDgjlZuGxRZupkDsNM2s+irID8qMzn97rGw==}
+    dependencies:
+      emoji-regex: 10.2.1
+      immer: 10.0.2
     dev: false
 
   /postcss-attribute-case-insensitive@5.0.2(postcss@8.4.24):

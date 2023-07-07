@@ -1,6 +1,5 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
-
 import {
   CloseOutlined,
   DotChartOutlined,
@@ -12,6 +11,7 @@ import {
   UndoOutlined,
   UploadOutlined,
 } from '@ant-design/icons'
+import { message } from 'antd'
 
 import store from '@/store'
 
@@ -61,6 +61,7 @@ const Top: FC<TopProps> = () => {
         icon: <CloseOutlined />,
         onClick: () => {
           schemaStore.reset()
+          message.success('清空成功')
         },
       },
       {
@@ -68,6 +69,7 @@ const Top: FC<TopProps> = () => {
         icon: <SaveOutlined />,
         onClick: () => {
           console.log(schemaStore.data)
+          message.success('保存成功')
         },
       },
     ], [
