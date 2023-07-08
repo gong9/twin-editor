@@ -1,10 +1,12 @@
 import type { FC } from 'react'
+import { useMount } from 'ahooks'
 
 import Top from './top'
 import Left from './left'
 import Center from './canvas'
 import Right from './right'
 import Bottom from './bottom'
+import controller from './controller'
 import Setting from '@/components/Setting'
 
 interface EditorProps {
@@ -12,6 +14,10 @@ interface EditorProps {
 }
 
 const Editor: FC<EditorProps> = () => {
+  useMount(() => {
+    controller.init()
+  })
+
   return (
     <>
       <Top/>

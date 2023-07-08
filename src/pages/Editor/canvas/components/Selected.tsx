@@ -62,6 +62,16 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
       )
     }
 
+    if (cubeType === CubeType.model) {
+      schemaStore.updateModel(
+        cube.uid,
+        {
+          ...(cube as ModelType),
+          position: object.position,
+        },
+      )
+    }
+
     schemaStore.setCurrentSelectedMesh(cube)
   }
 

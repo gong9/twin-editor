@@ -1,6 +1,4 @@
 import { create } from 'zustand'
-import type { Vector3 } from 'three'
-import { v4 as uuidv4 } from 'uuid'
 
 import type { MeshType, ModelType, SchemaType } from '../type/SchemaType'
 
@@ -9,27 +7,11 @@ export interface SchemaStoreProps {
   currentSelectedMesh: MeshType | ModelType | null
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
+  setData: (data: SchemaType) => void
   updateMesh: (id: string, mesh: MeshType) => void
+  updateModel: (id: string, model: ModelType) => void
   setCurrentSelectedMesh: (mesh: MeshType | ModelType) => void
   reset: () => void
-}
-
-const mockData: MeshType = {
-  uid: uuidv4(),
-  position: {
-    x: 0,
-    y: 0.5,
-    z: 0,
-  } as Vector3,
-  geometry: {
-    type: 'boxGeometry',
-    width: 1,
-    height: 1,
-    depth: 1,
-  },
-  material: {
-    type: 'meshBasicMaterial',
-  },
 }
 
 /**
@@ -38,7 +20,7 @@ const mockData: MeshType = {
  */
 const schemaStore = create<SchemaStoreProps>(set => ({
   data: {
-    mesh: [mockData],
+    mesh: [],
     model: [],
   },
 
@@ -68,6 +50,22 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       }),
       model: state.data.model,
     },
+  })),
+
+  updateModel: (uid: string, model: ModelType) => set(state => ({
+    data: {
+      model: state.data.model?.map((item) => {
+        if (item.uid === uid)
+          return model
+
+        return item
+      }),
+      mesh: state.data.mesh,
+    },
+  })),
+
+  setData: (data: SchemaType) => set(() => ({
+    data,
   })),
 
   deleteMesh: (meshId: string) => set(state => ({})),

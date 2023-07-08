@@ -68,7 +68,7 @@ const Top: FC<TopProps> = () => {
         label: '保存',
         icon: <SaveOutlined />,
         onClick: () => {
-          console.log(schemaStore.data)
+          localStorage.setItem('schema', JSON.stringify(schemaStore.data))
           message.success('保存成功')
         },
       },
