@@ -5,6 +5,7 @@ import { OrbitControls } from '@react-three/drei'
 
 import RenderModels from './components/RenderModels'
 import RenderMesh from './components/RenderMesh'
+import ReactLoading from '@/components/Loding'
 import store from '@/store'
 
 interface EditorProps {
@@ -28,22 +29,21 @@ const Center: FC<EditorProps> = () => {
   }
 
   return (
-
-    <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000', width: '100%' }}>
-      { gridHelperEnabled && <gridHelper args={[10, 50]} />}
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      { axesHelperEnabled && <axesHelper args={[10]} />}
-      <OrbitControls enabled={orbitControlsEnabled} makeDefault/>
-      {
+    <Suspense fallback={<ReactLoading />}>
+      <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000', width: '100%' }}>
+        { gridHelperEnabled && <gridHelper args={[10, 50]} />}
+        <ambientLight />
+        <pointLight position={[10, 10, 10]} />
+        { axesHelperEnabled && <axesHelper args={[10]} />}
+        <OrbitControls enabled={orbitControlsEnabled} makeDefault/>
+        {
         renderMeshView()
-      }
-      <Suspense fallback={null}>
+        }
         {
         renderModelView()
-      }
-      </Suspense>
-    </Canvas>
+        }
+      </Canvas>
+    </Suspense>
   )
 }
 
