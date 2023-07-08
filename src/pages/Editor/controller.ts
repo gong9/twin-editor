@@ -3,8 +3,11 @@ import { v4 as uuidv4 } from 'uuid'
 
 import type { MeshType } from '@/type/SchemaType'
 import store from '@/store'
+import shortcutKeyRegister from '@/utils/shortcutKeyController'
 
 const schemaStore = store.schemaStore
+const settingStore = store.settingStore
+
 const mockData: MeshType = {
   uid: uuidv4(),
   position: {
@@ -24,9 +27,12 @@ const mockData: MeshType = {
 }
 
 export default {
-  // 判断编辑器状态，编辑器需要反向处理数据拆分
-  // 开一个worker线程，处理数据拆分和数据初始化。 如模型数据的提前加载
   init: () => {
+    const currentShortKeyApi = shortcutKeyRegister()
+    settingStore.setState({
+      shortcutKeyApi: currentShortKeyApi,
+    })
+
     const data = localStorage.getItem('schema')
     if (data) {
       schemaStore.setState({

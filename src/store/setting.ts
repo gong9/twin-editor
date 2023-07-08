@@ -1,5 +1,7 @@
 import { create } from 'zustand'
 
+import type { ShortcutKeyControllerMapType } from '@/utils/shortcutKeyController'
+
 /**
  * @file: 编辑器全局设置
  */
@@ -10,6 +12,7 @@ export interface SettingStoreProps {
   orbitControlsEnabled: boolean
   axesHelperEnabled: boolean
   gridHelperEnabled: boolean
+  shortcutKeyApi: ShortcutKeyControllerMapType | null
   setShowSettingModal: (visible: boolean) => void
   setConfigVisible: (visible: boolean) => void
   setOrbitControlsEnabled: (enabled: boolean) => void
@@ -23,6 +26,7 @@ const settingStore = create<SettingStoreProps>(set => ({
   orbitControlsEnabled: true, // 是否启用轨道控制器
   axesHelperEnabled: true, // 是否启用坐标轴辅助线
   gridHelperEnabled: true, // 是否启用网格辅助线
+  shortcutKeyApi: null, // 快捷键
 
   setShowSettingModal: (visible: boolean) => set({ showSettingModal: visible }),
   setConfigVisible: (visible: boolean) => set({ configVisible: visible }),
