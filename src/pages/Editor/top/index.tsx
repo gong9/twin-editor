@@ -11,18 +11,13 @@ import {
   UndoOutlined,
   UploadOutlined,
 } from '@ant-design/icons'
-import { message } from 'antd'
+import { Menu, message } from 'antd'
+import type { MenuProps } from 'antd'
 
 import store from '@/store'
 
 interface TopProps {
 
-}
-
-interface TopItemButtonType {
-  label: string
-  icon: JSX.Element
-  onClick?: () => void
 }
 
 enum TopItemEnum {
@@ -34,30 +29,36 @@ const Top: FC<TopProps> = () => {
   const schemaStore = store.schemaStore(state => state)
   const settingStore = store.settingStore(state => state)
 
-  const operateData = useMemo<TopItemButtonType[]>(
+  const operateData = useMemo<MenuProps['items']>(
     () => [
       {
         label: '场景',
+        key: 'scene',
         icon: <DotChartOutlined />,
       },
       {
         label: '导入',
+        key: 'import',
         icon: <UploadOutlined />,
       },
       {
         label: '导出',
+        key: 'export',
         icon: <DownloadOutlined />,
       },
       {
         label: '回退',
+        key: 'undo',
         icon: <UndoOutlined />,
       },
       {
         label: '撤销',
+        key: 'redo',
         icon: <RedoOutlined />,
       },
       {
         label: '清空',
+        key: 'clear',
         icon: <CloseOutlined />,
         onClick: () => {
           schemaStore.reset()
@@ -67,6 +68,7 @@ const Top: FC<TopProps> = () => {
       {
         label: '保存',
         icon: <SaveOutlined />,
+        key: 'save',
         onClick: () => {
           localStorage.setItem('schema', JSON.stringify(schemaStore.data))
           message.success('保存成功')
@@ -76,10 +78,11 @@ const Top: FC<TopProps> = () => {
       schemaStore,
     ],
   )
-  const settingData = useMemo<TopItemButtonType[]>(
+  const settingData = useMemo<MenuProps['items']>(
     () => [
       {
         label: '设置',
+        key: 'setting',
         icon: <SettingOutlined />,
         onClick: () => {
           settingStore.setShowSettingModal(true)
@@ -87,6 +90,7 @@ const Top: FC<TopProps> = () => {
       },
       {
         label: '帮助',
+        key: 'help',
         icon: <QuestionCircleOutlined />,
       },
     ],
@@ -97,18 +101,11 @@ const Top: FC<TopProps> = () => {
 
   const renderTopItem = (type: TopItemEnum) => {
     const currentData = type === TopItemEnum.operate ? operateData : settingData
-    return currentData.map((item) => {
-      return (
-        <div onClick={() => { item.onClick?.() }} key={item.label} className='mr-6 flex flex-col items-center text-sm'>
-          {item.label}
-          {item.icon}
-        </div>
-      )
-    })
+    return (<Menu mode="horizontal" items={currentData} selectable={false}/>)
   }
 
   return (
-    <div className='flex justify-between pt-1 items-center cursor-pointer' style={{ backgroundColor: 'rgba(225, 225, 225, 0.7)', height: '60px' }}>
+    <div className='flex justify-between pt-1 items-center cursor-pointer' style={{ backgroundColor: 'fff', height: '60px' }}>
       <div className='ml-5'>anov-3d-editor</div>
       <div className='flex'>
         {renderTopItem(TopItemEnum.operate)}

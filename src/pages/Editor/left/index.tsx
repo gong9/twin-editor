@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { Menu } from 'antd'
 
 import type { Vector3 } from 'three'
 import store from '@/store'
@@ -12,6 +13,7 @@ interface LeftProps {
 interface DataSourcesType {
   label: string
   name: string
+  key: string
   source?: string
   children?: DataSourcesType[]
 }
@@ -20,21 +22,26 @@ const dataSources: DataSourcesType[] = [
   {
     label: '几何体',
     name: 'structure',
+    key: 'structure',
     children: [
       {
         name: 'boxGeometry',
+        key: 'boxGeometry',
         label: '立方体',
       },
       {
         name: 'capsuleGeometry',
+        key: 'capsuleGeometry',
         label: '胶囊图',
       },
       {
         name: 'circleGeometry',
+        key: 'circleGeometry',
         label: '圆形',
       },
       {
         name: 'coneGeometry',
+        key: 'coneGeometry',
         label: '圆锥',
       },
     ],
@@ -42,19 +49,23 @@ const dataSources: DataSourcesType[] = [
   {
     label: '模型',
     name: 'material',
+    key: 'material',
     children: [
       {
         name: 'diamond',
+        key: 'diamond',
         label: '钻石',
         source: './gltf/dflat.glb',
       },
       {
         name: 'monkey',
+        key: 'monkey',
         label: '猴子',
         source: './gltf/monkey.glb',
       },
       {
         name: 'wall',
+        key: 'wall',
         label: '工厂',
         source: './gltf/wall.glb',
       },
@@ -109,22 +120,20 @@ const Left: FC<LeftProps> = () => {
    * toggle tyle
    * @param type
    */
-  const toggleTyle = (type: string) => {
-    setCurrentSelectedType(type)
+  const handleSelect = ({ key }: { key: string }) => {
+    setCurrentSelectedType(key)
     setCurrentRenderItem(
-      dataSources.find(item => item.name === type)?.children || [],
+      dataSources.find(item => item.key === key)?.children || [],
     )
   }
 
   return (
-    <div className='flex rounded-md editor-left' style={{ height: '100%', width: '300px' }}>
-      <div className='flex flex-col pl-2 w-16' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)', width: '80px' }} >
-        {dataSources.map((item) => {
-          return <div onClick={() => toggleTyle(item.name)} className='mt-6 cursor-pointer text-sm' key={item.label}>{item.label}</div>
-        })}
+    <div className='flex rounded-md editor-left mb-2' style={{ height: '100%' }}>
+      <div className='flex flex-col' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)' }} >
+        <Menu defaultSelectedKeys={[dataSources[0].key]} onClick={handleSelect} mode="vertical" items={dataSources.map(item => ({ ...item, children: null }))}
+          style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)' }}/>
       </div>
-
-      <div className='editor-left-item' style={{ width: '180px', height: 'auto', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
+      <div className='editor-left-item' style={{ width: '150px', height: 'auto', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
         <div className='flex flex-wrap h-min'>
           {
         currentRenderItem.map((item) => {

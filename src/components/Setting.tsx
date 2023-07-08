@@ -18,7 +18,7 @@ const App: React.FC = () => {
   return (
     <>
       <Modal className='setting-modal' title="设置" open={settings.showSettingModal} onOk={handleOk}
-        onCancel={handleCancel}>
+        onCancel={handleCancel} footer={[]}>
         <div className='flex flex-wrap mt-4' style={{ width: '100%' }}>
           <div className='mb-3' style={{ width: '40%' }}>
             <span className='mr-3'>用坐标轴辅助线</span>

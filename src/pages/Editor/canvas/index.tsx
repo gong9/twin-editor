@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { Suspense } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
@@ -27,6 +28,7 @@ const Center: FC<EditorProps> = () => {
   }
 
   return (
+
     <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000', width: '100%' }}>
       { gridHelperEnabled && <gridHelper args={[10, 50]} />}
       <ambientLight />
@@ -36,9 +38,11 @@ const Center: FC<EditorProps> = () => {
       {
         renderMeshView()
       }
-      {
+      <Suspense fallback={null}>
+        {
         renderModelView()
       }
+      </Suspense>
     </Canvas>
   )
 }
