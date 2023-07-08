@@ -1,12 +1,12 @@
 import type { Vector3 } from 'three'
 import { v4 as uuidv4 } from 'uuid'
+import { message } from 'antd'
 
 import type { MeshType } from '@/type/SchemaType'
 import store from '@/store'
 import shortcutKeyRegister from '@/utils/shortcutKeyController'
 
 const schemaStore = store.schemaStore
-const settingStore = store.settingStore
 
 const mockData: MeshType = {
   uid: uuidv4(),
@@ -29,8 +29,11 @@ const mockData: MeshType = {
 export default {
   init: () => {
     const currentShortKeyApi = shortcutKeyRegister()
-    settingStore.setState({
-      shortcutKeyApi: currentShortKeyApi,
+    const saveShortKeyApi = currentShortKeyApi.get('save')
+
+    saveShortKeyApi!(() => {
+      localStorage.setItem('schema', JSON.stringify(schemaStore.getState().data))
+      message.success('保存成功')
     })
 
     const data = localStorage.getItem('schema')
