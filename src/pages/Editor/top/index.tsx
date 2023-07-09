@@ -34,27 +34,47 @@ const Top: FC<TopProps> = () => {
       {
         label: '场景',
         key: 'scene',
+        disabled: true,
         icon: <DotChartOutlined />,
+        onClick: () => {
+          message.warning('开发中')
+        },
       },
       {
         label: '导入',
         key: 'import',
+        disabled: true,
         icon: <UploadOutlined />,
+        onClick: () => {
+          message.warning('开发中')
+        },
       },
       {
         label: '导出',
         key: 'export',
+        disabled: true,
         icon: <DownloadOutlined />,
+        onClick: () => {
+          message.warning('开发中')
+        },
       },
       {
         label: '回退',
         key: 'undo',
+        disabled: true,
         icon: <UndoOutlined />,
+        onClick: () => {
+          message.warning('开发中')
+        },
       },
       {
         label: '撤销',
         key: 'redo',
+        disabled: true,
         icon: <RedoOutlined />,
+        onClick: () => {
+          message.warning('开发中')
+        },
       },
       {
         label: '清空',
