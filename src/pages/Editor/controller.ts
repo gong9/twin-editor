@@ -26,32 +26,53 @@ const mockData: MeshType = {
   },
 }
 
-export default {
-  init: () => {
-    const currentShortKeyApi = shortcutKeyRegister()
-    const saveShortKeyApi = currentShortKeyApi.get('save')
+const shortKeyInit = () => {
+  const currentShortKeyApi = shortcutKeyRegister()
+  const saveShortKeyApi = currentShortKeyApi.get('save')
+  const deleteShortKeyApi = currentShortKeyApi.get('delete')
 
-    saveShortKeyApi!(() => {
-      localStorage.setItem('schema', JSON.stringify(schemaStore.getState().data))
-      message.success('保存成功')
-    })
+  saveShortKeyApi!(() => {
+    localStorage.setItem('schema', JSON.stringify(schemaStore.getState().data))
+    message.success('保存成功')
+  })
 
-    const data = localStorage.getItem('schema')
-    if (data) {
+  deleteShortKeyApi!(() => {
+    const currentSelectedCube = schemaStore.getState().currentSelectedMesh
+    if (currentSelectedCube && currentSelectedCube.uid) {
       schemaStore.setState({
-        data: JSON.parse(data),
+        data: {
+          ...schemaStore.getState().data,
+          mesh: schemaStore.getState().data.mesh?.filter(item => item.uid !== currentSelectedCube.uid),
+          model: schemaStore.getState().data.model?.filter(item => item.uid !== currentSelectedCube.uid),
+        },
       })
     }
-    else {
-      schemaStore.setState(
-        {
-          data: {
-            mesh: [mockData],
-            model: [],
-          },
+  })
+}
+
+const dataInit = () => {
+  const data = localStorage.getItem('schema')
+  if (data) {
+    schemaStore.setState({
+      data: JSON.parse(data),
+    })
+  }
+  else {
+    schemaStore.setState(
+      {
+        data: {
+          mesh: [mockData],
+          model: [],
         },
-      )
-    }
+      },
+    )
+  }
+}
+
+export default {
+  init: () => {
+    shortKeyInit()
+    dataInit()
   },
   destroy: () => {},
 }

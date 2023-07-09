@@ -8,6 +8,7 @@ import Right from './right'
 import Bottom from './bottom'
 import controller from './controller'
 import Setting from '@/components/Setting'
+import Help from '@/components/Help'
 
 interface EditorProps {
 
@@ -27,6 +28,7 @@ const Editor: FC<EditorProps> = () => {
         <Right/>
       </div>
       <Setting/>
+      <Help/>
     </>
   )
 }

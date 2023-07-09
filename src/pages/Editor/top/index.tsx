@@ -92,6 +92,9 @@ const Top: FC<TopProps> = () => {
         label: '帮助',
         key: 'help',
         icon: <QuestionCircleOutlined />,
+        onClick: () => {
+          settingStore.setShowHelpDrawer(true)
+        },
       },
     ],
     [
