@@ -36,7 +36,7 @@ const Help: FC<HelpProps> = () => {
   }))
 
   return (
-    <Drawer title="Basic Drawer" placement="right" onClose={() => setShowHelpDrawer(false)} open={showHelpDrawer}>
+    <Drawer placement="right" onClose={() => setShowHelpDrawer(false)} open={showHelpDrawer}>
       <div>
         <h3 className='mb-3'>快捷键</h3>
         <Table columns={columns} dataSource={editorShortcuts} />
