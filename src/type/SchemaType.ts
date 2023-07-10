@@ -13,7 +13,6 @@ export interface GeometryType {
 export interface MaterialType {
   type: 'meshBasicMaterial'
   color?: string
-
 }
 
 interface BaseConfigType {
@@ -27,6 +26,7 @@ interface BaseConfigType {
 export interface ModelType extends BaseConfigType {
   source: string
   type: 'gltf' | 'fbx'
+  version?: string
 }
 
 // mesh
