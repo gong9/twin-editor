@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 import { Input, InputNumber } from 'antd'
 import type { Vector3 } from 'three'
+import { produce } from 'immer'
 
 import type { SelectCubeType } from '@/store/schema'
 import store from '@/store'
@@ -28,18 +29,20 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
     const currentCubeNode = currentCubeSchema
 
     if (currentCubeNode && (currentCubeNode as any)[name]) {
-      (currentCubeNode as any)[name][axle] = value
+      const nextCubeNodeState = produce(currentCubeNode, (draft) => {
+        (draft as any)[name][axle] = value
+      })
 
       if (isModelData) {
         updateModel(
           currentCubeSchema.uid,
-          currentCubeNode as ModelType,
+          nextCubeNodeState as ModelType,
         )
       }
       else {
         updateMesh(
           currentCubeSchema.uid,
-          currentCubeNode as MeshType,
+          nextCubeNodeState as MeshType,
         )
       }
     }
