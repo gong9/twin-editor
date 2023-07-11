@@ -24,7 +24,7 @@ export interface SettingStoreProps {
 
 const settingStore = create<SettingStoreProps>(set => ({
   showSettingModal: false, // 是否显示设置面板
-  configVisible: false, // 配置面板是否可见
+  configVisible: true, // 配置面板是否可见
   orbitControlsEnabled: true, // 是否启用轨道控制器
   axesHelperEnabled: true, // 是否启用坐标轴辅助线
   gridHelperEnabled: true, // 是否启用网格辅助线

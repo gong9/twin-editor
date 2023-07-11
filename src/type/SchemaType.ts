@@ -15,22 +15,31 @@ export interface MaterialType {
   color?: string
 }
 
-interface BaseConfigType {
+// config json schema
+export interface baseConfigTypeItem {
+  name: 'position' | 'rotation' | 'scale'
+  label: string
+  type: string // input | select ... current need input
+}
+
+// cube base attributes
+interface BaseAttributesType {
   uid: string
   position: Vector3
   rotation?: Vector3
   scale?: Vector3
+  baseConfig: baseConfigTypeItem[]
 }
 
 // model
-export interface ModelType extends BaseConfigType {
+export interface ModelType extends BaseAttributesType {
   source: string
   type: 'gltf' | 'fbx'
   version?: string
 }
 
 // mesh
-export interface MeshType extends BaseConfigType {
+export interface MeshType extends BaseAttributesType {
   geometry: GeometryType
   material: MaterialType
   children?: MeshType[]

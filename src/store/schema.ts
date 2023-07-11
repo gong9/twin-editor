@@ -2,9 +2,10 @@ import { create } from 'zustand'
 
 import type { MeshType, ModelType, SchemaType } from '../type/SchemaType'
 
+export type SelectCubeType = MeshType | ModelType | null
 export interface SchemaStoreProps {
   data: SchemaType
-  currentSelectedMesh: MeshType | ModelType | null
+  currentSelectedMesh: SelectCubeType
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
   setData: (data: SchemaType) => void
