@@ -5,6 +5,8 @@ import { Menu } from 'antd'
 
 import type { Vector3 } from 'three'
 import store from '@/store'
+import { BASECONFIG } from '@/constants'
+import type { BaseConfigTypeItem } from '@/type/SchemaType'
 
 interface LeftProps {
 
@@ -97,6 +99,7 @@ const Left: FC<LeftProps> = () => {
           material: {
             type: 'meshBasicMaterial',
           },
+          baseConfig: BASECONFIG as BaseConfigTypeItem[],
         })
         break
       case 'material':
@@ -109,6 +112,7 @@ const Left: FC<LeftProps> = () => {
           } as Vector3,
           type: 'gltf',
           source: baseItem.source as string,
+          baseConfig: BASECONFIG as BaseConfigTypeItem[],
         })
         break
       default:

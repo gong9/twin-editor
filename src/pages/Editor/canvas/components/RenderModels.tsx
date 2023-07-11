@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
 
 import SelectdCube, { CubeType } from './Selected'
@@ -15,6 +15,16 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
 
   const currentScene = useGltfScene(model.source)
+
+  useEffect(() => {
+    setCurrentPosition([
+      model.position.x,
+      model.position.y,
+      model.position.z,
+    ])
+  }, [
+    model.position,
+  ])
 
   /**
    * todo: del this models

@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { memo, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 
 import SelectdCube, { CubeType } from './Selected'
@@ -21,6 +21,16 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
   const { position, geometry, material } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
+
+  useEffect(() => {
+    setCurrentPosition([
+      mesh.position.x,
+      mesh.position.y,
+      mesh.position.z,
+    ])
+  }, [
+    mesh.position,
+  ])
 
   const Geometry = geometry.type
   const Material = material.type

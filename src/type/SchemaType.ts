@@ -16,7 +16,7 @@ export interface MaterialType {
 }
 
 // config json schema
-export interface baseConfigTypeItem {
+export interface BaseConfigTypeItem {
   name: 'position' | 'rotation' | 'scale'
   label: string
   type: string // input | select ... current need input
@@ -28,7 +28,7 @@ interface BaseAttributesType {
   position: Vector3
   rotation?: Vector3
   scale?: Vector3
-  baseConfig: baseConfigTypeItem[]
+  baseConfig: BaseConfigTypeItem[]
 }
 
 // model
