@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { TransformControls } from '@react-three/drei'
-import type { Vector3 } from 'three'
+import type { Box3, Vector3 } from 'three'
 
 import type { MeshType, ModelType } from '@/type/SchemaType'
 import store from '@/store'
@@ -11,6 +11,7 @@ interface SelectdCubeProps {
   cube: MeshType | ModelType
   cubeType: CubeType
   currentPosition: number[]
+  currentBoundingBox: Box3 | null
   setCurrentPosition: (position: number[]) => void
 }
 
@@ -27,7 +28,7 @@ export enum CubeType {
   'model' = 'model',
 }
 
-const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, setCurrentPosition }) => {
+const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, currentBoundingBox, setCurrentPosition }) => {
   const transform = useRef(null)
   const [transformControlsMode, setTransformControlsMode] = useState<TransformControlsModeType>(TransformControlsModeItem.translate)
   const [isSelected, setIsSelected] = useState(false)
@@ -83,7 +84,11 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             <TransformControls size={1} position={currentPosition as unknown as Vector3} onMouseUp={handleTransformControlsMouseUp} enabled={true}
               ref={transform}
               mode={transformControlsMode} >
-              {children as any}
+              <group>
+                {children as any}
+                { currentBoundingBox && <box3Helper box={currentBoundingBox}/>}
+              </group>
+
             </TransformControls>
             )
           : (
@@ -92,6 +97,7 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             </group>
             )
       }
+
     </group>
   )
 }

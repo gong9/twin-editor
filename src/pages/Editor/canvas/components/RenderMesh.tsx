@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 
+import type { Box3 } from 'three'
 import SelectdCube, { CubeType } from './Selected'
 import type { MeshType } from '@/type/SchemaType'
 
@@ -19,9 +20,10 @@ export enum TransformControlsModeItem {
 
 const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
+  const geometryRef = useRef(null)
   const { position, geometry, material } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
-
+  const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
   useEffect(() => {
     setCurrentPosition([
       mesh.position.x,
@@ -32,6 +34,17 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
     mesh.position,
   ])
 
+  useEffect(() => {
+    if (geometryRef && !(geometryRef.current! as any).boundingBox) {
+      const currentGeometry = geometryRef.current as any
+      currentGeometry.computeBoundingBox()
+      currentGeometry.boundingBox.min.multiplyScalar(1.1)
+      currentGeometry.boundingBox.max.multiplyScalar(1.1)
+
+      setCurrentBoundingBox((geometryRef.current! as any).boundingBox)
+    }
+  }, [currentPosition])
+
   const Geometry = geometry.type
   const Material = material.type
 
@@ -40,14 +53,16 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
       ref={meshRef}
       scale={1}
       >
-      <Geometry args={[geometry.width, geometry.height, geometry.depth]} />
+      <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth]} />
       <Material wireframe={false} color={ 'hotpink'} />
     </mesh>
   )
 
   return (
     <>
-      <SelectdCube cube={mesh} cubeType={CubeType.mesh} currentPosition={currentPosition} setCurrentPosition={setCurrentPosition}>
+      <SelectdCube cube={mesh} currentBoundingBox={currentBoundingBox} cubeType={CubeType.mesh} currentPosition={currentPosition}
+        setCurrentPosition={setCurrentPosition}>
+
         {renderMesh()}
       </SelectdCube>
     </>

@@ -52,24 +52,19 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
     switch (baseConfig.type) {
       case 'input':
         return (
-          <div>
-            <span>{baseConfig.label}</span>
-            <Input className='mt-1'/>
+          <div className='flex flex-col'>
+            <span className='text-sm'>{baseConfig.label} :</span>
+            <Input className='mt-1 w-16 ' value={0}/>
           </div>
         )
-      case 'input-number':
-        return (
-          <InputNumber />
-        )
-
       case 'input-xyz':
         return (
-          <div>
-            <span>{baseConfig.label}</span>
+          <div className='flex flex-col'>
+            <span className='text-sm'>{baseConfig.label} :</span>
             <div className='mt-1'>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={value?.x} className='w-16 mr-2' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={value?.y} className='w-16 mr-2' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={value?.z} className='w-16' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={value?.x.toFixed(2) || 1} className='w-16 mr-2' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={value?.y.toFixed(2) || 1} className='w-16 mr-2' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={value?.z.toFixed(2) || 1} className='w-16' controls={false}/>
             </div>
           </div>
         )
@@ -81,7 +76,7 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
   const renderBaseConfig = (baseConfig: BaseConfigTypeItem[], baseConfigData: BaseConfigDataType) => {
     return baseConfig.map((item) => {
       return (
-        <div className='mt-1' key={item.name}>
+        <div className='mt-2' key={item.name}>
           { renderBaseConfigItem(item, baseConfigData[item.name])}
         </div>
       )
@@ -89,7 +84,7 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
   }
 
   return (
-    <div>
+    <div className='p-2'>
       基本配置信息
       <div>
         {currentCubeSchema && renderBaseConfig(currentCubeSchema.baseConfig, {
