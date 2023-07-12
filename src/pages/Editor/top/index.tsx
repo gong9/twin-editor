@@ -124,11 +124,11 @@ const Top: FC<TopProps> = () => {
 
   const renderTopItem = (type: TopItemEnum) => {
     const currentData = type === TopItemEnum.operate ? operateData : settingData
-    return (<Menu mode="horizontal" items={currentData} selectable={false}/>)
+    return (<Menu mode="horizontal" items={currentData} selectable={false} style={{ backgroundColor: '#3c3c3c', color: '#ccc' }}/>)
   }
 
   return (
-    <div className='flex justify-between pt-1 items-center cursor-pointer' style={{ backgroundColor: 'fff', height: '60px' }}>
+    <div className='flex justify-between pt-1 items-center cursor-pointer' style={{ backgroundColor: '#3c3c3c', height: '60px', color: '#ccc' }}>
       <div className='ml-5'>anov-3d-editor</div>
       <div className='flex'>
         {renderTopItem(TopItemEnum.operate)}

@@ -23,7 +23,7 @@ const Right: FC<RightProps> = () => {
   }
 
   return (
-    <div className='flex rounded-md' style={{ height: '100%', width: configVisible ? '400px' : '0', backgroundColor: 'rgba(224, 224, 224, 0.7)' }}>
+    <div className='flex rounded-md' style={{ height: '100%', width: configVisible ? '400px' : '0', backgroundColor: '#252526', color: '#ccc' }}>
       {renderConfig()}
     </div>
   )

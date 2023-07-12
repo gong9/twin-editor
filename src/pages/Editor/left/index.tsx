@@ -7,6 +7,7 @@ import type { Vector3 } from 'three'
 import store from '@/store'
 import { BASECONFIG } from '@/constants'
 import type { BaseConfigTypeItem } from '@/type/SchemaType'
+import './index.scss'
 
 interface LeftProps {
 
@@ -21,33 +22,6 @@ interface DataSourcesType {
 }
 
 const dataSources: DataSourcesType[] = [
-  {
-    label: '几何体',
-    name: 'structure',
-    key: 'structure',
-    children: [
-      {
-        name: 'boxGeometry',
-        key: 'boxGeometry',
-        label: '立方体',
-      },
-      {
-        name: 'capsuleGeometry',
-        key: 'capsuleGeometry',
-        label: '胶囊图',
-      },
-      {
-        name: 'circleGeometry',
-        key: 'circleGeometry',
-        label: '圆形',
-      },
-      {
-        name: 'coneGeometry',
-        key: 'coneGeometry',
-        label: '圆锥',
-      },
-    ],
-  },
   {
     label: '模型',
     name: 'material',
@@ -70,6 +44,33 @@ const dataSources: DataSourcesType[] = [
         key: 'wall',
         label: '工厂',
         source: './gltf/wall.glb',
+      },
+    ],
+  },
+  {
+    label: '物体',
+    name: 'structure',
+    key: 'structure',
+    children: [
+      {
+        name: 'boxGeometry',
+        key: 'boxGeometry',
+        label: '立方体',
+      },
+      {
+        name: 'capsuleGeometry',
+        key: 'capsuleGeometry',
+        label: '胶囊图',
+      },
+      {
+        name: 'circleGeometry',
+        key: 'circleGeometry',
+        label: '圆形',
+      },
+      {
+        name: 'coneGeometry',
+        key: 'coneGeometry',
+        label: '圆锥',
       },
     ],
   },
@@ -133,11 +134,12 @@ const Left: FC<LeftProps> = () => {
 
   return (
     <div className='flex rounded-md editor-left mb-2' style={{ height: '100%' }}>
-      <div className='flex flex-col' style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)' }} >
-        <Menu defaultSelectedKeys={[dataSources[0].key]} onClick={handleSelect} mode="vertical" items={dataSources.map(item => ({ ...item, children: null }))}
-          style={{ backgroundColor: 'rgba(224, 224, 224, 0.7)' }}/>
+      <div className='flex flex-col editor-left-menu pr-1' style={{ backgroundColor: '#252526' }} >
+        <Menu theme="dark" defaultSelectedKeys={[dataSources[0].key]} onClick={handleSelect} mode="vertical"
+          items={dataSources.map(item => ({ ...item, children: null }))}
+          style={{ backgroundColor: '#252526', color: '#ccc' }}/>
       </div>
-      <div className='editor-left-item' style={{ width: '150px', height: 'auto', backgroundColor: 'rgba(200, 200, 200, 0.7)' }}>
+      <div className='editor-left-item pl-1' style={{ width: '150px', height: 'auto', backgroundColor: '#252526' }}>
         <div className='flex flex-wrap h-min'>
           {
         currentRenderItem.map((item) => {
