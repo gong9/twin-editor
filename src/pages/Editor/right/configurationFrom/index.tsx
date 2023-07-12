@@ -29,7 +29,7 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
   const handleBaseConfigItemChange = (value: any, name: string, axle: string) => {
     const currentCubeNode = currentCubeSchema
 
-    if (currentCubeNode && (currentCubeNode as any)[name]) {
+    if (value && currentCubeNode && (currentCubeNode as any)[name]) {
       const nextCubeNodeState = produce(currentCubeNode, (draft) => {
         (draft as any)[name][axle] = value
       })
