@@ -1,0 +1,65 @@
+{
+  "id": "4163446",
+  "name": "数字孪生",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4236649",
+      "name": "旋转",
+      "font_class": "xuanzhuan",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "11469283",
+      "name": "移动",
+      "font_class": "yidong",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "12189381",
+      "name": "缩放",
+      "font_class": "suofang",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "630094",
+      "name": "向右箭头",
+      "font_class": "xiangyoujiantou",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "630095",
+      "name": "向左箭头",
+      "font_class": "xiangzuojiantou",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "12310478",
+      "name": "view_2d",
+      "font_class": "view_d",
+      "unicode": "e8b0",
+      "unicode_decimal": 59568
+    },
+    {
+      "icon_id": "12310664",
+      "name": "view_3d",
+      "font_class": "view_d1",
+      "unicode": "e8dd",
+      "unicode_decimal": 59613
+    },
+    {
+      "icon_id": "14773892",
+      "name": "鼠标箭头",
+      "font_class": "shubiaojiantou",
+      "unicode": "e748",
+      "unicode_decimal": 59208
+    }
+  ]
+}
