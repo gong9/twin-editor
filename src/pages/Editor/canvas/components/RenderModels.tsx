@@ -45,7 +45,6 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
 
     cube.position.set(0, 0, 0)
   })
-  console.log(currentScene)
 
   return (
     <>
