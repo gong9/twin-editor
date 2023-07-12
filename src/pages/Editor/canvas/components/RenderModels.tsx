@@ -31,7 +31,7 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
    */
   currentScene.traverse((item) => {
     if (item.name === '工厂外墙') {
-      item.scale.set(1, 1, 1)
+      item.scale.set(0.1, 0.1, 0.1)
       item.position.set(0, 0, 0)
     }
   })
