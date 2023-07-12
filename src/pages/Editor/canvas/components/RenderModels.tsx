@@ -37,9 +37,15 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
    * todo: del this models
    */
   currentScene.children.forEach((cube) => {
-    cube.scale.set(0.2, 0.2, 0.2)
+    if (cube.name === 'bus02')
+      cube.scale.set(0.005, 0.005, 0.005)
+
+    else
+      cube.scale.set(0.2, 0.2, 0.2)
+
     cube.position.set(0, 0, 0)
   })
+  console.log(currentScene)
 
   return (
     <>

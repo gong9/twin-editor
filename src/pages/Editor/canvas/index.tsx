@@ -34,7 +34,7 @@ const Center: FC<EditorProps> = () => {
     <div className='editor-center'>
       <Suspense fallback={<ReactLoading />}>
         <Canvas frameloop='demand' camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#222' }}>
-          { gridHelperEnabled && <gridHelper args={[10, 50]} />}
+          { gridHelperEnabled && <gridHelper args={[100, 50]} />}
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           { axesHelperEnabled && <axesHelper args={[10]} />}

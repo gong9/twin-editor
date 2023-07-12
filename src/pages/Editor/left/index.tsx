@@ -51,6 +51,12 @@ const dataSources: DataSourcesType[] = [
         label: '垂柳',
         source: './gltf/tree.glb',
       },
+      {
+        name: 'bus',
+        key: 'bus',
+        label: '公交',
+        source: './gltf/bus.glb',
+      },
     ],
   },
   {
