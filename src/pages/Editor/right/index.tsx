@@ -13,7 +13,6 @@ const Right: FC<RightProps> = () => {
 
   const renderConfig = () => {
     if (currentSelectedMesh) {
-      const { position } = currentSelectedMesh
       return (
         <div className='flex flex-col p-1'>
           <ConfigurationForm currentCubeSchema={currentSelectedMesh}/>

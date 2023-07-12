@@ -20,7 +20,7 @@ interface BaseConfigDataType {
 }
 
 const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) => {
-  const { updateMesh, updateModel } = store.schemaStore(state => state)
+  const { updateMesh, updateModel, setCurrentSelectedMesh } = store.schemaStore(state => state)
   const isModelData = useMemo(() => {
     // eslint-disable-next-line no-prototype-builtins
     return currentCubeSchema && currentCubeSchema.hasOwnProperty('source')
@@ -46,6 +46,7 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
           nextCubeNodeState as MeshType,
         )
       }
+      setCurrentSelectedMesh(nextCubeNodeState)
     }
   }
 
@@ -63,9 +64,9 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
           <div className='flex flex-col'>
             <span className='text-sm title'>{baseConfig.label} :</span>
             <div className='mt-1 ml-2'>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={value?.x.toFixed(2) || 1} className='w-14 mr-2 input-config' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={value?.y.toFixed(2) || 1} className='w-14 mr-2 input-config' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={value?.z.toFixed(2) || 1} className='w-14 input-config' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={(value && value?.x.toFixed(2)) || 1} className='w-14 mr-2 input-config' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={(value && value?.y.toFixed(2)) || 1} className='w-14 mr-2 input-config' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={(value && value?.z.toFixed(2)) || 1} className='w-14 input-config' controls={false}/>
             </div>
           </div>
         )
