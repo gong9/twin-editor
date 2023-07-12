@@ -3,4 +3,11 @@
     top: 10px;
     right: 10px;
     color: #fff;
+    height: 100%;
+
+    .config-show-control{
+        position: absolute;
+        top: 50%;
+        right: -10px;
+    }
 }

@@ -14,10 +14,12 @@ interface MiniMenuDataItem {
 }
 
 const MiniMenu: FC<MiniMenuProps> = () => {
-  const { setTransformControlsMode, transformControlsMode } = store.settingStore(state => (
+  const { setTransformControlsMode, transformControlsMode, configVisible, setConfigVisible } = store.settingStore(state => (
     {
       setTransformControlsMode: state.setTransformControlsMode,
       transformControlsMode: state.transformControlsMode,
+      configVisible: state.configVisible,
+      setConfigVisible: state.setConfigVisible,
     }
   ))
   const currentSelectedMesh = store.schemaStore(state => state.currentSelectedMesh)
@@ -63,6 +65,10 @@ const MiniMenu: FC<MiniMenuProps> = () => {
   return (
     <div className='mini-menu'>
       {renderMiiMenuList()}
+
+      <div onClick={() => { setConfigVisible(!configVisible) }} className='config-show-control w-6 h-8 flex justify-center items-center rounded mb-2 cursor-pointer' style={{ backgroundColor: '#000' }}>
+        <span className={`iconfont ${configVisible ? 'icon-xiangyoujiantou' : 'icon-xiangzuojiantou'}`} style={{ fontSize: '15px' }}></span>
+      </div>
     </div>
   )
 }
