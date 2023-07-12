@@ -36,11 +36,9 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
   /**
    * todo: del this models
    */
-  currentScene.traverse((item) => {
-    if (item.name === '工厂外墙') {
-      item.scale.set(0.1, 0.1, 0.1)
-      item.position.set(0, 0, 0)
-    }
+  currentScene.children.forEach((cube) => {
+    cube.scale.set(0.2, 0.2, 0.2)
+    cube.position.set(0, 0, 0)
   })
 
   return (
