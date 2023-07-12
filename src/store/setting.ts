@@ -14,12 +14,14 @@ export interface SettingStoreProps {
   gridHelperEnabled: boolean
   shortcutKeyApi: ShortcutKeyControllerMapType | null
   showHelpDrawer: boolean
+  transformControlsMode: 'translate' | 'rotate' | 'scale'
   setShowSettingModal: (visible: boolean) => void
   setConfigVisible: (visible: boolean) => void
   setOrbitControlsEnabled: (enabled: boolean) => void
   setAxesHelperEnabled: (enabled: boolean) => void
   setGridHelperEnabled: (enabled: boolean) => void
   setShowHelpDrawer: (visible: boolean) => void
+  setTransformControlsMode: (mode: 'translate' | 'rotate' | 'scale') => void
 }
 
 const settingStore = create<SettingStoreProps>(set => ({
@@ -30,6 +32,7 @@ const settingStore = create<SettingStoreProps>(set => ({
   gridHelperEnabled: true, // 是否启用网格辅助线
   shortcutKeyApi: null, // 快捷键
   showHelpDrawer: false, // 是否显示帮助抽屉
+  transformControlsMode: 'translate', // 变换控件模式，translate, rotate, scale
 
   setShowSettingModal: (visible: boolean) => set({ showSettingModal: visible }),
   setConfigVisible: (visible: boolean) => set({ configVisible: visible }),
@@ -37,6 +40,7 @@ const settingStore = create<SettingStoreProps>(set => ({
   setAxesHelperEnabled: (enabled: boolean) => set({ axesHelperEnabled: enabled }),
   setGridHelperEnabled: (enabled: boolean) => set({ gridHelperEnabled: enabled }),
   setShowHelpDrawer: (visible: boolean) => set({ showHelpDrawer: visible }),
+  setTransformControlsMode: (mode: 'translate' | 'rotate' | 'scale') => set({ transformControlsMode: mode }),
 }))
 
 export type SettingStoreType = typeof settingStore

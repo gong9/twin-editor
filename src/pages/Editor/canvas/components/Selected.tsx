@@ -15,14 +15,6 @@ interface SelectdCubeProps {
   setCurrentPosition: (position: number[]) => void
 }
 
-type TransformControlsModeType = 'translate' | 'rotate' | 'scale'
-
-enum TransformControlsModeItem {
-  translate = 'translate',
-  rotate = 'rotate',
-  scale = 'scale',
-}
-
 export enum CubeType {
   'mesh' = 'mesh',
   'model' = 'model',
@@ -30,9 +22,9 @@ export enum CubeType {
 
 const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, currentBoundingBox, setCurrentPosition }) => {
   const transform = useRef(null)
-  const [transformControlsMode, setTransformControlsMode] = useState<TransformControlsModeType>(TransformControlsModeItem.translate)
   const [isSelected, setIsSelected] = useState(false)
   const schemaStore = store.schemaStore()
+  const transformControlsMode = store.settingStore(state => state.transformControlsMode)
 
   useEffect(() => {
     if (schemaStore.currentSelectedMesh?.uid !== cube.uid)
