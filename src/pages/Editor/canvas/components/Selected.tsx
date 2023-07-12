@@ -11,7 +11,7 @@ interface SelectdCubeProps {
   cube: MeshType | ModelType
   cubeType: CubeType
   currentPosition: number[]
-  currentBoundingBox: Box3 | null
+  currentBoundingBox?: Box3 | null
   setCurrentPosition: (position: number[]) => void
 }
 

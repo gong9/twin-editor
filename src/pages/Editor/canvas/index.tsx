@@ -30,7 +30,7 @@ const Center: FC<EditorProps> = () => {
 
   return (
     <Suspense fallback={<ReactLoading />}>
-      <Canvas camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000', width: '100%' }}>
+      <Canvas frameloop='demand' camera={{ position: [0, 3, 3] }} style={{ backgroundColor: '#000000', width: '100%' }}>
         { gridHelperEnabled && <gridHelper args={[10, 50]} />}
         <ambientLight />
         <pointLight position={[10, 10, 10]} />

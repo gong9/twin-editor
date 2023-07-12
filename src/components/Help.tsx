@@ -5,6 +5,7 @@ import type { ColumnsType } from 'antd/es/table'
 import store from '@/store'
 import type { ShortcutKey } from '@/utils/shortcutKeyController/shortcutKeyManage'
 import { editorShortcuts } from '@/utils/shortcutKeyController/shortcutKeyManage'
+import './Help.scss'
 
 interface HelpProps {
 
@@ -36,7 +37,7 @@ const Help: FC<HelpProps> = () => {
   }))
 
   return (
-    <Drawer placement="right" onClose={() => setShowHelpDrawer(false)} open={showHelpDrawer}>
+    <Drawer className='help' placement="right" onClose={() => setShowHelpDrawer(false)} open={showHelpDrawer}>
       <div>
         <h3 className='mb-3'>快捷键</h3>
         <Table columns={columns} dataSource={editorShortcuts} />
