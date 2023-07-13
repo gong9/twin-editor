@@ -5,6 +5,11 @@ type middleDataType = {
   [k: string]: any
 } []
 
+/**
+ * todo 当前不支持组合
+ * @param data
+ * @returns
+ */
 export const calcSceneTreeData = (data: SchemaType): DataNode[] => {
   const middleData: middleDataType = [...data.mesh || [], ...data.model || []]
   const result: DataNode[] = []

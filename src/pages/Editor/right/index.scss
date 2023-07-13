@@ -6,6 +6,7 @@
         width: 100%;
         bottom: 2%;
         max-height: 30vh;
+        overflow-y: auto;
         .ant-collapse-content,
         .ant-collapse-header-text,
         .ant-collapse-expand-icon {
