@@ -19,9 +19,9 @@ const SceneTree: FC<SceneTreeProps> = () => {
     console.log('Trigger Select', keys, info)
   }
 
-  const onExpand: DirectoryTreeProps['onExpand'] = (keys, info) => {
-    console.log('Trigger Expand', keys, info)
-  }
+  // const onExpand: DirectoryTreeProps['onExpand'] = (keys, info) => {
+  //   console.log('Trigger Expand', keys, info)
+  // }
 
   const items: CollapseProps['items'] = [
     {
@@ -32,7 +32,7 @@ const SceneTree: FC<SceneTreeProps> = () => {
           multiple
           defaultExpandAll
           onSelect={onSelect}
-          onExpand={onExpand}
+
           treeData={treeData}
           />
       ),
