@@ -1,17 +1,21 @@
 import { create } from 'zustand'
 
+import type { DataNode } from 'antd/es/tree'
 import type { GlobalConfigTyle, MeshType, ModelType, SchemaType } from '../type/SchemaType'
+import { calcSceneTreeData } from '@/utils'
 
 export type SelectCubeType = MeshType | ModelType | null
 export interface SchemaStoreProps {
   data: SchemaType
   globalConfig: GlobalConfigTyle
   currentSelectedMesh: SelectCubeType
+  sceneTree: DataNode[]
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
   setData: (data: SchemaType) => void
   updateMesh: (id: string, mesh: MeshType) => void
   updateModel: (id: string, model: ModelType) => void
+  calcSceneTreeData: (data: SchemaType) => void
   setCurrentSelectedMesh: (mesh: MeshType | ModelType | null) => void
   reset: () => void
 }
@@ -25,6 +29,8 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     mesh: [],
     model: [],
   },
+
+  sceneTree: [],
 
   globalConfig: {
     globalConfigData: {
@@ -41,19 +47,35 @@ const schemaStore = create<SchemaStoreProps>(set => ({
 
   currentSelectedMesh: null,
 
-  addMesh: (mesh: MeshType) => set(state => ({
-    data: {
-      mesh: [...(state.data.mesh || []), mesh],
-      model: state.data.model,
-    },
+  calcSceneTreeData: (data: SchemaType) => set(() => ({
+    sceneTree: calcSceneTreeData(data),
   })),
 
-  addModel: (model: ModelType) => set(state => ({
-    data: {
+  addMesh: (mesh: MeshType) => set((state) => {
+    const data = {
+      mesh: [...(state.data.mesh || []), mesh],
+      model: state.data.model,
+    }
+
+    state.calcSceneTreeData(data)
+
+    return {
+      data,
+    }
+  }),
+
+  addModel: (model: ModelType) => set((state) => {
+    const data = {
       model: [...(state.data.model || []), model],
       mesh: state.data.mesh,
-    },
-  })),
+    }
+
+    state.calcSceneTreeData(data)
+
+    return {
+      data,
+    }
+  }),
 
   updateMesh: (uid: string, mesh: MeshType) => set(state => ({
     data: {

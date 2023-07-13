@@ -56,31 +56,37 @@ const shortKeyInit = () => {
   deleteShortKeyApi!(() => {
     const currentSelectedCube = schemaStore.getState().currentSelectedMesh
     if (currentSelectedCube && currentSelectedCube.uid) {
+      const data = {
+        ...schemaStore.getState().data,
+        mesh: schemaStore.getState().data.mesh?.filter(item => item.uid !== currentSelectedCube.uid),
+        model: schemaStore.getState().data.model?.filter(item => item.uid !== currentSelectedCube.uid),
+      }
       schemaStore.setState({
-        data: {
-          ...schemaStore.getState().data,
-          mesh: schemaStore.getState().data.mesh?.filter(item => item.uid !== currentSelectedCube.uid),
-          model: schemaStore.getState().data.model?.filter(item => item.uid !== currentSelectedCube.uid),
-        },
+        data,
       })
     }
   })
 }
 
 const dataInit = () => {
-  const data = localStorage.getItem('schema')
-  if (data) {
+  const schema = localStorage.getItem('schema')
+  const calcSceneTreeData = schemaStore.getState().calcSceneTreeData
+  if (schema) {
+    const data = JSON.parse(schema)
+    calcSceneTreeData(data)
     schemaStore.setState({
-      data: JSON.parse(data),
+      data,
     })
   }
   else {
+    const data = {
+      mesh: [mockData],
+      model: [],
+    }
+    calcSceneTreeData(data)
     schemaStore.setState(
       {
-        data: {
-          mesh: [mockData],
-          model: [],
-        },
+        data,
       },
     )
   }
