@@ -1,4 +1,4 @@
-import type { Vector3 } from 'three'
+import type { Fog, Vector3 } from 'three'
 
 export interface GeometryType {
   type: 'boxGeometry'
@@ -45,7 +45,24 @@ export interface MeshType extends BaseAttributesType {
   children?: MeshType[]
 }
 
+interface GlobalConfigDataType {
+  background?: string
+  environment?: string
+  fog?: Fog
+}
+
+interface GlobalConfigType {
+  type: string
+  label: string
+  name: string
+}
+
 export interface SchemaType {
   mesh?: MeshType[]
   model?: ModelType[]
+}
+
+export interface GlobalConfigTyle {
+  globalConfigData: GlobalConfigDataType
+  globalConfig: GlobalConfigType[]
 }

@@ -9,6 +9,7 @@ import Bottom from './bottom'
 import controller from './controller'
 import Setting from '@/components/Setting'
 import Help from '@/components/Help'
+import './index.scss'
 
 interface EditorProps {
 
@@ -20,7 +21,7 @@ const Editor: FC<EditorProps> = () => {
   })
 
   return (
-    <>
+    <div className='editor'>
       <Top/>
       <div className='flex justify-between' style={{ height: '95vh' }}>
         <Left/>
@@ -29,7 +30,7 @@ const Editor: FC<EditorProps> = () => {
       </div>
       <Setting/>
       <Help/>
-    </>
+    </div>
   )
 }
 

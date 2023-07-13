@@ -1,10 +1,11 @@
 import { create } from 'zustand'
 
-import type { MeshType, ModelType, SchemaType } from '../type/SchemaType'
+import type { GlobalConfigTyle, MeshType, ModelType, SchemaType } from '../type/SchemaType'
 
 export type SelectCubeType = MeshType | ModelType | null
 export interface SchemaStoreProps {
   data: SchemaType
+  globalConfig: GlobalConfigTyle
   currentSelectedMesh: SelectCubeType
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
@@ -23,6 +24,19 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   data: {
     mesh: [],
     model: [],
+  },
+
+  globalConfig: {
+    globalConfigData: {
+      background: '#ffffff',
+    },
+    globalConfig: [
+      {
+        name: 'background',
+        label: '背景颜色',
+        type: 'color',
+      },
+    ],
   },
 
   currentSelectedMesh: null,
@@ -68,8 +82,6 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   setData: (data: SchemaType) => set(() => ({
     data,
   })),
-
-  deleteMesh: (meshId: string) => set(state => ({})),
 
   setCurrentSelectedMesh: (cube: MeshType | ModelType | null) => set(() => ({
     currentSelectedMesh: cube,
