@@ -1,0 +1,21 @@
+.editor-right {
+    position: relative;
+
+    .scene-tree {
+        position: absolute;
+        width: 100%;
+        bottom: 2%;
+        max-height: 30vh;
+        .ant-collapse-content,
+        .ant-collapse-header-text,
+        .ant-collapse-expand-icon {
+            background-color: #252526;
+            color: #ccc !important;
+        }
+
+        .ant-tree {
+            color: #ccc;
+            background-color: #252526;
+        }
+    }
+}
