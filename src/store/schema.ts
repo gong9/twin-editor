@@ -11,7 +11,7 @@ export interface SchemaStoreProps {
   setData: (data: SchemaType) => void
   updateMesh: (id: string, mesh: MeshType) => void
   updateModel: (id: string, model: ModelType) => void
-  setCurrentSelectedMesh: (mesh: MeshType | ModelType) => void
+  setCurrentSelectedMesh: (mesh: MeshType | ModelType | null) => void
   reset: () => void
 }
 
@@ -71,7 +71,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
 
   deleteMesh: (meshId: string) => set(state => ({})),
 
-  setCurrentSelectedMesh: (cube: MeshType | ModelType) => set(() => ({
+  setCurrentSelectedMesh: (cube: MeshType | ModelType | null) => set(() => ({
     currentSelectedMesh: cube,
   })),
 

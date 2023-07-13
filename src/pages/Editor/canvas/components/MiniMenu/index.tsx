@@ -22,9 +22,21 @@ const MiniMenu: FC<MiniMenuProps> = () => {
       setConfigVisible: state.setConfigVisible,
     }
   ))
-  const currentSelectedMesh = store.schemaStore(state => state.currentSelectedMesh)
+  const { currentSelectedMesh, setCurrentSelectedMesh } = store.schemaStore(state => (
+    {
+      currentSelectedMesh: state.currentSelectedMesh,
+      setCurrentSelectedMesh: state.setCurrentSelectedMesh,
+    }
+  ))
 
   const miniMenuData: MiniMenuDataItem[] = [
+    {
+      name: 'arrow',
+      icon: 'icon-shubiaojiantou',
+      onClick: () => {
+        setCurrentSelectedMesh(null)
+      },
+    },
     {
       name: 'translate',
       icon: 'icon-yidong',
