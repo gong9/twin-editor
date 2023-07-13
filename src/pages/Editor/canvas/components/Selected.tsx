@@ -91,7 +91,7 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             </TransformControls>
             )
           : (
-            <group position={currentPosition as unknown as Vector3}>
+            <group name={cube.uid} position={currentPosition as unknown as Vector3}>
               {children}
             </group>
             )

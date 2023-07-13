@@ -24,6 +24,7 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const { position, geometry, material } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
+
   useEffect(() => {
     setCurrentPosition([
       mesh.position.x,
