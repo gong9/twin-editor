@@ -24,7 +24,7 @@ const Right: FC<RightProps> = () => {
   }
 
   return (
-    <div className='flex rounded-md editor-right' style={{ height: '100%', width: configVisible ? '400px' : '0', backgroundColor: '#252526', color: '#ccc' }}>
+    <div className='flex editor-right' style={{ height: '100%', width: configVisible ? '400px' : '0', backgroundColor: '#252526', color: '#ccc' }}>
       {renderConfig()}
       <div className='scene-tree'>
         <SceneTree/>

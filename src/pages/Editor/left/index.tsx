@@ -151,17 +151,17 @@ const Left: FC<LeftProps> = () => {
   }
 
   return (
-    <div className='flex rounded-md editor-left mb-2' style={{ height: '100%' }}>
-      <div className='flex flex-col editor-left-menu pr-1' style={{ backgroundColor: '#252526' }} >
+    <div className='flex editor-left mb-2 pt-2' style={{ backgroundColor: '#252526' }}>
+      <div className='flex flex-col editor-left-menu pr-1' >
         <Menu theme="dark" defaultSelectedKeys={[dataSources[0].key]} onClick={handleSelect} mode="vertical"
           items={dataSources.map(item => ({ ...item, children: null }))}
           style={{ backgroundColor: '#252526', color: '#ccc' }}/>
       </div>
-      <div className='editor-left-item pl-1' style={{ width: '150px', height: 'auto', backgroundColor: '#252526' }}>
+      <div className='editor-left-item pl-1' style={{ width: '150px', height: 'auto' }}>
         <div className='flex flex-wrap h-min'>
           {
         currentRenderItem.map((item) => {
-          return <div onClick={() => addObject(item)} className='hover:bg-slate-300 bg-slate-200 cursor-pointer w-16 h-16 m-1 flex justify-center items-center text-sm rounded' key={item.name}>{item.label}</div>
+          return <div onClick={() => addObject(item)} className='hover:bg-slate-400 bg-slate-300 cursor-pointer w-14 h-10 m-1 flex justify-center items-center text-sm rounded' key={item.name}>{item.label}</div>
         })
       }
         </div>
