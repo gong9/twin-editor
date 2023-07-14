@@ -10,6 +10,7 @@ export interface SchemaStoreProps {
   globalConfig: GlobalConfigTyle
   currentSelectedMesh: SelectCubeType
   sceneTree: DataNode[]
+  initialMainCameraPosition: [x: number, y: number, z: number]
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
   setData: (data: SchemaType) => void
@@ -46,6 +47,8 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   },
 
   currentSelectedMesh: null,
+
+  initialMainCameraPosition: [0, 3, 10],
 
   calcSceneTreeData: (data: SchemaType) => set(() => ({
     sceneTree: calcSceneTreeData(data),

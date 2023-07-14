@@ -7,7 +7,7 @@ import type { Camera, EventDispatcher, Scene } from 'three'
 export interface ThreeStoreProps {
   currentScene: Scene | null
   currentMainCamera: Camera | null
-  currentControls: EventDispatcher<Event> | null
+  currentControls: any | null
   setCurrentScene: (scene: Scene) => void
   setCurrentMainCamera: (camera: Camera) => void
   setCurrentControls: (controls: EventDispatcher<Event>) => void

@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { Collapse, Tree } from 'antd'
 import type { CollapseProps } from 'antd'
 import type { DataNode, DirectoryTreeProps } from 'antd/es/tree'
+import { Vector3 } from 'three'
 
 import store from '@/store'
 
@@ -12,14 +13,19 @@ const { DirectoryTree } = Tree
 
 const SceneTree: FC<SceneTreeProps> = () => {
   const { sceneTree } = store.schemaStore(state => state)
-  const { currentScene, currentMainCamera } = store.threeStore(state => state)
+  const { currentScene, currentMainCamera, currentControls } = store.threeStore(state => state)
 
   const treeData: DataNode[] = sceneTree
 
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
-    if (currentScene && currentMainCamera) {
-      const cube = currentScene.getObjectByName(keys[0] as string)
-      cube && currentMainCamera.lookAt(cube.position)
+    if (currentScene && currentMainCamera && currentControls) {
+      const cube = currentScene.getObjectByName(keys[0] as string) // todo： 优化
+      if (cube) {
+        currentControls.target.copy(cube.position)
+        currentControls.object.lookAt(cube.position)
+        currentControls.object.position.copy(new Vector3(cube.position.x, cube.position.y + 10, cube.position.z + 10))
+        currentControls.update()
+      }
     }
   }
 

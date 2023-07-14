@@ -16,7 +16,9 @@ interface EditorProps {
 
 const CanvasContent = () => {
   const { scene, camera, controls } = useThree()
-  const schema = store.schemaStore(state => state.data)
+  const { schema } = store.schemaStore(state => ({
+    schema: state.data,
+  }))
   const { orbitControlsEnabled, gridHelperEnabled, axesHelperEnabled } = store.settingStore(state => state)
   const { setCurrentScene, setCurrentMainCamera, setCurrentControls } = store.threeStore(state => state)
 
@@ -56,10 +58,13 @@ const CanvasContent = () => {
 }
 
 const Center: FC<EditorProps> = () => {
+  const { initialMainCameraPosition } = store.schemaStore(state => ({
+    initialMainCameraPosition: state.initialMainCameraPosition,
+  }))
   return (
     <div className='editor-center'>
       <Suspense fallback={<ReactLoading />}>
-        <Canvas frameloop='demand' camera={{ position: [0, 3, 10] }} style={{ backgroundColor: '#222' }}>
+        <Canvas frameloop='demand' camera={{ position: initialMainCameraPosition }} style={{ backgroundColor: '#222' }}>
           <CanvasContent/>
         </Canvas>
       </Suspense>
