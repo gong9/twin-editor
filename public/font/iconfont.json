@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "27253675",
+      "name": "重置",
+      "font_class": "zhongzhi",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
       "icon_id": "4236649",
       "name": "旋转",
       "font_class": "xuanzhuan",

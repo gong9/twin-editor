@@ -4,6 +4,7 @@ import { message } from 'antd'
 
 import type { MeshType } from '@/type/SchemaType'
 import store from '@/store'
+import { emitter } from '@/utils'
 import shortcutKeyRegister from '@/utils/shortcutKeyController'
 
 const schemaStore = store.schemaStore
@@ -97,5 +98,7 @@ export default {
     shortKeyInit()
     dataInit()
   },
-  destroy: () => {},
+  destroy: () => {
+    emitter.all.clear()
+  },
 }

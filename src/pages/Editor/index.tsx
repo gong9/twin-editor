@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { useMount } from 'ahooks'
+import { useMount, useUnmount } from 'ahooks'
 
 import Top from './top'
 import Left from './left'
@@ -18,6 +18,10 @@ interface EditorProps {
 const Editor: FC<EditorProps> = () => {
   useMount(() => {
     controller.init()
+  })
+
+  useUnmount(() => {
+    controller.destroy()
   })
 
   return (

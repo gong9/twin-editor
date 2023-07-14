@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 
+import { emitter } from '@/utils'
 import store from '@/store'
 import './index.scss'
 
@@ -61,6 +62,13 @@ const MiniMenu: FC<MiniMenuProps> = () => {
     {
       name: '2d-view',
       icon: 'icon-view_d',
+    },
+    {
+      name: 'reset',
+      icon: 'icon-zhongzhi',
+      onClick: () => {
+        emitter.emit('resetState')
+      },
     },
   ]
 
