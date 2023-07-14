@@ -36,7 +36,7 @@ const MiniMenu: FC<MiniMenuProps> = () => {
   const toggle2dView = () => {
     if (currentScene && currentMainCamera && currentControls) {
       currentControls.object.lookAt(new Vector3(0, 0, 0))
-      currentControls.object.position.copy(new Vector3(0, 10, 0))
+      currentControls.object.position.copy(new Vector3(0, 20, 0))
       currentControls.maxAzimuthAngle = 0
       currentControls.minAzimuthAngle = 0
       currentControls.maxPolarAngle = 0
