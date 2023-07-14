@@ -103,6 +103,7 @@ const Left: FC<LeftProps> = () => {
     switch (currentSelectedType) {
       case 'structure':
         schemaStore.addMesh({
+          name: baseItem.name,
           uid: uuidv4(),
           position: {
             x: ~(Math.random() * 5).toFixed(1),
@@ -123,6 +124,7 @@ const Left: FC<LeftProps> = () => {
         break
       case 'material':
         schemaStore.addModel({
+          name: baseItem.name,
           uid: uuidv4(),
           position: {
             x: ~(Math.random() * 5).toFixed(1),

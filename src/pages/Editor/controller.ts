@@ -16,6 +16,7 @@ const mockData: MeshType = {
     y: 0.5,
     z: 0,
   } as Vector3,
+  name: '立方体',
   geometry: {
     type: 'boxGeometry',
     width: 1,

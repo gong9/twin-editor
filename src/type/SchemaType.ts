@@ -25,6 +25,7 @@ export interface BaseConfigTypeItem {
 // cube base attributes
 interface BaseAttributesType {
   uid: string
+  name: string
   position: Vector3
   rotation?: Vector3
   scale?: Vector3

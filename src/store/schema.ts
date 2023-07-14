@@ -112,11 +112,17 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     currentSelectedMesh: cube,
   })),
 
-  reset: () => set(() => ({
-    data: {
+  reset: () => set((state) => {
+    const currentData = {
       mesh: [],
-    },
-  })),
+      model: [],
+    }
+    state.calcSceneTreeData(currentData)
+
+    return {
+      data: currentData,
+    }
+  }),
 }))
 
 export type SchemaStoreType = typeof schemaStore

@@ -28,7 +28,7 @@ export const calcSceneTreeData = (data: SchemaType): DataNode[] => {
   for (let i = 0; i < middleData.length; i++) {
     result.push(
       {
-        title: middleData[i].uid.slice(0, 10),
+        title: middleData[i].name,
         key: middleData[i].uid,
         isLeaf: true,
       },

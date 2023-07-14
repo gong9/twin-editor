@@ -2,7 +2,6 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 import {
   CloseOutlined,
-  DotChartOutlined,
   DownloadOutlined,
   QuestionCircleOutlined,
   RedoOutlined,
@@ -31,14 +30,6 @@ const Top: FC<TopProps> = () => {
 
   const operateData = useMemo<MenuProps['items']>(
     () => [
-      {
-        label: '场景',
-        key: 'scene',
-        icon: <DotChartOutlined />,
-        onClick: () => {
-          message.warning('开发中')
-        },
-      },
       {
         label: '导入',
         key: 'import',
