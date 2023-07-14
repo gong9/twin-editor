@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
-
 import type { Box3 } from 'three'
+
 import SelectdCube, { CubeType } from './Selected'
 import type { MeshType } from '@/type/SchemaType'
 
@@ -21,8 +21,10 @@ export enum TransformControlsModeItem {
 const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
   const geometryRef = useRef(null)
-  const { position, geometry, material } = mesh
+  const { position, geometry, material, scale } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
+  const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
+
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
 
   useEffect(() => {
@@ -31,8 +33,14 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
       mesh.position.y,
       mesh.position.z,
     ])
+    setCurrentScale([
+      mesh.scale?.x || 1,
+      mesh.scale?.y || 1,
+      mesh.scale?.z || 1,
+    ])
   }, [
     mesh.position,
+    mesh.scale,
   ])
 
   useEffect(() => {
@@ -61,8 +69,14 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
 
   return (
     <>
-      <SelectdCube cube={mesh} currentBoundingBox={currentBoundingBox} cubeType={CubeType.mesh} currentPosition={currentPosition}
-        setCurrentPosition={setCurrentPosition}>
+      <SelectdCube cube={mesh}
+        currentBoundingBox={currentBoundingBox}
+        cubeType={CubeType.mesh}
+        currentScale={currentScale}
+        currentPosition={currentPosition}
+        setCurrentPosition={setCurrentPosition}
+        setCurrentScale={setCurrentScale}
+        >
 
         {renderMesh()}
       </SelectdCube>

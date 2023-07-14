@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
 import { Input, InputNumber } from 'antd'
-import type { Vector3 } from 'three'
+import type { Euler, Vector3 } from 'three'
 import { produce } from 'immer'
 
 import type { SelectCubeType } from '@/store/schema'
@@ -15,7 +15,7 @@ interface ConfigurationFormProps {
 
 interface BaseConfigDataType {
   position: Vector3
-  rotation?: Vector3
+  rotation?: Euler
   scale?: Vector3
 }
 
@@ -50,7 +50,7 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
     }
   }
 
-  const renderBaseConfigItem = (baseConfig: BaseConfigTypeItem, value?: Vector3) => {
+  const renderBaseConfigItem = (baseConfig: BaseConfigTypeItem, value?: Vector3 | Euler) => {
     switch (baseConfig.type) {
       case 'input':
         return (
@@ -60,6 +60,7 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
           </div>
         )
       case 'input-xyz':
+        console.log('value', value)
         return (
           <div className='flex flex-col'>
             <span className='text-sm title'>{baseConfig.label} :</span>

@@ -7,11 +7,11 @@ export const BASECONFIG = [
   {
     name: 'rotation',
     label: '旋转',
-    type: 'input-xyz',
+    type: 'input',
   },
   {
     name: 'scale',
     label: '缩放',
-    type: 'input',
+    type: 'input-xyz',
   },
 ]

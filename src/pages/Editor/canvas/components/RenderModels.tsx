@@ -12,8 +12,9 @@ interface RenderModelProps {
 }
 
 const RenderModels: FC<RenderModelProps> = ({ model }) => {
-  const { position } = model
+  const { position, scale } = model
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
+  const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
 
   const currentScene = useGltfScene(model.source)
@@ -24,8 +25,14 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
       model.position.y,
       model.position.z,
     ])
+    setCurrentScale([
+      model.scale?.x || 1,
+      model.scale?.y || 1,
+      model.scale?.z || 1,
+    ])
   }, [
     model.position,
+    model.scale,
   ])
 
   useEffect(() => {
@@ -48,7 +55,13 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
 
   return (
     <>
-      <SelectdCube cube={model} cubeType={CubeType.model} currentBoundingBox={currentBoundingBox} currentPosition={currentPosition}
+      <SelectdCube
+        cube={model}
+        cubeType={CubeType.model}
+        currentBoundingBox={currentBoundingBox}
+        currentPosition={currentPosition}
+        currentScale={currentScale}
+        setCurrentScale={setCurrentScale}
         setCurrentPosition={setCurrentPosition}>
         <primitive object={currentScene}/>
       </SelectdCube>

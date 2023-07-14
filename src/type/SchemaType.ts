@@ -1,4 +1,4 @@
-import type { Fog, Vector3 } from 'three'
+import type { Euler, Fog, Vector3 } from 'three'
 
 export interface GeometryType {
   type: 'boxGeometry'
@@ -27,7 +27,7 @@ interface BaseAttributesType {
   uid: string
   name: string
   position: Vector3
-  rotation?: Vector3
+  rotation?: Euler
   scale?: Vector3
   baseConfig: BaseConfigTypeItem[]
 }

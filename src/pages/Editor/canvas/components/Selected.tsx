@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { TransformControls } from '@react-three/drei'
-import type { Box3, Vector3 } from 'three'
+import type { Box3, Euler, Vector3 } from 'three'
 
 import type { MeshType, ModelType } from '@/type/SchemaType'
 import store from '@/store'
@@ -12,7 +12,9 @@ interface SelectdCubeProps {
   cubeType: CubeType
   currentPosition: number[]
   currentBoundingBox?: Box3 | null
+  currentScale: number[]
   setCurrentPosition: (position: number[]) => void
+  setCurrentScale: (scale: number[]) => void
 }
 
 export enum CubeType {
@@ -20,7 +22,7 @@ export enum CubeType {
   'model' = 'model',
 }
 
-const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, currentBoundingBox, setCurrentPosition }) => {
+const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, currentScale, currentBoundingBox, setCurrentPosition, setCurrentScale }) => {
   const transform = useRef(null)
   const [isSelected, setIsSelected] = useState(false)
   const schemaStore = store.schemaStore()
@@ -44,6 +46,9 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
   const handleTransformControlsMouseUp = () => {
     const object = (transform.current! as any).object
     setCurrentPosition(object.position)
+    setCurrentScale(object.scale)
+
+    console.log('object', object)
 
     if (cubeType === CubeType.mesh) {
       schemaStore.updateMesh(
@@ -51,6 +56,8 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
         {
           ...(cube as MeshType),
           position: object.position,
+          rotation: object.rotation,
+          scale: object.scale,
         },
       )
     }
@@ -61,6 +68,8 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
         {
           ...(cube as ModelType),
           position: object.position,
+          rotation: object.rotation,
+          scale: object.scale,
         },
       )
     }
@@ -73,7 +82,8 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
       {
         isSelected
           ? (
-            <TransformControls size={1} position={currentPosition as unknown as Vector3} onMouseUp={handleTransformControlsMouseUp} enabled={true}
+            <TransformControls size={1} position={currentPosition as unknown as Vector3} scale={currentScale as unknown as Vector3} onMouseUp={handleTransformControlsMouseUp}
+              enabled={true}
               ref={transform}
               mode={transformControlsMode} >
               <group>
@@ -83,7 +93,7 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             </TransformControls>
             )
           : (
-            <group name={cube.uid} position={currentPosition as unknown as Vector3}>
+            <group name={cube.uid} scale={currentScale as unknown as Vector3} position={currentPosition as unknown as Vector3}>
               {children}
             </group>
             )
