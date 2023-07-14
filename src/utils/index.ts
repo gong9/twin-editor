@@ -30,6 +30,7 @@ export const calcSceneTreeData = (data: SchemaType): DataNode[] => {
       {
         title: middleData[i].uid.slice(0, 10),
         key: middleData[i].uid,
+        isLeaf: true,
       },
     )
   }
