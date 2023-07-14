@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { Vector3 } from 'three'
 
 import { emitter } from '@/utils'
 import store from '@/store'
@@ -29,6 +30,20 @@ const MiniMenu: FC<MiniMenuProps> = () => {
       setCurrentSelectedMesh: state.setCurrentSelectedMesh,
     }
   ))
+
+  const { currentScene, currentMainCamera, currentControls } = store.threeStore(state => state)
+
+  const toggle2dView = () => {
+    if (currentScene && currentMainCamera && currentControls) {
+      currentControls.object.lookAt(new Vector3(0, 0, 0))
+      currentControls.object.position.copy(new Vector3(0, 10, 0))
+      currentControls.maxAzimuthAngle = 0
+      currentControls.minAzimuthAngle = 0
+      currentControls.maxPolarAngle = 0
+      currentControls.minPolarAngle = 0
+      currentControls.update()
+    }
+  }
 
   const miniMenuData: MiniMenuDataItem[] = [
     {
@@ -62,6 +77,9 @@ const MiniMenu: FC<MiniMenuProps> = () => {
     {
       name: '2d-view',
       icon: 'icon-view_d',
+      onClick: () => {
+        toggle2dView()
+      },
     },
     {
       name: 'reset',

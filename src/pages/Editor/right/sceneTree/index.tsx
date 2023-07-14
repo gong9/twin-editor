@@ -27,6 +27,10 @@ const SceneTree: FC<SceneTreeProps> = () => {
     if (currentControls) {
       currentControls.target.copy(new Vector3(0, 0, 0))
       currentControls.object.position.copy(new Vector3(initialMainCameraPosition[0], initialMainCameraPosition[1], initialMainCameraPosition[2]))
+      currentControls.maxAzimuthAngle = Number.POSITIVE_INFINITY
+      currentControls.minAzimuthAngle = Number.POSITIVE_INFINITY
+      currentControls.maxPolarAngle = Math.PI
+      currentControls.minPolarAngle = 0
       currentControls.update()
     }
   }
