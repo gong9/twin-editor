@@ -1,6 +1,6 @@
 import type { FC } from 'react'
-import { Suspense } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Suspense, useEffect } from 'react'
+import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 import RenderModels from './components/RenderModels'
@@ -14,9 +14,17 @@ interface EditorProps {
 
 }
 
-const Center: FC<EditorProps> = () => {
+const CanvasContent = () => {
+  const { scene, camera, controls } = useThree()
   const schema = store.schemaStore(state => state.data)
   const { orbitControlsEnabled, gridHelperEnabled, axesHelperEnabled } = store.settingStore(state => state)
+  const { setCurrentScene, setCurrentMainCamera, setCurrentControls } = store.threeStore(state => state)
+
+  useEffect(() => {
+    scene && setCurrentScene(scene)
+    camera && setCurrentMainCamera(camera)
+    controls && setCurrentControls(controls as any)
+  }, [scene, camera, controls])
 
   const renderMeshView = () => {
     return (schema.mesh ?? []).map((mesh) => {
@@ -31,20 +39,28 @@ const Center: FC<EditorProps> = () => {
   }
 
   return (
+    <>
+      { gridHelperEnabled && <gridHelper args={[100, 50]} />}
+      <ambientLight />
+      <pointLight position={[10, 10, 10]} />
+      { axesHelperEnabled && <axesHelper args={[10]} />}
+      <OrbitControls enabled={orbitControlsEnabled} makeDefault/>
+      {
+          renderMeshView()
+      }
+      {
+          renderModelView()
+      }
+    </>
+  )
+}
+
+const Center: FC<EditorProps> = () => {
+  return (
     <div className='editor-center'>
       <Suspense fallback={<ReactLoading />}>
         <Canvas frameloop='demand' camera={{ position: [0, 3, 10] }} style={{ backgroundColor: '#222' }}>
-          { gridHelperEnabled && <gridHelper args={[100, 50]} />}
-          <ambientLight />
-          <pointLight position={[10, 10, 10]} />
-          { axesHelperEnabled && <axesHelper args={[10]} />}
-          <OrbitControls enabled={orbitControlsEnabled} makeDefault/>
-          {
-          renderMeshView()
-          }
-          {
-          renderModelView()
-          }
+          <CanvasContent/>
         </Canvas>
       </Suspense>
       <MiniMenu/>

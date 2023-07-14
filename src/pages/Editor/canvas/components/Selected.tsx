@@ -1,7 +1,6 @@
 import type { FC, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { TransformControls } from '@react-three/drei'
-import { useThree } from '@react-three/fiber'
 import type { Box3, Vector3 } from 'three'
 
 import type { MeshType, ModelType } from '@/type/SchemaType'
@@ -26,13 +25,6 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
   const [isSelected, setIsSelected] = useState(false)
   const schemaStore = store.schemaStore()
   const transformControlsMode = store.settingStore(state => state.transformControlsMode)
-  const { setCurrentScene, setCurrentMainCamera } = store.threeStore(state => state)
-  const { scene, camera } = useThree()
-
-  useEffect(() => {
-    setCurrentScene(scene)
-    setCurrentMainCamera(camera)
-  }, [scene, camera])
 
   useEffect(() => {
     if (schemaStore.currentSelectedMesh?.uid !== cube.uid)
