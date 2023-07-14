@@ -112,8 +112,6 @@ class HistoryController {
     const currentSnapshotPath = jsonpatch.compare(lastData, currentData)
 
     this.patch.push(currentSnapshotPath as any)
-    console.log(this.patch)
-
     this.updateBaseData()
   }
 

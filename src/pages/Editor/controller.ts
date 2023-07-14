@@ -2,10 +2,11 @@ import type { Vector3 } from 'three'
 import { v4 as uuidv4 } from 'uuid'
 import { message } from 'antd'
 
-import type { MeshType } from '@/type/SchemaType'
+import type { BaseConfigTypeItem, MeshType } from '@/type/SchemaType'
 import store from '@/store'
 import { emitter } from '@/utils'
 import shortcutKeyRegister from '@/utils/shortcutKeyController'
+import { BASECONFIG } from '@/constants'
 
 const schemaStore = store.schemaStore
 
@@ -26,23 +27,7 @@ const mockData: MeshType = {
   material: {
     type: 'meshBasicMaterial',
   },
-  baseConfig: [
-    {
-      name: 'position',
-      label: '位置',
-      type: 'input-xyz',
-    },
-    {
-      name: 'rotation',
-      label: '旋转',
-      type: 'input',
-    },
-    {
-      name: 'scale',
-      label: '缩放',
-      type: 'input-xyz',
-    },
-  ],
+  baseConfig: BASECONFIG as BaseConfigTypeItem[],
 }
 
 const shortKeyInit = () => {

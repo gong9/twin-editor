@@ -48,8 +48,6 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
     setCurrentPosition(object.position)
     setCurrentScale(object.scale)
 
-    console.log('object', object)
-
     if (cubeType === CubeType.mesh) {
       schemaStore.updateMesh(
         cube.uid,

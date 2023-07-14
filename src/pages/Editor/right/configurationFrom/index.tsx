@@ -60,7 +60,6 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
           </div>
         )
       case 'input-xyz':
-        console.log('value', value)
         return (
           <div className='flex flex-col'>
             <span className='text-sm title'>{baseConfig.label} :</span>
