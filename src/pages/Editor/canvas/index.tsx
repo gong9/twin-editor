@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import { Suspense, useEffect } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
 import RenderModels from './components/RenderModels'
 import RenderMesh from './components/RenderMesh'
@@ -25,7 +26,7 @@ const CanvasContent = () => {
   useEffect(() => {
     scene && setCurrentScene(scene)
     camera && setCurrentMainCamera(camera)
-    controls && setCurrentControls(controls as any)
+    controls && setCurrentControls(controls as any as OrbitControlsImpl)
   }, [scene, camera, controls])
 
   const renderMeshView = () => {

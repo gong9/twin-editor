@@ -52,6 +52,9 @@ dependencies:
   three:
     specifier: ^0.154.0
     version: 0.154.0
+  three-stdlib:
+    specifier: ^2.23.13
+    version: 2.23.13(three@0.154.0)
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
@@ -3298,7 +3301,7 @@ packages:
       suspend-react: 0.1.3(react@18.2.0)
       three: 0.154.0
       three-mesh-bvh: 0.6.0(three@0.154.0)
-      three-stdlib: 2.23.10(three@0.154.0)
+      three-stdlib: 2.23.13(three@0.154.0)
       troika-three-text: 0.47.2(three@0.154.0)
       utility-types: 3.10.0
       zustand: 3.7.2(react@18.2.0)
@@ -12349,8 +12352,8 @@ packages:
       three: 0.154.0
     dev: false
 
-  /three-stdlib@2.23.10(three@0.154.0):
-    resolution: {integrity: sha512-y0DlxaN5HZXI9hKjEtqO2xlCEt7XyDCOMvD2M3JJFBmYjwbU+PbJ1n3Z+7Hr/6BeVGE6KZYcqPMnfKrTK5WTJg==}
+  /three-stdlib@2.23.13(three@0.154.0):
+    resolution: {integrity: sha512-WU4XHs4E6szAyoREzTs5bUAc1WFadiz5jRjNlA7aIIqf+raT4jfA320P0XmlyZz/wJwmpZnOuki4kAFsmadkTQ==}
     peerDependencies:
       three: '>=0.128.0'
     dependencies:

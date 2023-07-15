@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import type { Camera, EventDispatcher, Scene } from 'three'
+import type { Camera, Scene } from 'three'
+import type { OrbitControls } from 'three-stdlib'
 
 /**
  * @file: three.js 相关 store
@@ -7,10 +8,10 @@ import type { Camera, EventDispatcher, Scene } from 'three'
 export interface ThreeStoreProps {
   currentScene: Scene | null
   currentMainCamera: Camera | null
-  currentControls: any | null
+  currentControls: OrbitControls | null
   setCurrentScene: (scene: Scene) => void
   setCurrentMainCamera: (camera: Camera) => void
-  setCurrentControls: (controls: EventDispatcher<Event>) => void
+  setCurrentControls: (controls: OrbitControls) => void
 }
 
 const threeStore = create<ThreeStoreProps>(set => ({
@@ -20,7 +21,7 @@ const threeStore = create<ThreeStoreProps>(set => ({
 
   setCurrentScene: (scene: Scene) => set({ currentScene: scene }),
   setCurrentMainCamera: (camera: Camera) => set({ currentMainCamera: camera }),
-  setCurrentControls: (controls: EventDispatcher<Event>) => set({ currentControls: controls }),
+  setCurrentControls: (controls: OrbitControls) => set({ currentControls: controls }),
 }))
 
 export type ThreeStoreType = typeof threeStore
