@@ -30,7 +30,6 @@ const MiniMenu: FC<MiniMenuProps> = () => {
       setCurrentSelectedMesh: state.setCurrentSelectedMesh,
     }
   ))
-
   const { currentScene, currentMainCamera, currentControls } = store.threeStore(state => state)
 
   const toggle2dView = () => {

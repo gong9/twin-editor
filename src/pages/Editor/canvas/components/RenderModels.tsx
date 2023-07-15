@@ -16,7 +16,6 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
-
   const currentScene = useGltfScene(model.source)
 
   useEffect(() => {
