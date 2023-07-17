@@ -7,7 +7,12 @@ import store from '@/store'
 import { emitter } from '@/utils'
 import shortcutKeyRegister from '@/utils/shortcutKeyController'
 import { BASECONFIG } from '@/constants'
+import historyController from '@/utils/historyController'
 
+interface ShortActionType {
+  save: () => void
+  undo: () => void
+}
 const schemaStore = store.schemaStore
 
 const mockData: MeshType = {
@@ -30,15 +35,28 @@ const mockData: MeshType = {
   baseConfig: BASECONFIG as BaseConfigTypeItem[],
 }
 
+export const shortAction: ShortActionType = {
+  save: () => {
+    localStorage.setItem('schema', JSON.stringify(schemaStore.getState().data))
+    message.success('保存成功')
+  },
+  undo: () => {
+    message.warning('作者正在调试中')
+    // const data = historyController.undo()
+    // schemaStore.setState({
+    //   data: data as any,
+    // })
+  },
+
+}
+
 const shortKeyInit = () => {
   const currentShortKeyApi = shortcutKeyRegister()
   const saveShortKeyApi = currentShortKeyApi.get('save')
   const deleteShortKeyApi = currentShortKeyApi.get('delete')
+  const undoShortKeyApi = currentShortKeyApi.get('undo')
 
-  saveShortKeyApi!(() => {
-    localStorage.setItem('schema', JSON.stringify(schemaStore.getState().data))
-    message.success('保存成功')
-  })
+  saveShortKeyApi!(shortAction.save)
 
   deleteShortKeyApi!(() => {
     const currentSelectedCube = schemaStore.getState().currentSelectedMesh
@@ -53,30 +71,25 @@ const shortKeyInit = () => {
       })
     }
   })
+
+  undoShortKeyApi!(shortAction.undo)
 }
 
 const dataInit = () => {
   const schema = localStorage.getItem('schema')
   const calcSceneTreeData = schemaStore.getState().calcSceneTreeData
-  if (schema) {
-    const data = JSON.parse(schema)
-    calcSceneTreeData(data)
-    schemaStore.setState({
-      data,
-    })
-  }
-  else {
-    const data = {
-      mesh: [mockData],
-      model: [],
-    }
-    calcSceneTreeData(data)
-    schemaStore.setState(
-      {
-        data,
-      },
-    )
-  }
+  const data = schema
+    ? JSON.parse(schema)
+    : {
+        mesh: [mockData],
+        model: [],
+      }
+
+  calcSceneTreeData(data)
+  historyController.setBaseData(data)
+  schemaStore.setState({
+    data,
+  })
 }
 
 export default {

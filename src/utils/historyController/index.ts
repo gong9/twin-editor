@@ -52,10 +52,11 @@ class HistoryController {
   private updateBaseData() {
     this.resetHistoryIndex()
 
+    // need cala baseData again
     if (this.patch.length > this.historyStackLength) {
       const currentPatch = this.patch.shift() as Operation
       this.baseData = jsonpatch.applyOperation(
-        { ...this.baseData },
+        this.baseData,
         currentPatch,
       ).newDocument
     }
@@ -102,7 +103,7 @@ class HistoryController {
   }
 
   /**
-   * don't know the patch
+   * don't know the patch， like this case
    * sometimes, we don't know the patch
    * @param currentData
    * @returns
@@ -130,9 +131,10 @@ class HistoryController {
 
   public undo() {
     if (this.historyIndex > 0) {
-      const currentPatch = this.patch.slice(0, this.historyIndex - 1)
       this.historyIndex -= 1
 
+      const currentPatch = this.patch.slice(0, this.historyIndex + 1)
+      console.log('undo', this.historyIndex)
       const currentState = jsonpatch.applyPatch({ ...this.baseData }, flatten(currentPatch))
         .newDocument
 

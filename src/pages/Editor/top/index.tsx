@@ -14,6 +14,7 @@ import { Menu, message } from 'antd'
 import type { MenuProps } from 'antd'
 
 import store from '@/store'
+import { shortAction } from '@/pages/Editor/controller'
 
 interface TopProps {
 
@@ -51,7 +52,7 @@ const Top: FC<TopProps> = () => {
         key: 'undo',
         icon: <UndoOutlined />,
         onClick: () => {
-          message.warning('开发中')
+          shortAction.undo()
         },
       },
       {
@@ -59,7 +60,7 @@ const Top: FC<TopProps> = () => {
         key: 'redo',
         icon: <RedoOutlined />,
         onClick: () => {
-          message.warning('开发中')
+          shortAction.undo()
         },
       },
       {
@@ -76,8 +77,7 @@ const Top: FC<TopProps> = () => {
         icon: <SaveOutlined />,
         key: 'save',
         onClick: () => {
-          localStorage.setItem('schema', JSON.stringify(schemaStore.data))
-          message.success('保存成功')
+          shortAction.save()
         },
       },
     ], [

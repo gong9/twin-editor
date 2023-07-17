@@ -30,14 +30,14 @@ const CanvasContent = () => {
   }, [scene, camera, controls])
 
   const renderMeshView = () => {
-    return (schema.mesh ?? []).map((mesh) => {
-      return <RenderMesh key={mesh.uid} mesh={mesh}/>
+    return (schema.mesh ?? []).map((mesh, index) => {
+      return <RenderMesh key={mesh.uid + index} mesh={mesh}/>
     })
   }
 
   const renderModelView = () => {
-    return (schema.model ?? []).map((model) => {
-      return <RenderModels key={model.uid} model={model}/>
+    return (schema.model ?? []).map((model, index) => {
+      return <RenderModels key={model.uid + index} model={model}/>
     })
   }
 

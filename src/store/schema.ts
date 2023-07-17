@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import type { DataNode } from 'antd/es/tree'
 import type { GlobalConfigTyle, MeshType, ModelType, SchemaType } from '../type/SchemaType'
 import { calcSceneTreeData } from '@/utils'
+import historyController from '@/utils/historyController'
 
 export type SelectCubeType = MeshType | ModelType | null
 export interface SchemaStoreProps {
@@ -61,6 +62,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     }
 
     state.calcSceneTreeData(data)
+    historyController.addRecord(data)
 
     return {
       data,
@@ -74,14 +76,15 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     }
 
     state.calcSceneTreeData(data)
+    historyController.addRecord(data)
 
     return {
       data,
     }
   }),
 
-  updateMesh: (uid: string, mesh: MeshType) => set(state => ({
-    data: {
+  updateMesh: (uid: string, mesh: MeshType) => set((state) => {
+    const data = {
       mesh: state.data.mesh?.map((item) => {
         if (item.uid === uid)
           return mesh
@@ -89,11 +92,17 @@ const schemaStore = create<SchemaStoreProps>(set => ({
         return item
       }),
       model: state.data.model,
-    },
-  })),
+    }
 
-  updateModel: (uid: string, model: ModelType) => set(state => ({
-    data: {
+    historyController.addRecord(data)
+
+    return {
+      data,
+    }
+  }),
+
+  updateModel: (uid: string, model: ModelType) => set((state) => {
+    const data = {
       model: state.data.model?.map((item) => {
         if (item.uid === uid)
           return model
@@ -101,12 +110,22 @@ const schemaStore = create<SchemaStoreProps>(set => ({
         return item
       }),
       mesh: state.data.mesh,
-    },
-  })),
+    }
 
-  setData: (data: SchemaType) => set(() => ({
-    data,
-  })),
+    historyController.addRecord(data)
+
+    return {
+      data,
+    }
+  }),
+
+  setData: (data: SchemaType) => set(() => {
+    historyController.addRecord(data)
+
+    return {
+      data,
+    }
+  }),
 
   setCurrentSelectedMesh: (cube: MeshType | ModelType | null) => set(() => ({
     currentSelectedMesh: cube,
@@ -118,6 +137,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       model: [],
     }
     state.calcSceneTreeData(currentData)
+    historyController.addRecord(currentData)
 
     return {
       data: currentData,
