@@ -115,7 +115,7 @@ const Top: FC<TopProps> = () => {
 
   return (
     <div className='flex justify-between pt-1 items-center cursor-pointer' style={{ backgroundColor: '#3c3c3c', height: '60px', color: '#ccc' }}>
-      <div className='ml-5'>anov-3d-editor</div>
+      <div className='ml-5'>twin-editor</div>
       <div className='flex'>
         {renderTopItem(TopItemEnum.operate)}
       </div>
