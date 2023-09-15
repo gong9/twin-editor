@@ -50,15 +50,18 @@ export const shortAction: ShortActionType = {
 
 }
 
+/**
+ * 初始化快捷键
+ */
 const shortKeyInit = () => {
   const currentShortKeyApi = shortcutKeyRegister()
-  const saveShortKeyApi = currentShortKeyApi.get('save')
-  const deleteShortKeyApi = currentShortKeyApi.get('delete')
-  const undoShortKeyApi = currentShortKeyApi.get('undo')
+  const saveShortKeyApi = currentShortKeyApi.get('save')!
+  const deleteShortKeyApi = currentShortKeyApi.get('delete')!
+  const undoShortKeyApi = currentShortKeyApi.get('undo')!
 
-  saveShortKeyApi!(shortAction.save)
+  saveShortKeyApi(shortAction.save)
 
-  deleteShortKeyApi!(() => {
+  deleteShortKeyApi(() => {
     const currentSelectedCube = schemaStore.getState().currentSelectedMesh
     if (currentSelectedCube && currentSelectedCube.uid) {
       const data = {
@@ -72,7 +75,7 @@ const shortKeyInit = () => {
     }
   })
 
-  undoShortKeyApi!(shortAction.undo)
+  undoShortKeyApi(shortAction.undo)
 }
 
 const dataInit = () => {
