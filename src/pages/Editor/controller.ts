@@ -86,7 +86,7 @@ const dataInit = () => {
       }
 
   calcSceneTreeData(data)
-  historyController.setBaseData(data)
+  // historyController.setBaseData(data)
   schemaStore.setState({
     data,
   })

@@ -26,10 +26,10 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
     return currentCubeSchema && currentCubeSchema.hasOwnProperty('source')
   }, [currentCubeSchema])
 
-  const handleBaseConfigItemChange = (value: any, name: string, axle: string) => {
+  const handleBaseConfigItemChange = (value: string | null, name: string, axle: string) => {
     const currentCubeNode = currentCubeSchema
 
-    if ((value === 0 || value) && currentCubeNode && (currentCubeNode as any)[name]) {
+    if (value && currentCubeNode && (currentCubeNode as any)[name]) {
       const nextCubeNodeState = produce(currentCubeNode, (draft) => {
         (draft as any)[name][axle] = value
       })
@@ -64,9 +64,9 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
           <div className='flex flex-col'>
             <span className='text-sm title'>{baseConfig.label} :</span>
             <div className='mt-1 ml-2'>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={(value && value?.x.toFixed(2)) || 1} className='w-14 mr-2 input-config' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={(value && value?.y.toFixed(2)) || 1} className='w-14 mr-2 input-config' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={(value && value?.z.toFixed(2)) || 1} className='w-14 input-config' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={(value && value?.x.toFixed(2)) || '1'} className='w-14 mr-2 input-config' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={(value && value?.y.toFixed(2)) || '1'} className='w-14 mr-2 input-config' controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={(value && value?.z.toFixed(2)) || '1'} className='w-14 input-config' controls={false}/>
             </div>
           </div>
         )

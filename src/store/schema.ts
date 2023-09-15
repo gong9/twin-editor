@@ -62,7 +62,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     }
 
     state.calcSceneTreeData(data)
-    historyController.addRecord(data)
+    // historyController.addRecord(data)
 
     return {
       data,
@@ -76,7 +76,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
     }
 
     state.calcSceneTreeData(data)
-    historyController.addRecord(data)
+    // historyController.addRecord(data)
 
     return {
       data,
@@ -94,7 +94,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       model: state.data.model,
     }
 
-    historyController.addRecord(data)
+    // historyController.addRecord(data)
 
     return {
       data,
@@ -112,7 +112,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       mesh: state.data.mesh,
     }
 
-    historyController.addRecord(data)
+    // historyController.addRecord(data)
 
     return {
       data,
@@ -120,7 +120,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
   }),
 
   setData: (data: SchemaType) => set(() => {
-    historyController.addRecord(data)
+    // historyController.addRecord(data)
 
     return {
       data,
@@ -137,7 +137,7 @@ const schemaStore = create<SchemaStoreProps>(set => ({
       model: [],
     }
     state.calcSceneTreeData(currentData)
-    historyController.addRecord(currentData)
+    // historyController.addRecord(currentData)
 
     return {
       data: currentData,
