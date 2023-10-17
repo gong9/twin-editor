@@ -6,6 +6,7 @@ import { produce } from 'immer'
 
 import type { SelectCubeType } from '@/store/schema'
 import store from '@/store'
+import { isTure } from '@/utils'
 import type { BaseConfigTypeItem, MeshType, ModelType } from '@/type/SchemaType'
 import './index.scss'
 
@@ -29,7 +30,8 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
   const handleBaseConfigItemChange = (value: string | null, name: string, axle: string) => {
     const currentCubeNode = currentCubeSchema
 
-    if (value && currentCubeNode && (currentCubeNode as any)[name]) {
+    if (isTure(value) && currentCubeNode && (currentCubeNode as any)[name]) {
+      // useless immer
       const nextCubeNodeState = produce(currentCubeNode, (draft) => {
         (draft as any)[name][axle] = value
       })
@@ -64,9 +66,16 @@ const ConfigurationForm: FC<ConfigurationFormProps> = ({ currentCubeSchema }) =>
           <div className='flex flex-col'>
             <span className='text-sm title'>{baseConfig.label} :</span>
             <div className='mt-1 ml-2'>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={(value && value?.x.toFixed(2)) || '1'} className='w-14 mr-2 input-config' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={(value && value?.y.toFixed(2)) || '1'} className='w-14 mr-2 input-config' controls={false}/>
-              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={(value && value?.z.toFixed(2)) || '1'} className='w-14 input-config' controls={false}/>
+              <InputNumber className='hidden'
+               />
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'x')} value={(value && value?.x.toFixed(2)) || '0'}
+                className='w-14 mr-2 input-config'
+                controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'y')} value={(value && value?.y.toFixed(2)) || '0'}
+                className='w-14 mr-2 input-config'
+                controls={false}/>
+              <InputNumber onChange={value => handleBaseConfigItemChange(value, baseConfig.name, 'z')} value={(value && value?.z.toFixed(2)) || '0'}
+                className='w-14 input-config' controls={false}/>
             </div>
           </div>
         )

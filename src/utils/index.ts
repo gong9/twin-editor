@@ -37,3 +37,10 @@ export const calcSceneTreeData = (data: SchemaType): DataNode[] => {
 
   return result
 }
+
+export const isTure = (param: string | number | null | undefined) => {
+  if (param === 0 || param)
+    return true
+  else
+    return false
+}

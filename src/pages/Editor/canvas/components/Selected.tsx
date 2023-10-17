@@ -80,7 +80,11 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
       {
         isSelected
           ? (
-            <TransformControls size={1} position={currentPosition as unknown as Vector3} scale={currentScale as unknown as Vector3} onMouseUp={handleTransformControlsMouseUp}
+            <TransformControls
+              size={0.5}
+              position={currentPosition as unknown as Vector3}
+              // scale={currentScale as unknown as Vector3}
+              onMouseUp={handleTransformControlsMouseUp}
               enabled={true}
               ref={transform}
               mode={transformControlsMode} >
