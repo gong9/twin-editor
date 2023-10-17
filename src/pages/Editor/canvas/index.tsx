@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { Suspense, useEffect, useRef, useState } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { GizmoHelper, GizmoViewcube, GizmoViewport, OrbitControls } from '@react-three/drei'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { PerspectiveCamera } from 'three'
 
@@ -19,11 +19,11 @@ interface EditorProps {
 }
 
 const CanvasContent = () => {
-  const { scene, camera, controls } = useThree()
+  const { scene, camera, controls, gl } = useThree()
   const { schema } = store.schemaStore(state => ({
     schema: state.data,
   }))
-  const { orbitControlsEnabled, gridHelperEnabled, axesHelperEnabled } = store.settingStore(state => state)
+  const { orbitControlsEnabled, gridHelperEnabled, axesHelperEnabled, configVisible } = store.settingStore(state => state)
   const { setCurrentScene, setCurrentMainCamera, setCurrentControls } = store.threeStore(state => state)
 
   useEffect(() => {
@@ -51,6 +51,10 @@ const CanvasContent = () => {
       <pointLight position={[10, 10, 10]} />
       { axesHelperEnabled && <axesHelper args={[10]} />}
       <OrbitControls camera={camera} enabled={orbitControlsEnabled} makeDefault/>
+      <GizmoHelper alignment="top-right" margin={configVisible ? [400, 60] : [90, 60]}>
+        <GizmoViewport scale={30}/>
+        {/* <GizmoViewcube opacity={0.85} /> */}
+      </GizmoHelper>
       {
           renderMeshView()
       }
