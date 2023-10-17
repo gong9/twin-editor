@@ -6,7 +6,7 @@ import type { ShortcutKeyControllerMapType } from '@/utils/shortcutKeyController
  * @file: 编辑器全局设置
  */
 
-export interface SettingStoreProps {
+interface SettingStoreStates {
   showSettingModal: boolean
   configVisible: boolean
   orbitControlsEnabled: boolean
@@ -15,6 +15,10 @@ export interface SettingStoreProps {
   shortcutKeyApi: ShortcutKeyControllerMapType | null
   showHelpDrawer: boolean
   transformControlsMode: 'translate' | 'rotate' | 'scale'
+  angleOfView: '2d' | '3d'
+}
+
+interface SettingStoreActions {
   setShowSettingModal: (visible: boolean) => void
   setConfigVisible: (visible: boolean) => void
   setOrbitControlsEnabled: (enabled: boolean) => void
@@ -22,7 +26,10 @@ export interface SettingStoreProps {
   setGridHelperEnabled: (enabled: boolean) => void
   setShowHelpDrawer: (visible: boolean) => void
   setTransformControlsMode: (mode: 'translate' | 'rotate' | 'scale') => void
+  toggleAngleOfView: (params: '2d' | '3d') => void
 }
+
+export type SettingStoreProps = SettingStoreStates & SettingStoreActions
 
 const settingStore = create<SettingStoreProps>(set => ({
   showSettingModal: false, // 是否显示设置面板
@@ -33,6 +40,7 @@ const settingStore = create<SettingStoreProps>(set => ({
   shortcutKeyApi: null, // 快捷键
   showHelpDrawer: false, // 是否显示帮助抽屉
   transformControlsMode: 'translate', // 变换控件模式，translate, rotate, scale
+  angleOfView: '3d',
 
   setShowSettingModal: (visible: boolean) => set({ showSettingModal: visible }),
   setConfigVisible: (visible: boolean) => set({ configVisible: visible }),
@@ -41,6 +49,7 @@ const settingStore = create<SettingStoreProps>(set => ({
   setGridHelperEnabled: (enabled: boolean) => set({ gridHelperEnabled: enabled }),
   setShowHelpDrawer: (visible: boolean) => set({ showHelpDrawer: visible }),
   setTransformControlsMode: (mode: 'translate' | 'rotate' | 'scale') => set({ transformControlsMode: mode }),
+  toggleAngleOfView: params => set(() => ({ angleOfView: params })),
 }))
 
 export type SettingStoreType = typeof settingStore

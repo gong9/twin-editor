@@ -16,12 +16,13 @@ interface MiniMenuDataItem {
 }
 
 const MiniMenu: FC<MiniMenuProps> = ({ className }) => {
-  const { setTransformControlsMode, transformControlsMode, configVisible, setConfigVisible } = store.settingStore(state => (
+  const { setTransformControlsMode, transformControlsMode, toggleAngleOfView, configVisible, setConfigVisible } = store.settingStore(state => (
     {
       setTransformControlsMode: state.setTransformControlsMode,
       transformControlsMode: state.transformControlsMode,
       configVisible: state.configVisible,
       setConfigVisible: state.setConfigVisible,
+      toggleAngleOfView: state.toggleAngleOfView,
     }
   ))
   const { currentSelectedMesh, setCurrentSelectedMesh } = store.schemaStore(state => (
@@ -33,6 +34,7 @@ const MiniMenu: FC<MiniMenuProps> = ({ className }) => {
   const { currentScene, currentMainCamera, currentControls } = store.threeStore(state => state)
 
   const toggle2dView = () => {
+    // toggleAngleOfView('2d')
     if (currentScene && currentMainCamera && currentControls) {
       currentControls.object.lookAt(new Vector3(0, 0, 0))
       currentControls.object.position.copy(new Vector3(0, 20, 0))
@@ -84,6 +86,7 @@ const MiniMenu: FC<MiniMenuProps> = ({ className }) => {
       name: 'reset',
       icon: 'icon-zhongzhi',
       onClick: () => {
+        // toggleAngleOfView('3d')
         emitter.emit('resetState')
       },
     },

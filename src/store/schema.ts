@@ -6,12 +6,16 @@ import { calcSceneTreeData } from '@/utils'
 import historyController from '@/utils/historyController'
 
 export type SelectCubeType = MeshType | ModelType | null
-export interface SchemaStoreProps {
+
+interface schemaStoreStates {
   data: SchemaType
   globalConfig: GlobalConfigTyle
   currentSelectedMesh: SelectCubeType
   sceneTree: DataNode[]
   initialMainCameraPosition: [x: number, y: number, z: number]
+}
+
+interface schemaStoreActions {
   addMesh: (mesh: MeshType) => void
   addModel: (model: ModelType) => void
   setData: (data: SchemaType) => void
@@ -21,6 +25,8 @@ export interface SchemaStoreProps {
   setCurrentSelectedMesh: (mesh: MeshType | ModelType | null) => void
   reset: () => void
 }
+
+export type SchemaStoreProps = schemaStoreStates & schemaStoreActions
 
 /**
  * json schema store

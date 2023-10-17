@@ -27,7 +27,7 @@ const Right: FC<RightProps> = () => {
   return (
     <div className='absolute right-0 h-full flex editor-right' style={{ width: configVisible ? '300px' : '0', backgroundColor: '#252526', color: '#ccc' }}>
       {renderConfig()}
-      <div className='scene-tree'>
+      <div className='scene-tree mb-10'>
         <SceneTree/>
       </div>
       <MiniMenu className={ configVisible ? 'right-[310px]' : 'right-[10px]'}/>

@@ -5,14 +5,20 @@ import type { OrbitControls } from 'three-stdlib'
 /**
  * @file: three.js 相关 store
  */
-export interface ThreeStoreProps {
+
+interface ThreeStoreStates {
   currentScene: Scene | null
   currentMainCamera: Camera | null
   currentControls: OrbitControls | null
+}
+
+interface ThreeStoreActions {
   setCurrentScene: (scene: Scene) => void
   setCurrentMainCamera: (camera: Camera) => void
   setCurrentControls: (controls: OrbitControls) => void
 }
+
+export type ThreeStoreProps = ThreeStoreStates & ThreeStoreActions
 
 const threeStore = create<ThreeStoreProps>(set => ({
   currentScene: null,
