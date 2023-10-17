@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-import MiniMenu from '../canvas/components/MiniMenu'
+import MiniMenu from './MiniMenu'
 import ConfigurationForm from './configurationFrom'
 import SceneTree from './sceneTree'
 import store from '@/store'
