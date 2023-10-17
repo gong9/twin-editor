@@ -6,7 +6,7 @@ import store from '@/store'
 import './index.scss'
 
 interface MiniMenuProps {
-
+  className?: string
 }
 
 interface MiniMenuDataItem {
@@ -15,7 +15,7 @@ interface MiniMenuDataItem {
   onClick?: () => void
 }
 
-const MiniMenu: FC<MiniMenuProps> = () => {
+const MiniMenu: FC<MiniMenuProps> = ({ className }) => {
   const { setTransformControlsMode, transformControlsMode, configVisible, setConfigVisible } = store.settingStore(state => (
     {
       setTransformControlsMode: state.setTransformControlsMode,
@@ -100,7 +100,7 @@ const MiniMenu: FC<MiniMenuProps> = () => {
   }
 
   return (
-    <div className='mini-menu'>
+    <div className={`${className} mini-menu`}>
       {renderMiiMenuList()}
 
       <div onClick={() => { setConfigVisible(!configVisible) }} className='config-show-control w-6 h-8 flex justify-center items-center rounded mb-2 cursor-pointer' style={{ backgroundColor: '#000' }}>

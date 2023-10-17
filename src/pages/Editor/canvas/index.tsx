@@ -6,7 +6,6 @@ import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
 import RenderModels from './components/RenderModels'
 import RenderMesh from './components/RenderMesh'
-import MiniMenu from './components/MiniMenu'
 import ReactLoading from '@/components/Loding'
 import store from '@/store'
 import './index.scss'
@@ -63,13 +62,12 @@ const Center: FC<EditorProps> = () => {
     initialMainCameraPosition: state.initialMainCameraPosition,
   }))
   return (
-    <div className='editor-center'>
+    <div className='h-screen absolute w-full'>
       <Suspense fallback={<ReactLoading />}>
         <Canvas frameloop='demand' camera={{ position: initialMainCameraPosition }} style={{ backgroundColor: '#222' }}>
           <CanvasContent/>
         </Canvas>
       </Suspense>
-      <MiniMenu/>
     </div>
   )
 }

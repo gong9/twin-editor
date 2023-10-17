@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 
+import MiniMenu from '../canvas/components/MiniMenu'
 import ConfigurationForm from './configurationFrom'
 import SceneTree from './sceneTree'
 import store from '@/store'
@@ -24,11 +25,12 @@ const Right: FC<RightProps> = () => {
   }
 
   return (
-    <div className='flex editor-right' style={{ height: '100%', width: configVisible ? '400px' : '0', backgroundColor: '#252526', color: '#ccc' }}>
+    <div className='absolute right-0 h-full flex editor-right' style={{ width: configVisible ? '300px' : '0', backgroundColor: '#252526', color: '#ccc' }}>
       {renderConfig()}
       <div className='scene-tree'>
         <SceneTree/>
       </div>
+      <MiniMenu className={ configVisible ? 'right-[310px]' : 'right-[10px]'}/>
     </div>
   )
 }

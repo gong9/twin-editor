@@ -153,7 +153,7 @@ const Left: FC<LeftProps> = () => {
   }
 
   return (
-    <div className='flex editor-left mb-2 pt-2' style={{ backgroundColor: '#252526' }}>
+    <div className='absolute top-0 left-0 z-10 h-full flex editor-left mb-2 pt-2' style={{ backgroundColor: '#252526' }}>
       <div className='flex flex-col editor-left-menu pr-1' >
         <Menu theme="dark" defaultSelectedKeys={[dataSources[0].key]} onClick={handleSelect} mode="vertical"
           items={dataSources.map(item => ({ ...item, children: null }))}
