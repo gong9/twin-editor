@@ -8,6 +8,7 @@ import { emitter } from '@/utils'
 import shortcutKeyRegister from '@/utils/shortcutKeyController'
 import { BASECONFIG } from '@/constants'
 import historyController from '@/utils/historyController'
+import useModeStore from '@/store/mode'
 
 interface ShortActionType {
   save: () => void
@@ -58,6 +59,7 @@ const shortKeyInit = () => {
   const saveShortKeyApi = currentShortKeyApi.get('save')!
   const deleteShortKeyApi = currentShortKeyApi.get('delete')!
   const undoShortKeyApi = currentShortKeyApi.get('undo')!
+  const exitShortKeyApi = currentShortKeyApi.get('exit')!
 
   saveShortKeyApi(shortAction.save)
 
@@ -76,6 +78,15 @@ const shortKeyInit = () => {
   })
 
   undoShortKeyApi(shortAction.undo)
+
+  exitShortKeyApi(() => {
+    const lastState = schemaStore.getState()
+
+    useModeStore.setState({
+      ...lastState,
+      drawline: false,
+    })
+  })
 }
 
 const dataInit = () => {

@@ -1,34 +1,40 @@
 import type { FC } from 'react'
+import useModeStore from '@/store/mode'
 
 interface MenuProps {
 
 }
 
-const MenuItem = [
-  {
-    label: '画线',
-    icon: 'icon-compile_icon_normal',
-  },
-  {
-    label: '吸附',
-    icon: 'icon-a-xitieshixiyin',
-  },
-  {
-    label: '复制',
-    icon: 'icon-fuzhi',
-  },
-  {
-    label: '删除',
-    icon: 'icon-shanchu',
-  },
-]
-
 const Menu: FC<MenuProps> = () => {
+  const { setDrawline } = useModeStore(state => state)
+
+  const MenuItem = [
+    {
+      label: '画线',
+      icon: 'icon-compile_icon_normal',
+      onClick: () => {
+        setDrawline(true)
+      },
+    },
+    {
+      label: '吸附',
+      icon: 'icon-a-xitieshixiyin',
+    },
+    {
+      label: '复制',
+      icon: 'icon-fuzhi',
+    },
+    {
+      label: '删除',
+      icon: 'icon-shanchu',
+    },
+  ]
+
   const renderMenuItem = () => {
     return MenuItem.map((menuItem) => {
       return (
         <div key={menuItem.label} className='bg-black w-6 h-6 mr-2 text-white flex justify-center items-center rounded cursor-pointer'>
-          <span className={`iconfont text-sm ${menuItem.icon}`}/>
+          <span onClick={menuItem?.onClick} className={`iconfont text-sm ${menuItem.icon}`}/>
         </div>
       )
     })

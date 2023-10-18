@@ -29,4 +29,10 @@ export const editorShortcuts: ShortcutKey[] = [
     label: '重做',
     describe: 'Redo the last action',
   },
+  {
+    name: 'exit',
+    key: 'esc',
+    label: '退出',
+    describe: '退出编辑模式',
+  },
 ]
