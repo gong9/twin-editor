@@ -1,0 +1,30 @@
+name: publish-to-alibabacloud
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+      - name: install
+        run: pnpm install --no-frozen-lockfile
+      - name: build
+        run: pnpm build
+      - name: scp
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: 182.92.210.127
+          port: 22
+          username: ${{secrets.ALIYUN_NAME}}
+          password: ${{secrets.AIYUN_PASSWORD}}
+          source: "dist"
+          target: "/root/nginx/3d-editor"
