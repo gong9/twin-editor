@@ -94,7 +94,7 @@ const Center: FC<EditorProps> = () => {
   }, [])
 
   return (
-    <div className='h-screen absolute w-full' ref={canvasRef}>
+    <div className='h-screen absolute w-full editor' ref={canvasRef}>
       {isRenderCanvas
         && <Suspense fallback={<ReactLoading />}>
           <Canvas camera={getMainCamera(canvasRef, angleOfView)! as (PerspectiveCamera) } frameloop='demand' style={{ backgroundColor: '#222' }}>

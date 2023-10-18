@@ -40,7 +40,7 @@ const Menu: FC<MenuProps> = () => {
     })
   }
   return (
-    <div className='absolute h-3 top-3 left-[50%] ml-[-53%] z-10 w-screen justify-center flex'>
+    <div className='absolute h-3 top-3 left-[50%] ml-[-50%] z-10 w-screen justify-center flex'>
       <div className='flex justify-center h-6 opacity-65 overflow-hidden'>
         {renderMenuItem()}
       </div>
