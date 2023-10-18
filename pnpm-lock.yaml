@@ -58,9 +58,6 @@ dependencies:
   uuid:
     specifier: ^9.0.0
     version: 9.0.0
-  view-helper:
-    specifier: ^0.0.1
-    version: registry.npmjs.org/view-helper@0.0.1
   zustand:
     specifier: ^4.3.8
     version: 4.3.8(immer@10.0.2)(react@18.2.0)
@@ -13111,10 +13108,4 @@ packages:
       immer: 10.0.2
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
-
-  registry.npmjs.org/view-helper@0.0.1:
-    resolution: {integrity: sha512-E7Qpeu6ac4z0DuMsUxetJh7QDEF11VIdLIB/wtTFOGhaXWMWjKHKeka2LQLZMsHWH9FWGZCVmVXZAxVi4mhCMA==, registry: https://registry.npmmirror.com/, tarball: https://registry.npmjs.org/view-helper/-/view-helper-0.0.1.tgz}
-    name: view-helper
-    version: 0.0.1
     dev: false
