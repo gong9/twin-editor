@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Menu } from 'antd'
 
 import type { Vector3 } from 'three'
+import presets from './presets'
 import store from '@/store'
 import { BASECONFIG } from '@/constants'
 import type { BaseConfigTypeItem } from '@/type/SchemaType'
@@ -76,20 +77,11 @@ const dataSources: DataSourcesType[] = [
         label: '立方体',
       },
       {
-        name: 'capsuleGeometry',
-        key: 'capsuleGeometry',
-        label: '胶囊图',
+        name: 'planeGeometry',
+        key: 'planeGeometry',
+        label: '平面',
       },
-      {
-        name: 'circleGeometry',
-        key: 'circleGeometry',
-        label: '圆形',
-      },
-      {
-        name: 'coneGeometry',
-        key: 'coneGeometry',
-        label: '圆锥',
-      },
+
     ],
   },
 ]
@@ -99,9 +91,28 @@ const Left: FC<LeftProps> = () => {
   const [currentSelectedType, setCurrentSelectedType] = useState(dataSources[0].name)
   const schemaStore = store.schemaStore(state => state)
 
+  const getDefaultGeometry = (type: string) => {
+    const resObj = {
+      type,
+    }
+
+    switch (type) {
+      case 'boxGeometry':
+        return { ...presets.boxGeometry, ...resObj }
+      case 'planeGeometry':
+        return { ...presets.planeGeometry, ...resObj }
+    }
+
+    return resObj
+  }
+
   const addObject = (baseItem: DataSourcesType) => {
     switch (currentSelectedType) {
       case 'structure':
+
+        // eslint-disable-next-line no-case-declarations
+        const geometry = getDefaultGeometry(baseItem.name)
+
         schemaStore.addMesh({
           name: baseItem.name,
           uid: uuidv4(),
@@ -110,12 +121,7 @@ const Left: FC<LeftProps> = () => {
             y: -~(Math.random()).toFixed(1),
             z: ~(Math.random() * 5).toFixed(1),
           } as Vector3,
-          geometry: {
-            type: baseItem.name as any,
-            width: 1,
-            height: 1,
-            depth: 1,
-          },
+          geometry: geometry as any,
           material: {
             type: 'meshBasicMaterial',
           },

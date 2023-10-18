@@ -4,7 +4,7 @@ export interface GeometryType {
   type: 'boxGeometry'
   width: number
   height: number
-  depth: number
+  depth?: number
   widthSegments?: number
   heightSegments?: number
   depthSegments?: number

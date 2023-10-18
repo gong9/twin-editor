@@ -20,7 +20,7 @@ export enum TransformControlsModeItem {
 
 const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
-  const geometryRef = useRef(null)
+  const geometryRef = useRef<any>(null)
   const { position, geometry, material, scale } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
@@ -44,12 +44,12 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
 
   useEffect(() => {
     if (geometryRef && !(geometryRef.current! as any).boundingBox) {
-      const currentGeometry = geometryRef.current as any
-      currentGeometry.computeBoundingBox()
-      currentGeometry.boundingBox.min.multiplyScalar(1.1)
-      currentGeometry.boundingBox.max.multiplyScalar(1.1)
+      // const currentGeometry = geometryRef.current as any
+      // currentGeometry.computeBoundingBox()
+      // currentGeometry.boundingBox.min.multiplyScalar(1.1)
+      // currentGeometry.boundingBox.max.multiplyScalar(1.1)
 
-      setCurrentBoundingBox((geometryRef.current! as any).boundingBox)
+      // setCurrentBoundingBox((geometryRef.current! as any).boundingBox)
     }
   }, [currentPosition])
 
@@ -57,11 +57,13 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const Material = material.type
 
   const renderMesh = () => (
+
     <mesh
       ref={meshRef}
       scale={1}
+      rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
       >
-      <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth]} />
+      <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth || 1]} />
       <Material wireframe={false} color={ 'hotpink'} />
     </mesh>
   )

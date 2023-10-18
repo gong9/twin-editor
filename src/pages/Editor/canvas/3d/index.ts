@@ -3,7 +3,7 @@ import { OrthographicCamera, PerspectiveCamera } from 'three'
 const createPerspectiveCamera = (width: number, height: number) => {
   const camera = new PerspectiveCamera(70, width / height, 1, 1000)
 
-  camera.position.set(5, 5, 0)
+  camera.position.set(30, 30, 0)
   return camera
 }
 
