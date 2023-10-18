@@ -4,6 +4,7 @@ import { TransformControls } from '@react-three/drei'
 import type { Box3, Euler, Vector3 } from 'three'
 
 import type { MeshType, ModelType } from '@/type/SchemaType'
+import useModeStore from '@/store/mode'
 import store from '@/store'
 
 interface SelectdCubeProps {
@@ -27,14 +28,22 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
   const [isSelected, setIsSelected] = useState(false)
   const schemaStore = store.schemaStore()
   const transformControlsMode = store.settingStore(state => state.transformControlsMode)
+  const { drawline } = useModeStore(state => state)
 
   useEffect(() => {
     if (schemaStore.currentSelectedMesh?.uid !== cube.uid)
       setIsSelected(false)
   }, [schemaStore.currentSelectedMesh])
 
+  useEffect(() => {
+    if (drawline) {
+      setIsSelected(false)
+      schemaStore.setCurrentSelectedMesh(null)
+    }
+  }, [drawline])
+
   const handleSelected = () => {
-    if (!(schemaStore.currentSelectedMesh?.uid === cube.uid)) {
+    if (!(schemaStore.currentSelectedMesh?.uid === cube.uid) && !drawline) {
       schemaStore.setCurrentSelectedMesh(cube)
       setIsSelected(true)
     }
