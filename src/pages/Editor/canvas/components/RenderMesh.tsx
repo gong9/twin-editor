@@ -8,9 +8,9 @@ import { useThree } from '@react-three/fiber'
 import SelectdCube, { CubeType } from './Selected'
 import useModeStore from '@/store/mode'
 import type { MeshType } from '@/type/SchemaType'
-import grass from '@/assets/grass.jpg'
+import cementRoad from '@/assets/cementRoad.jpg'
 
-const texture = new TextureLoader().load(grass)
+const texture = new TextureLoader().load(cementRoad)
 
 interface RenderMeshProps {
   mesh: MeshType

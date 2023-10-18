@@ -43,7 +43,7 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
   }, [drawline])
 
   const handleSelected = () => {
-    if (!(schemaStore.currentSelectedMesh?.uid === cube.uid) && !drawline) {
+    if (!(schemaStore.currentSelectedMesh?.uid === cube.uid) && !drawline && cube.name !== 'planeGeometry') {
       schemaStore.setCurrentSelectedMesh(cube)
       setIsSelected(true)
     }
