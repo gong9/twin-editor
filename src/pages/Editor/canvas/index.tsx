@@ -27,7 +27,6 @@ const CanvasContent = () => {
   const { setCurrentScene, setCurrentMainCamera, setCurrentControls } = store.threeStore(state => state)
 
   useEffect(() => {
-    console.log(camera, '相机')
     scene && setCurrentScene(scene)
     camera && setCurrentMainCamera(camera)
     controls && setCurrentControls(controls as any as OrbitControlsImpl)
@@ -88,8 +87,6 @@ const Center: FC<EditorProps> = () => {
   const { angleOfView } = store.settingStore(state => ({
     angleOfView: state.angleOfView,
   }))
-
-  console.log('angleOfView', angleOfView)
 
   useEffect(() => {
     if (canvasRef.current)

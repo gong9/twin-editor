@@ -134,7 +134,6 @@ class HistoryController {
       this.historyIndex -= 1
 
       const currentPatch = this.patch.slice(0, this.historyIndex + 1)
-      console.log('undo', this.historyIndex)
       const currentState = jsonpatch.applyPatch({ ...this.baseData }, flatten(currentPatch))
         .newDocument
 

@@ -2,9 +2,13 @@ import type { FC } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Box3 } from 'three'
+import { DoubleSide, TextureLoader } from 'three'
 
 import SelectdCube, { CubeType } from './Selected'
 import type { MeshType } from '@/type/SchemaType'
+import grass from '@/assets/grass.jpg'
+
+const texture = new TextureLoader().load(grass)
 
 interface RenderMeshProps {
   mesh: MeshType
@@ -56,17 +60,35 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const Geometry = geometry.type
   const Material = material.type
 
-  const renderMesh = () => (
+  const renderMesh = () => {
+    let materialConfig = {}
 
-    <mesh
-      ref={meshRef}
-      scale={1}
-      rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
+    // notes: temporarily test use
+    if (mesh.name === 'planeGeometry') {
+      materialConfig = {
+        ...materialConfig,
+        map: texture,
+        side: DoubleSide,
+      }
+    }
+    else {
+      materialConfig = {
+        ...materialConfig,
+        color: 'hotpink',
+      }
+    }
+
+    return (
+      <mesh
+        ref={meshRef}
+        scale={1}
+        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
       >
-      <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth || 1]} />
-      <Material wireframe={false} color={ 'hotpink'} />
-    </mesh>
-  )
+        <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth || 1]} />
+        <Material wireframe={false} {...materialConfig}/>
+      </mesh>
+    )
+  }
 
   return (
     <>
