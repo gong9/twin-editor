@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "658013",
+      "name": "复制",
+      "font_class": "fuzhi",
+      "unicode": "e656",
+      "unicode_decimal": 58966
+    },
+    {
+      "icon_id": "2076385",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e8c1",
+      "unicode_decimal": 59585
+    },
+    {
+      "icon_id": "22703348",
+      "name": "compile_icon_normal",
+      "font_class": "compile_icon_normal",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "26666498",
+      "name": "吸铁石、吸引",
+      "font_class": "a-xitieshixiyin",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
       "icon_id": "27253675",
       "name": "重置",
       "font_class": "zhongzhi",

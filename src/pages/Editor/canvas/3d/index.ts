@@ -7,6 +7,7 @@ const createPerspectiveCamera = (width: number, height: number) => {
   return camera
 }
 
+// notes: now not use this function
 const createOrthographicCamera = (left?: number, right?: number, top?: number, bottom?: number) => {
   const camera = new OrthographicCamera(-10, 10, 10, -10, 1, 1000)
 

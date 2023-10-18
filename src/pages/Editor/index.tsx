@@ -7,6 +7,7 @@ import Center from './canvas'
 import Right from './right'
 import Bottom from './bottom'
 import controller from './controller'
+import Menu from './canvas/menu'
 import Setting from '@/components/Setting'
 import Help from '@/components/Help'
 import './index.scss'
@@ -28,6 +29,7 @@ const Editor: FC<EditorProps> = () => {
     <div className='editor'>
       <Top/>
       <div className='relative h-full'>
+        <Menu/>
         <Left />
         <Center />
         <Right/>

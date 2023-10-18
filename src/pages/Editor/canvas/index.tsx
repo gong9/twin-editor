@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { GizmoHelper, GizmoViewcube, GizmoViewport, OrbitControls } from '@react-three/drei'
+import { GizmoHelper, GizmoViewcube, GizmoViewport, OrbitControls, OrthographicCamera } from '@react-three/drei'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { PerspectiveCamera } from 'three'
 
@@ -27,6 +27,7 @@ const CanvasContent = () => {
   const { setCurrentScene, setCurrentMainCamera, setCurrentControls } = store.threeStore(state => state)
 
   useEffect(() => {
+    console.log(camera, '相机')
     scene && setCurrentScene(scene)
     camera && setCurrentMainCamera(camera)
     controls && setCurrentControls(controls as any as OrbitControlsImpl)
@@ -55,6 +56,17 @@ const CanvasContent = () => {
         <GizmoViewport scale={30}/>
         {/* <GizmoViewcube opacity={0.85} /> */}
       </GizmoHelper>
+      {/* <OrthographicCamera
+        makeDefault
+        zoom={1}
+        top={3000}
+        bottom={-3000}
+        left={3000}
+        right={-3000}
+        near={1}
+        far={2000}
+        position={[0, 0, 10]}
+      /> */}
       {
           renderMeshView()
       }
