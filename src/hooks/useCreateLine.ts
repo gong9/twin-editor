@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Line2, LineGeometry, LineMaterial } from 'three-stdlib'
+import { BufferAttribute, BufferGeometry, Points, PointsMaterial } from 'three'
 
 import useModeStore from '@/store/mode'
 
@@ -11,6 +12,7 @@ import useModeStore from '@/store/mode'
 const useCreateLine = () => {
   const pointsRef = useRef<Float32Array>(new Float32Array(3))
   const geometryRef = useRef<LineGeometry | null>(null)
+  const pointRef = useRef<Points | null>(null)
   const countRef = useRef<number>(0)
   const lineRef = useRef<Line2 | null>(null)
   const { scene } = useThree()
@@ -19,7 +21,7 @@ const useCreateLine = () => {
   const initCreateLine = () => {
     const geometry = new LineGeometry()
     geometry.setPositions(pointsRef.current)
-    const material = new LineMaterial({ color: 0x000000, linewidth: 0.005 })
+    const material = new LineMaterial({ color: 0x000000, linewidth: 0.001 })
 
     const line = new Line2(geometry, material)
     lineRef.current = line
@@ -30,14 +32,28 @@ const useCreateLine = () => {
     return geometry
   }
 
+  const drawPoint = (x: number, y: number, z: number) => {
+    const geo = new BufferGeometry()
+    const vertices = new Float32Array([x, y, z])
+    geo.setAttribute('position', new BufferAttribute(vertices, 3))
+
+    const material = new PointsMaterial({ color: 0x000000, size: 0.1 })
+    const point = new Points(geo, material)
+
+    pointRef.current = point
+    scene.add(point)
+  }
+
   const pushPoint = (x: number, y: number, z: number) => {
     if (!drawline)
       return
 
-    if (countRef.current === 0)
+    if (countRef.current === 0) {
       pointsRef.current = new Float32Array([x, y, z])
-    else
-      pointsRef.current = new Float32Array([...pointsRef.current, x, y, z])
+      drawPoint(x, y, z)
+    }
+
+    else { pointsRef.current = new Float32Array([...pointsRef.current, x, y, z]) }
 
     countRef.current += 1
 
@@ -65,6 +81,9 @@ const useCreateLine = () => {
       lineRef.current.material.dispose()
       lineRef.current = null
     }
+
+    if (pointRef.current)
+      scene.remove(pointRef.current)
   }
 
   useEffect(() => {
