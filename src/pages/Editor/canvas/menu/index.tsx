@@ -1,4 +1,7 @@
 import type { FC } from 'react'
+import { message } from 'antd'
+
+import store from '@/store'
 import useModeStore from '@/store/mode'
 
 interface MenuProps {
@@ -7,13 +10,17 @@ interface MenuProps {
 
 const Menu: FC<MenuProps> = () => {
   const { setDrawline } = useModeStore(state => state)
+  const { data } = store.schemaStore(state => state)
 
   const MenuItem = [
     {
       label: '画线',
       icon: 'icon-compile_icon_normal',
       onClick: () => {
-        setDrawline(true)
+        if (data.mesh && data.mesh.find(item => item.name === 'planeGeometry'))
+          setDrawline(true)
+        else
+          message.info('请先添加一个平面')
       },
     },
     {
