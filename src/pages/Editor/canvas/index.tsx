@@ -1,13 +1,15 @@
 import type { FC } from 'react'
 import { Suspense, useEffect, useRef, useState } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import { GizmoHelper, GizmoViewcube, GizmoViewport, OrbitControls, OrthographicCamera } from '@react-three/drei'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import type { PerspectiveCamera } from 'three'
+import classnames from 'classnames'
 
 import RenderModels from './components/RenderModels'
 import RenderMesh from './components/RenderMesh'
 import { getMainCamera } from './3d/index'
+import useModeStore from '@/store/mode'
 import ReactLoading from '@/components/Loding'
 import store from '@/store'
 
@@ -79,6 +81,7 @@ const CanvasContent = () => {
 const Center: FC<EditorProps> = () => {
   const canvasRef = useRef<HTMLDivElement>(null)
   const [isRenderCanvas, setIsRenderCanvas] = useState(false)
+  const { drawline } = useModeStore(state => state)
 
   // const { initialMainCameraPosition } = store.schemaStore(state => ({
   //   initialMainCameraPosition: state.initialMainCameraPosition,
@@ -94,7 +97,7 @@ const Center: FC<EditorProps> = () => {
   }, [])
 
   return (
-    <div className='h-screen absolute w-full editor' ref={canvasRef}>
+    <div className={classnames('h-screen absolute w-full editor', { drawline })} ref={canvasRef}>
       {isRenderCanvas
         && <Suspense fallback={<ReactLoading />}>
           <Canvas camera={getMainCamera(canvasRef, angleOfView)! as (PerspectiveCamera) } frameloop='demand' style={{ backgroundColor: '#222' }}>

@@ -22,6 +22,9 @@ dependencies:
   antd:
     specifier: ^5.6.3
     version: 5.6.3(react-dom@18.2.0)(react@18.2.0)
+  classnames:
+    specifier: ^2.3.2
+    version: 2.3.2
   dexie:
     specifier: ^3.2.4
     version: 3.2.4

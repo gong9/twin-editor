@@ -20,6 +20,7 @@
     "@umijs/max": "^4.0.72",
     "ahooks": "^3.7.8",
     "antd": "^5.6.3",
+    "classnames": "^2.3.2",
     "dexie": "^3.2.4",
     "fast-json-patch": "^3.1.1",
     "hotkeys-js": "^3.10.4",
