@@ -83,9 +83,9 @@ const Center: FC<EditorProps> = () => {
   const [isRenderCanvas, setIsRenderCanvas] = useState(false)
   const { drawline } = useModeStore(state => state)
 
-  // const { initialMainCameraPosition } = store.schemaStore(state => ({
-  //   initialMainCameraPosition: state.initialMainCameraPosition,
-  // }))
+  const { initialMainCameraPosition } = store.schemaStore(state => ({
+    initialMainCameraPosition: state.initialMainCameraPosition,
+  }))
 
   const { angleOfView } = store.settingStore(state => ({
     angleOfView: state.angleOfView,
@@ -100,7 +100,7 @@ const Center: FC<EditorProps> = () => {
     <div className={classnames('h-screen absolute w-full editor', { drawline })} ref={canvasRef}>
       {isRenderCanvas
         && <Suspense fallback={<ReactLoading />}>
-          <Canvas camera={getMainCamera(canvasRef, angleOfView)! as (PerspectiveCamera) } style={{ backgroundColor: '#222' }}>
+          <Canvas camera={{ position: initialMainCameraPosition }} style={{ backgroundColor: '#222' }}>
             <CanvasContent/>
           </Canvas>
         </Suspense>
