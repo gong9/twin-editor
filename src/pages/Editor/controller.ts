@@ -20,15 +20,14 @@ const mockData: MeshType = {
   uid: uuidv4(),
   position: {
     x: 0,
-    y: 0.5,
+    y: 0,
     z: 0,
   } as Vector3,
-  name: '立方体',
+  name: '地面',
   geometry: {
-    type: 'boxGeometry',
-    width: 1,
-    height: 1,
-    depth: 1,
+    type: 'planeGeometry',
+    width: 50,
+    height: 50,
   },
   material: {
     type: 'meshBasicMaterial',

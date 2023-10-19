@@ -1,7 +1,7 @@
 import type { Euler, Fog, Vector3 } from 'three'
 
 export interface GeometryType {
-  type: 'boxGeometry'
+  type: 'boxGeometry' | 'planeGeometry'
   width: number
   height: number
   depth?: number
