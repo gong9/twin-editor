@@ -59,8 +59,12 @@ const useCreateLine = () => {
     countRef.current = 0
     pointsRef.current = new Float32Array(3)
 
-    lineRef.current && scene.remove(lineRef.current)
-    lineRef.current = null
+    if (lineRef.current) {
+      scene.remove(lineRef.current)
+      lineRef.current.geometry.dispose()
+      lineRef.current.material.dispose()
+      lineRef.current = null
+    }
   }
 
   useEffect(() => {
