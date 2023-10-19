@@ -2,11 +2,10 @@ import type { FC } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Box3, Vector3 } from 'three'
-import { BufferGeometry, DoubleSide, TextureLoader } from 'three'
-import { useThree } from '@react-three/fiber'
+import { DoubleSide, TextureLoader } from 'three'
 
 import SelectdCube, { CubeType } from './Selected'
-import useModeStore from '@/store/mode'
+import useCreateLine from '@/hooks/useCreateLine'
 import type { MeshType } from '@/type/SchemaType'
 import cementRoad from '@/assets/cementRoad.jpg'
 
@@ -31,9 +30,7 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
-  const { scene } = useThree()
-  const [points, setPoints] = useState<Vector3[]>([])
-  const { drawline } = useModeStore(state => state)
+  const setPoint = useCreateLine()
 
   useEffect(() => {
     setCurrentPosition([
@@ -62,17 +59,9 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
     }
   }, [currentPosition])
 
-  useEffect(() => {
-    console.log('drawline', drawline)
-  }, [drawline])
-
-  useEffect(() => {
-
-  }, [points])
-
   const recordPoints = (point: Vector3, type: string) => {
     if (type === 'planeGeometry')
-      setPoints([...points, point])
+      setPoint(point.x, point.y, point.z)
   }
 
   const Geometry = geometry.type
