@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Line2, LineGeometry, LineMaterial } from 'three-stdlib'
-import { BufferAttribute, BufferGeometry, Points, PointsMaterial } from 'three'
+import { BufferAttribute, BufferGeometry, Points, PointsMaterial, Vector3 } from 'three'
 
 import useModeStore from '@/store/mode'
+import { createBoxGeometryByPoints } from '@/utils/lineDerivation'
 
 /**
  * init draw line
@@ -11,6 +12,7 @@ import useModeStore from '@/store/mode'
  */
 const useCreateLine = () => {
   const pointsRef = useRef<Float32Array>(new Float32Array(3))
+  const pointsArrayRef = useRef<Vector3[]>([])
   const geometryRef = useRef<LineGeometry | null>(null)
   const pointRef = useRef<Points | null>(null)
   const countRef = useRef<number>(0)
@@ -48,14 +50,23 @@ const useCreateLine = () => {
     if (!drawline)
       return
 
+    pointsArrayRef.current.push(new Vector3(x, y, z))
+
     if (countRef.current === 0) {
       pointsRef.current = new Float32Array([x, y, z])
       drawPoint(x, y, z)
     }
 
-    else { pointsRef.current = new Float32Array([...pointsRef.current, x, y, z]) }
+    else {
+      pointsRef.current = new Float32Array([...pointsRef.current, x, y, z])
+    }
 
     countRef.current += 1
+
+    if (countRef.current >= 2) {
+      const box = createBoxGeometryByPoints(pointsArrayRef.current[countRef.current - 2], pointsArrayRef.current[countRef.current - 1])
+      scene.add(box)
+    }
 
     if (geometryRef.current && lineRef.current) {
       scene.remove(lineRef.current)

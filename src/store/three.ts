@@ -13,7 +13,7 @@ interface ThreeStoreStates {
 }
 
 interface ThreeStoreActions {
-  setCurrentScene: (scene: Scene) => void
+  setCurrentScene: (scene: Scene) => void // TODOS: 貌似没有更新
   setCurrentMainCamera: (camera: Camera) => void
   setCurrentControls: (controls: OrbitControls) => void
 }

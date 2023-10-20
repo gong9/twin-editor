@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Box3, Vector3 } from 'three'
-import { DoubleSide, TextureLoader } from 'three'
+import { DoubleSide, RepeatWrapping, TextureLoader } from 'three'
 
 import SelectdCube, { CubeType } from './Selected'
 import useCreateLine from '@/hooks/useCreateLine'
@@ -10,6 +10,10 @@ import type { MeshType } from '@/type/SchemaType'
 import cementRoad from '@/assets/cementRoad.jpg'
 
 const texture = new TextureLoader().load(cementRoad)
+
+texture.wrapS = RepeatWrapping
+texture.wrapT = RepeatWrapping
+texture.repeat.set(10, 10)
 
 interface RenderMeshProps {
   mesh: MeshType
