@@ -10,9 +10,19 @@ export interface GeometryType {
   depthSegments?: number
 }
 
+// material texture map
+interface TextureMapType {
+  path?: string // image path
+  repeatX: number
+  repeatY: number
+  wrapS?: number
+  wrapT?: number
+}
 export interface MaterialType {
   type: 'meshBasicMaterial'
   color?: string
+  map?: TextureMapType
+  side?: 'DoubleSide' | 'FrontSide' | 'BackSide'
 }
 
 // config json schema

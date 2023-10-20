@@ -34,6 +34,12 @@ const useCreateLine = () => {
     return geometry
   }
 
+  /**
+   * line first point helper show
+   * @param x
+   * @param y
+   * @param z
+   */
   const drawPoint = (x: number, y: number, z: number) => {
     const geo = new BufferGeometry()
     const vertices = new Float32Array([x, y, z])
