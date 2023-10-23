@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import type { Euler } from 'three'
 import { Box3 } from 'three'
 import { memo, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
@@ -12,9 +13,10 @@ interface RenderModelProps {
 }
 
 const RenderModels: FC<RenderModelProps> = ({ model }) => {
-  const { position, scale } = model
+  const { position, scale, rotation } = model
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
+  const [currentRotation, setCurrentRotation] = useState<Euler | undefined>(rotation)
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
   const currentScene = useGltfScene(model.source)
 
@@ -60,8 +62,11 @@ const RenderModels: FC<RenderModelProps> = ({ model }) => {
         currentBoundingBox={currentBoundingBox}
         currentPosition={currentPosition}
         currentScale={currentScale}
+        currentRotation={currentRotation}
         setCurrentScale={setCurrentScale}
-        setCurrentPosition={setCurrentPosition}>
+        setCurrentPosition={setCurrentPosition}
+        setCurrentRotation={setCurrentRotation}
+        >
         <primitive object={currentScene}/>
       </SelectdCube>
     </>

@@ -12,7 +12,7 @@ export interface GeometryType {
 
 // material texture map
 interface TextureMapType {
-  path?: string // image path
+  texture?: string // image path
   repeatX: number
   repeatY: number
   wrapS?: number
@@ -22,7 +22,7 @@ export interface MaterialType {
   type: 'meshBasicMaterial'
   color?: string
   map?: TextureMapType
-  side?: 'DoubleSide' | 'FrontSide' | 'BackSide'
+  side?: number
 }
 
 // config json schema
@@ -40,6 +40,7 @@ interface BaseAttributesType {
   rotation?: Euler
   scale?: Vector3
   baseConfig: BaseConfigTypeItem[]
+  tag?: string // 特殊标记
 }
 
 // model

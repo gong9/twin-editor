@@ -14,8 +14,10 @@ interface SelectdCubeProps {
   currentPosition: number[]
   currentBoundingBox?: Box3 | null
   currentScale: number[]
+  currentRotation: Euler | undefined
   setCurrentPosition: (position: number[]) => void
   setCurrentScale: (scale: number[]) => void
+  setCurrentRotation: (rotation: Euler) => void
 }
 
 export enum CubeType {
@@ -23,7 +25,7 @@ export enum CubeType {
   'model' = 'model',
 }
 
-const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, currentScale, currentBoundingBox, setCurrentPosition, setCurrentScale }) => {
+const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPosition, currentScale, currentRotation, setCurrentRotation, currentBoundingBox, setCurrentPosition, setCurrentScale }) => {
   const transform = useRef(null)
   const [isSelected, setIsSelected] = useState(false)
   const schemaStore = store.schemaStore()
@@ -56,7 +58,9 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
     const object = (transform.current! as any).object
     setCurrentPosition(object.position)
     setCurrentScale(object.scale)
+    setCurrentRotation(object.rotation)
 
+    // todo: add worker
     if (cubeType === CubeType.mesh) {
       schemaStore.updateMesh(
         cube.uid,
@@ -92,7 +96,8 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             <TransformControls
               size={0.5}
               position={currentPosition as unknown as Vector3}
-              // scale={currentScale as unknown as Vector3}
+              scale={currentScale as unknown as Vector3}
+              rotation={currentRotation}
               onMouseUp={handleTransformControlsMouseUp}
               enabled={true}
               ref={transform}
@@ -104,7 +109,7 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             </TransformControls>
             )
           : (
-            <group name={cube.uid} scale={currentScale as unknown as Vector3} position={currentPosition as unknown as Vector3}>
+            <group name={cube.uid} scale={currentScale as unknown as Vector3} rotation={currentRotation} position={currentPosition as unknown as Vector3}>
               {children}
             </group>
             )

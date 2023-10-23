@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import { memo, useEffect, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Box3, Vector3 } from 'three'
-import { DoubleSide, RepeatWrapping, TextureLoader } from 'three'
+import { DoubleSide, Euler, RepeatWrapping, TextureLoader } from 'three'
 
 import SelectdCube, { CubeType } from './Selected'
 import useCreateLine from '@/hooks/useCreateLine'
@@ -30,9 +30,10 @@ export enum TransformControlsModeItem {
 const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
   const geometryRef = useRef<any>(null)
-  const { position, geometry, material, scale } = mesh
+  const { position, geometry, material, scale, rotation, tag } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
+  const [currentRotation, setCurrentRotation] = useState<Euler | undefined>(geometry.type === 'planeGeometry' ? new Euler(-Math.PI / 2, 0, -Math.PI / 2) : rotation)
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
   const setPoint = useCreateLine()
 
@@ -93,7 +94,6 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
       <mesh
         ref={meshRef}
         scale={1}
-        rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
         onClick={e => recordPoints(e.point, mesh.name)}
       >
         <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth || 1]} />
@@ -105,12 +105,14 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   return (
     <>
       <SelectdCube cube={mesh}
+        currentRotation={currentRotation}
         currentBoundingBox={currentBoundingBox}
         cubeType={CubeType.mesh}
         currentScale={currentScale}
         currentPosition={currentPosition}
         setCurrentPosition={setCurrentPosition}
         setCurrentScale={setCurrentScale}
+        setCurrentRotation={setCurrentRotation}
         >
 
         {renderMesh()}

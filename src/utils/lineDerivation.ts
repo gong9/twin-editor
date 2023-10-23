@@ -1,22 +1,28 @@
+import type { Euler } from 'three'
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, Quaternion, RepeatWrapping, TextureLoader, Vector3 } from 'three'
 import { v4 as uuidv4 } from 'uuid'
 
+import { BASECONFIG } from '@/constants'
+import type { BaseConfigTypeItem } from '@/type/SchemaType'
 import wall from '@/assets/wall.jpg'
+import store from '@/store'
 
 interface BoxGeometryParamsType {
   position: Vector3
   width: number
   height: number
   depth: number
+  rotation: Euler
 }
 
 interface BoxMaterialParamsType {
-  path?: string
+  texture?: string
   color?: string
   repeatX?: number
   repeatY?: number
   wrapS?: number
   wrapT?: number
+  side?: number
 }
 
 /**
@@ -26,8 +32,8 @@ interface BoxMaterialParamsType {
  * @returns
  */
 const recordSchemaToStore = (boxGeometryParams: BoxGeometryParamsType, boxMaterialParams: BoxMaterialParamsType) => {
-  const { position, width, height, depth } = boxGeometryParams
-  const { color, path, repeatX, wrapS, repeatY, wrapT } = boxMaterialParams
+  const { position, width, height, depth, rotation } = boxGeometryParams
+  const { color, texture, repeatX, wrapS, repeatY, wrapT, side } = boxMaterialParams
 
   // geometry info
   const geometry = {
@@ -41,8 +47,9 @@ const recordSchemaToStore = (boxGeometryParams: BoxGeometryParamsType, boxMateri
   const material = {
     type: 'meshBasicMaterial',
     color,
+    side,
     map: {
-      path,
+      texture,
       repeatX,
       repeatY,
       wrapS,
@@ -53,8 +60,9 @@ const recordSchemaToStore = (boxGeometryParams: BoxGeometryParamsType, boxMateri
   return {
     uid: uuidv4(),
     name: '墙体',
+    tag: 'line',
     position,
-    rotation: new Quaternion(0, 0, 0, 0),
+    rotation,
     geometry,
     material,
   }
@@ -85,6 +93,7 @@ export const createBoxGeometryByPoints = (a: Vector3, b: Vector3, height = 1, de
   // get center point
   const midpoint = new Vector3().addVectors(a, b).multiplyScalar(0.5)
 
+  const position = new Vector3(midpoint.x, midpoint.y + height / 2, midpoint.z)
   mesh.position.x = midpoint.x
   mesh.position.y = midpoint.y + height / 2
   mesh.position.z = midpoint.z
@@ -105,7 +114,27 @@ export const createBoxGeometryByPoints = (a: Vector3, b: Vector3, height = 1, de
   else
     mesh.rotateOnAxis(axis, -angle)
 
-  // recordSchemaToStore(mesh, 'boxGeometry')
+  // const data = recordSchemaToStore({
+  //   position,
+  //   width,
+  //   height,
+  //   depth,
+  //   rotation: mesh.rotation,
+  // },
+  // {
+  //   texture: wall,
+  //   repeatX: Math.ceil(width),
+  //   repeatY: 1,
+  //   wrapS: RepeatWrapping,
+  //   wrapT: RepeatWrapping,
+  //   color: '#ac7c6a',
+  //   side: DoubleSide,
+  // })
+
+  // store.schemaStore.getState().addMesh({
+  //   ...data,
+  //   baseConfig: BASECONFIG as BaseConfigTypeItem[],
+  // } as any)
 
   return mesh
 }
