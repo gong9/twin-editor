@@ -122,6 +122,7 @@ const useCreateLine = () => {
     geometryRef.current = null
     countRef.current = 0
     pointsRef.current = new Float32Array(3)
+    pointsArrayRef.current = []
 
     if (lineRef.current) {
       scene.remove(lineRef.current)
@@ -130,8 +131,10 @@ const useCreateLine = () => {
       lineRef.current = null
     }
 
-    if (pointRef.current)
+    if (pointRef.current) {
       scene.remove(pointRef.current)
+      pointRef.current = null
+    }
   }
 
   useEffect(() => {
