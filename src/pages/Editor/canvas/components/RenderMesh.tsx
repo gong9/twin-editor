@@ -30,12 +30,15 @@ export enum TransformControlsModeItem {
 const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
   const meshRef = useRef(null)
   const geometryRef = useRef<any>(null)
-  const { position, geometry, material, scale, rotation, tag } = mesh
+  const { position, geometry, material, scale, rotation } = mesh
   const [currentPosition, setCurrentPosition] = useState([position.x, position.y, position.z])
   const [currentScale, setCurrentScale] = useState([scale?.x || 1, scale?.y || 1, scale?.z || 1])
   const [currentRotation, setCurrentRotation] = useState<Euler | undefined>(geometry.type === 'planeGeometry' ? new Euler(-Math.PI / 2, 0, -Math.PI / 2) : rotation)
   const [currentBoundingBox, setCurrentBoundingBox] = useState<Box3 | null>(null)
-  const setPoint = useCreateLine()
+  const [setPoint, trySetPoint] = useCreateLine()
+
+  const Geometry = geometry.type
+  const Material = material.type
 
   useEffect(() => {
     setCurrentPosition([
@@ -55,12 +58,12 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
 
   useEffect(() => {
     if (geometryRef && !(geometryRef.current! as any).boundingBox) {
-      // const currentGeometry = geometryRef.current as any
-      // currentGeometry.computeBoundingBox()
-      // currentGeometry.boundingBox.min.multiplyScalar(1.1)
-      // currentGeometry.boundingBox.max.multiplyScalar(1.1)
+      const currentGeometry = geometryRef.current as any
+      currentGeometry.computeBoundingBox()
+      currentGeometry.boundingBox.min.multiplyScalar(1.1)
+      currentGeometry.boundingBox.max.multiplyScalar(1.1)
 
-      // setCurrentBoundingBox((geometryRef.current! as any).boundingBox)
+      setCurrentBoundingBox((geometryRef.current! as any).boundingBox)
     }
   }, [currentPosition])
 
@@ -69,8 +72,10 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
       setPoint(point.x, point.y, point.z)
   }
 
-  const Geometry = geometry.type
-  const Material = material.type
+  const tryRecordPoints = (point: Vector3, type: string) => {
+    if (type === 'planeGeometry')
+      trySetPoint(point.x, point.y, point.z)
+  }
 
   const renderMesh = () => {
     let materialConfig = {}
@@ -95,6 +100,7 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
         ref={meshRef}
         scale={1}
         onClick={e => recordPoints(e.point, mesh.name)}
+        onPointerMove={e => tryRecordPoints(e.point, mesh.name)}
       >
         <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth || 1]} />
         <Material wireframe={false} {...materialConfig}/>
@@ -104,7 +110,8 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
 
   return (
     <>
-      <SelectdCube cube={mesh}
+      <SelectdCube
+        cube={mesh}
         currentRotation={currentRotation}
         currentBoundingBox={currentBoundingBox}
         cubeType={CubeType.mesh}
@@ -114,7 +121,6 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
         setCurrentScale={setCurrentScale}
         setCurrentRotation={setCurrentRotation}
         >
-
         {renderMesh()}
       </SelectdCube>
     </>

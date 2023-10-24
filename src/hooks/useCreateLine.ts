@@ -17,6 +17,7 @@ const useCreateLine = () => {
   const pointRef = useRef<Points | null>(null)
   const countRef = useRef<number>(0)
   const lineRef = useRef<Line2 | null>(null)
+  const isHasTryPointRef = useRef<boolean>(false)
   const { scene } = useThree()
   const { drawline } = useModeStore(state => state)
 
@@ -52,28 +53,7 @@ const useCreateLine = () => {
     scene.add(point)
   }
 
-  const pushPoint = (x: number, y: number, z: number) => {
-    if (!drawline)
-      return
-
-    pointsArrayRef.current.push(new Vector3(x, y, z))
-
-    if (countRef.current === 0) {
-      pointsRef.current = new Float32Array([x, y, z])
-      drawPoint(x, y, z)
-    }
-
-    else {
-      pointsRef.current = new Float32Array([...pointsRef.current, x, y, z])
-    }
-
-    countRef.current += 1
-
-    if (countRef.current >= 2) {
-      const box = createBoxGeometryByPoints(pointsArrayRef.current[countRef.current - 2], pointsArrayRef.current[countRef.current - 1])
-      scene.add(box)
-    }
-
+  const updateDrawLine = () => {
     if (geometryRef.current && lineRef.current) {
       scene.remove(lineRef.current)
 
@@ -85,6 +65,57 @@ const useCreateLine = () => {
       lineRef.current = line
       scene.add(line)
     }
+  }
+
+  const pushPoint = (x: number, y: number, z: number) => {
+    if (!drawline)
+      return
+
+    !isHasTryPointRef.current && pointsArrayRef.current.push(new Vector3(x, y, z))
+
+    if (countRef.current === 0) {
+      pointsRef.current = new Float32Array([x, y, z])
+      drawPoint(x, y, z)
+    }
+
+    else {
+      !isHasTryPointRef.current && (pointsRef.current = new Float32Array([...pointsRef.current, x, y, z]))
+    }
+
+    countRef.current += 1
+
+    if (countRef.current >= 2) {
+      const box = createBoxGeometryByPoints(pointsArrayRef.current[countRef.current - 2], pointsArrayRef.current[countRef.current - 1])
+      scene.add(box)
+    }
+
+    !isHasTryPointRef.current && updateDrawLine()
+    isHasTryPointRef.current = false
+  }
+
+  /**
+   * handle example mouse move
+   * @param x
+   * @param y
+   * @param z
+   * @returns
+   */
+  const tryPushPoint = (x: number, y: number, z: number) => {
+    if (!drawline || !countRef.current)
+      return
+
+    if (isHasTryPointRef.current) {
+      pointsArrayRef.current.pop()
+      pointsRef.current = new Float32Array([...pointsRef.current.slice(0, -3)])
+      isHasTryPointRef.current = false
+    }
+
+    pointsArrayRef.current.push(new Vector3(x, y, z))
+    pointsRef.current = new Float32Array([...pointsRef.current, x, y, z])
+
+    isHasTryPointRef.current = true
+
+    updateDrawLine()
   }
 
   const destroyLine = () => {
@@ -113,7 +144,7 @@ const useCreateLine = () => {
     }
   }, [drawline])
 
-  return pushPoint
+  return [pushPoint, tryPushPoint]
 }
 
 export default useCreateLine
