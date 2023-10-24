@@ -1,13 +1,14 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Menu } from 'antd'
+import { Menu, message } from 'antd'
 
 import type { Vector3 } from 'three'
 import presets from './presets'
 import store from '@/store'
 import { BASECONFIG } from '@/constants'
 import type { BaseConfigTypeItem } from '@/type/SchemaType'
+import useModeStore from '@/store/mode'
 import './index.scss'
 
 interface LeftProps {
@@ -84,12 +85,31 @@ const dataSources: DataSourcesType[] = [
 
     ],
   },
+  {
+    label: '线条',
+    name: 'line',
+    key: 'line',
+    children: [
+      {
+        name: 'darwWall',
+        key: 'darwWall',
+        label: '铺墙',
+      },
+      {
+        name: 'darwRoad',
+        key: 'darwRoad',
+        label: '铺路',
+      },
+    ],
+  },
 ]
 
 const Left: FC<LeftProps> = () => {
   const [currentRenderItem, setCurrentRenderItem] = useState(dataSources[0]?.children || [])
   const [currentSelectedType, setCurrentSelectedType] = useState(dataSources[0].name)
   const schemaStore = store.schemaStore(state => state)
+  const { setDrawline } = useModeStore(state => state)
+  const { data } = store.schemaStore(state => state)
 
   const getDefaultGeometry = (type: string) => {
     const resObj = {
@@ -142,7 +162,17 @@ const Left: FC<LeftProps> = () => {
           baseConfig: BASECONFIG as BaseConfigTypeItem[],
         })
         break
-      default:
+
+      case 'line':
+        // eslint-disable-next-line no-case-declarations
+        const { key } = baseItem
+        if (key === 'darwWall') {
+          if (data.mesh && data.mesh.find(item => item.name === 'planeGeometry'))
+            setDrawline(true)
+          else
+            message.info('请先添加一个平面')
+        }
+
         break
     }
   }

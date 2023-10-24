@@ -17,10 +17,10 @@ const Menu: FC<MenuProps> = () => {
       label: '画线',
       icon: 'icon-compile_icon_normal',
       onClick: () => {
-        if (data.mesh && data.mesh.find(item => item.name === 'planeGeometry'))
-          setDrawline(true)
-        else
-          message.info('请先添加一个平面')
+        // if (data.mesh && data.mesh.find(item => item.name === 'planeGeometry'))
+        //   setDrawline(true)
+        // else
+        //   message.info('请先添加一个平面')
       },
     },
     {
