@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useThree } from '@react-three/fiber'
-import { Line2, LineGeometry, LineMaterial } from 'three-stdlib'
+import type { LineMaterial } from 'three-stdlib'
+import { Line2, LineGeometry } from 'three-stdlib'
 import { BufferAttribute, BufferGeometry, Points, PointsMaterial, Vector3 } from 'three'
 
 import useModeStore from '@/store/mode'
@@ -20,20 +21,6 @@ const useCreateLine = () => {
   const isHasTryPointRef = useRef<boolean>(false)
   const { scene } = useThree()
   const { drawline } = useModeStore(state => state)
-
-  const initCreateLine = () => {
-    const geometry = new LineGeometry()
-    geometry.setPositions(pointsRef.current)
-    const material = new LineMaterial({ color: 0x000000, linewidth: 0.001 })
-
-    const line = new Line2(geometry, material)
-    lineRef.current = line
-
-    scene.add(line)
-    geometry.attributes.position.needsUpdate = true
-
-    return geometry
-  }
 
   /**
    * line first point helper show
@@ -144,13 +131,8 @@ const useCreateLine = () => {
   }
 
   useEffect(() => {
-    if (drawline) {
-      const setFunction = initCreateLine()
-      geometryRef.current = setFunction
-    }
-    else {
+    if (!drawline)
       destroyLine()
-    }
   }, [drawline])
 
   return [pushPoint, tryPushPoint]
