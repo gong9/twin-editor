@@ -1,9 +1,10 @@
 import type { FC } from 'react'
-import { memo, useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Box3, Vector3 } from 'three'
 import { DoubleSide, Euler, RepeatWrapping, TextureLoader } from 'three'
 
+import { getCubeTextures } from '../3d/texture'
 import SelectdCube, { CubeType } from './Selected'
 import useCreateLine from '@/hooks/useCreateLine'
 import type { MeshType } from '@/type/SchemaType'
@@ -67,6 +68,10 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
     }
   }, [currentPosition])
 
+  const currentTexture = useMemo(() => {
+    return getCubeTextures(material.map)
+  }, [material])
+
   const recordPoints = (point: Vector3, type: string) => {
     if (type === 'planeGeometry')
       setPoint(point.x, point.y, point.z)
@@ -91,7 +96,8 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
     else {
       materialConfig = {
         ...materialConfig,
-        color: 'hotpink',
+        color: material.color || 'hotpink',
+        side: material.side,
       }
     }
 
@@ -103,7 +109,7 @@ const RenderMesh: FC<RenderMeshProps> = ({ mesh }) => {
         onPointerMove={e => tryRecordPoints(e.point, mesh.name)}
       >
         <Geometry ref={geometryRef} args={[geometry.width, geometry.height, geometry.depth || 1]} />
-        <Material wireframe={false} {...materialConfig}/>
+        <Material map={currentTexture} wireframe={false} {...materialConfig}/>
       </mesh>
     )
   }

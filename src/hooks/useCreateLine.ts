@@ -91,10 +91,8 @@ const useCreateLine = () => {
 
     countRef.current += 1
 
-    if (countRef.current >= 2) {
-      const box = createBoxGeometryByPoints(pointsArrayRef.current[countRef.current - 2], pointsArrayRef.current[countRef.current - 1])
-      scene.add(box)
-    }
+    if (countRef.current >= 2)
+      createBoxGeometryByPoints(pointsArrayRef.current[countRef.current - 2], pointsArrayRef.current[countRef.current - 1])
 
     !isHasTryPointRef.current && updateDrawLine()
     isHasTryPointRef.current = false

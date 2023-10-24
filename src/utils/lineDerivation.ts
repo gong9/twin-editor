@@ -29,6 +29,14 @@ interface BoxMaterialParamsType {
   side?: number
 }
 
+export interface TextureParamsType {
+  texture?: string
+  repeatX?: number
+  repeatY?: number
+  wrapS?: number
+  wrapT?: number
+}
+
 /**
  * record schema to store, target to push view update
  * @param boxGeometryParams
@@ -118,32 +126,34 @@ export const createBoxGeometryByPoints = (a: Vector3, b: Vector3, height = 1, de
   else
     mesh.rotateOnAxis(axis, -angle)
 
-  // const data = recordSchemaToStore({
-  //   position,
-  //   width,
-  //   height,
-  //   depth,
-  //   rotation: {
-  //     x: mesh.rotation.x,
-  //     y: mesh.rotation.y,
-  //     z: mesh.rotation.z,
-  //     order: mesh.rotation.order,
-  //   },
-  // },
-  // {
-  //   texture: wall,
-  //   repeatX: Math.ceil(width),
-  //   repeatY: 1,
-  //   wrapS: RepeatWrapping,
-  //   wrapT: RepeatWrapping,
-  //   color: '#ac7c6a',
-  //   side: DoubleSide,
-  // })
+  const data = recordSchemaToStore({
+    position,
+    width,
+    height,
+    depth,
+    rotation: {
+      x: mesh.rotation.x,
+      y: mesh.rotation.y,
+      z: mesh.rotation.z,
+      order: mesh.rotation.order,
+    },
+  },
+  {
+    texture: wall,
+    repeatX: Math.ceil(width),
+    repeatY: 1,
+    wrapS: RepeatWrapping,
+    wrapT: RepeatWrapping,
+    color: '#ac7c6a',
+    side: DoubleSide,
+  })
 
-  // store.schemaStore.getState().addMesh({
-  //   ...data,
-  //   baseConfig: BASECONFIG as BaseConfigTypeItem[],
-  // } as any)
+  store.schemaStore.getState().addMesh({
+    ...data,
+    baseConfig: BASECONFIG as BaseConfigTypeItem[],
+  } as any)
 
-  return mesh
+  mesh.geometry.dispose()
+  mesh.material.dispose()
+  // return mesh
 }
