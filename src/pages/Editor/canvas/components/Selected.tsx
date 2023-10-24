@@ -1,7 +1,8 @@
 import type { FC, ReactNode } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { TransformControls } from '@react-three/drei'
-import type { Box3, Euler, Vector3 } from 'three'
+import type { Box3, Vector3 } from 'three'
+import { Euler } from 'three'
 
 import type { MeshType, ModelType } from '@/type/SchemaType'
 import useModeStore from '@/store/mode'
@@ -109,7 +110,7 @@ const SelectdCube: FC<SelectdCubeProps> = ({ children, cube, cubeType, currentPo
             </TransformControls>
             )
           : (
-            <group name={cube.uid} scale={currentScale as unknown as Vector3} rotation={currentRotation} position={currentPosition as unknown as Vector3}>
+            <group name={cube.uid} scale={currentScale as unknown as Vector3} rotation={currentRotation ? new Euler(currentRotation.x, currentRotation.y, currentRotation.z, currentRotation.order) : undefined} position={currentPosition as unknown as Vector3}>
               {children}
             </group>
             )

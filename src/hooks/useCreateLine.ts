@@ -67,6 +67,13 @@ const useCreateLine = () => {
     }
   }
 
+  /**
+   * real push point
+   * @param x
+   * @param y
+   * @param z
+   * @returns
+   */
   const pushPoint = (x: number, y: number, z: number) => {
     if (!drawline)
       return

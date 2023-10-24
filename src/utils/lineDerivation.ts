@@ -1,4 +1,3 @@
-import type { Euler } from 'three'
 import { BoxGeometry, DoubleSide, Mesh, MeshBasicMaterial, Quaternion, RepeatWrapping, TextureLoader, Vector3 } from 'three'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -12,7 +11,12 @@ interface BoxGeometryParamsType {
   width: number
   height: number
   depth: number
-  rotation: Euler
+  rotation?: {
+    x: number
+    y: number
+    z: number
+    order: string
+  }
 }
 
 interface BoxMaterialParamsType {
@@ -119,7 +123,12 @@ export const createBoxGeometryByPoints = (a: Vector3, b: Vector3, height = 1, de
   //   width,
   //   height,
   //   depth,
-  //   rotation: mesh.rotation,
+  //   rotation: {
+  //     x: mesh.rotation.x,
+  //     y: mesh.rotation.y,
+  //     z: mesh.rotation.z,
+  //     order: mesh.rotation.order,
+  //   },
   // },
   // {
   //   texture: wall,
