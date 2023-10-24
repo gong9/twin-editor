@@ -123,6 +123,7 @@ const useCreateLine = () => {
     countRef.current = 0
     pointsRef.current = new Float32Array(3)
     pointsArrayRef.current = []
+    isHasTryPointRef.current = false
 
     if (lineRef.current) {
       scene.remove(lineRef.current)
