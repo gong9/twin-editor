@@ -9,3 +9,5 @@ pnpm i
 pnpm start
 ```
 
+新编辑器预览地址： http://182.92.210.127:8007/login
+
