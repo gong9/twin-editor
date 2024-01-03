@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import { TransformControls } from '@react-three/drei'
 import type { Box3, Vector3 } from 'three'
 import { Euler } from 'three'
-
 import type { MeshType, ModelType } from '@/type/SchemaType'
 import useModeStore from '@/store/mode'
 import store from '@/store'

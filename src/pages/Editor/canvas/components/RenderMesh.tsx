@@ -3,7 +3,6 @@ import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import isEqual from 'react-fast-compare'
 import type { Box3, Vector3 } from 'three'
 import { DoubleSide, Euler, RepeatWrapping, TextureLoader } from 'three'
-
 import { getCubeTextures } from '../3d/texture'
 import SelectdCube, { CubeType } from './Selected'
 import useCreateLine from '@/hooks/useCreateLine'

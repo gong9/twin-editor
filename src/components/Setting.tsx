@@ -1,6 +1,5 @@
 import type React from 'react'
 import { Modal, Switch } from 'antd'
-
 import store from '@/store'
 import './Setting.scss'
 

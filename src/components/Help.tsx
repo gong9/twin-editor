@@ -1,7 +1,6 @@
 import type { FC } from 'react'
 import { Drawer, Table } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-
 import store from '@/store'
 import type { ShortcutKey } from '@/utils/shortcutKeyController/shortcutKeyManage'
 import { editorShortcuts } from '@/utils/shortcutKeyController/shortcutKeyManage'

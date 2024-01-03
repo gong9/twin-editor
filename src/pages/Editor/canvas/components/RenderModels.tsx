@@ -3,7 +3,6 @@ import type { Euler } from 'three'
 import { Box3 } from 'three'
 import { memo, useEffect, useState } from 'react'
 import isEqual from 'react-fast-compare'
-
 import SelectdCube, { CubeType } from './Selected'
 import useGltfScene from '@/hooks/useGltfScene'
 import type { ModelType } from '@/type/SchemaType'
